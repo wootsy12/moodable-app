@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DataScraper.iml" filepath="$PROJECT_DIR$/DataScraper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Alex\AndroidStudioProjects\DataScraper\depression-mqp.iml" filepath="C:\Users\Alex\AndroidStudioProjects\DataScraper\depression-mqp.iml" />
+    </modules>
+  </component>
+</project>
