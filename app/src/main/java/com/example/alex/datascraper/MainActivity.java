@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 
@@ -34,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int CALENDAR = 2;
     private static final int STORAGE = 3;
     private static final int CONTACTS = 4;
+
+    private static final String CLIENT_ID = "44fa875f13844f5f8401fef309ccfc97";
+    private static final String CALLBACK = "http://depressionmqp.wpi.edu:8080/instagram";
+
+    private String accessToken = "";
 
     private static final int ASK_MULTIPLE_PERMISSION_REQUEST_CODE = 1;
 
@@ -83,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
         audioFilePath =
                 Environment.getExternalStorageDirectory().getAbsolutePath()
                         + "/myaudio.3gp";
+
+
+        // log in to Instagram
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.instagram.com/oauth/authorize/?client_id="
+                + CLIENT_ID
+                + "&redirect_uri="
+                + CALLBACK
+                + "&response_type=code"));
+        startActivity(browserIntent);
 
         if(!dataSent){
             dataSent = true;

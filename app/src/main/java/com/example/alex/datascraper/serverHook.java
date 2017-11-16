@@ -20,7 +20,7 @@ import java.nio.ByteBuffer;
 
 public class serverHook extends AppCompatActivity {
 
-    private String request = "http://depressionmqp.wpi.edu:8080";//"http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
+    private String request = "http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
     private String identifier = "";
     private int timeoutcount = 0;
 
