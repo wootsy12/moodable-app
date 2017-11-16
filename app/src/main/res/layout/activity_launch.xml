@@ -33,11 +33,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/TwitterText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -46,7 +46,31 @@
                 android:textStyle="bold" />
 
             <ToggleButton
-                android:id="@+id/toggleButton"
+                android:id="@+id/TwitterToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="ToggleButton" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/InstaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Instagram"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ToggleButton
+                android:id="@+id/InstaToggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

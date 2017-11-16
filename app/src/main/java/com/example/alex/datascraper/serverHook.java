@@ -24,7 +24,7 @@ public class serverHook extends AppCompatActivity {
     private String identifier = "";
     private int timeoutcount = 0;
 
-    public void start(){
+    public String start(){
         try {
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -61,18 +61,15 @@ public class serverHook extends AppCompatActivity {
                 }
                 in.close();
             }catch(Exception e){
-
+                return "";
             }
-
-
-
             connection.disconnect();
 
         } catch(Exception e) {
             e.printStackTrace();
-
-            identifier = null;
+            identifier = "";
         }
+        return identifier;
     }
 
     public void sendToServer(String type, String msg) {

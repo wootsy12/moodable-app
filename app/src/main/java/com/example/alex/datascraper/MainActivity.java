@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String CLIENT_ID = "44fa875f13844f5f8401fef309ccfc97";
     private static final String CALLBACK = "http://depressionmqp.wpi.edu:8080/instagram";
 
-    private String accessToken = "";
-
     private static final int ASK_MULTIPLE_PERMISSION_REQUEST_CODE = 1;
 
     private static final String[] permissions = new String[]{
@@ -59,11 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static Button submitButton;
     private static Button nextScreenButton;
+    private static Button instaButton;
 
     private static EditText twitterText;
     private boolean isRecording = false;
 
-    private int identifier = 800; // testing
+    private String identifier = "";
 
     private static boolean dataSent = false;
 
@@ -91,26 +90,19 @@ public class MainActivity extends AppCompatActivity {
                         + "/myaudio.3gp";
 
 
-        // log in to Instagram
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.instagram.com/oauth/authorize/?client_id="
-                + CLIENT_ID
-                + "&redirect_uri="
-                + CALLBACK
-                + "&response_type=code"));
-        startActivity(browserIntent);
+
+        identifier = hook.start();
 
         if(!dataSent){
             dataSent = true;
 
              hook = new serverHook();
-             hook.start();
-
             Thread t = new Thread(){
                 public void run() {
                     sendAllAvailableData();
                 }
             };
-            t.start();
+            //t.start();
 
         }
 
@@ -125,6 +117,22 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MYAPP", twitter);
                 twitterText.setText("");
                 hook.sendToServer("twitterUsername", twitter);
+            }
+        });
+
+        instaButton = (Button) findViewById(R.id.InstaButton);
+        instaButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                // log in to Instagram
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.instagram.com/oauth/authorize/?client_id="
+                        + CLIENT_ID
+                        + "&redirect_uri="
+                        + CALLBACK
+                        + "&state="
+                        + identifier
+                        +"&response_type=code"));
+                startActivity(browserIntent);
             }
         });
 

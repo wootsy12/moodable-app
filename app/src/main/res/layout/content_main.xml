@@ -53,4 +53,13 @@
         android:layout_below="@+id/twitterText"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:id="@+id/InstaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submitSM"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:text="Allow us to view your Instagram page" />
+
 </RelativeLayout>
