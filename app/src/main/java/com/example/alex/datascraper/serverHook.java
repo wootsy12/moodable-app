@@ -20,11 +20,11 @@ import java.nio.ByteBuffer;
 
 public class serverHook extends AppCompatActivity {
 
-    private String request = "http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
-    private String identifier = "";
+    private final static String request = "http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
+    public static String identifier = "";
     private int timeoutcount = 0;
 
-    public String start(){
+    public static String start(){
         try {
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -72,7 +72,7 @@ public class serverHook extends AppCompatActivity {
         return identifier;
     }
 
-    public void sendToServer(String type, String msg) {
+    public static void sendToServer(String type, String msg) {
 
         if(identifier == null){
             Log.d("MYAPP", "OHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");

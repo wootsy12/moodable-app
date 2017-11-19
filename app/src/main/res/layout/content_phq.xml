@@ -69,13 +69,14 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation='horizontal'>
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/q1a0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -84,21 +85,21 @@
                 android:textAlignment="viewStart" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/q1a1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="1" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/q1a2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="2" />
 
             <RadioButton
-                android:id="@+id/radioButton4"
+                android:id="@+id/q1a3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -115,6 +116,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -158,6 +160,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -201,6 +204,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -244,6 +248,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -287,6 +292,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -330,6 +336,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -373,6 +380,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ8"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -416,6 +424,7 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/PHQ9"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

