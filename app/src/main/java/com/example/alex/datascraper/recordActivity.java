@@ -75,8 +75,11 @@ public class recordActivity extends AppCompatActivity {
     public void recordAudio (View view) throws IOException
     {
 
+
         stopButton.setEnabled(true);
         recordButton.setEnabled(false);
+        stopButton.setVisibility(View.VISIBLE);
+        recordButton.setVisibility(View.GONE);
 
         try {
             mediaRecorder = new MediaRecorder();
@@ -97,6 +100,8 @@ public class recordActivity extends AppCompatActivity {
 
         stopButton.setEnabled(false);
         recordButton.setEnabled(true);
+        stopButton.setVisibility(View.GONE);
+        recordButton.setVisibility(View.VISIBLE);
 
         mediaRecorder.stop();
         mediaRecorder.release();
