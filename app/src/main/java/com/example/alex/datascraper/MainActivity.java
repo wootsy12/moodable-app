@@ -80,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        audioFilePath =
-                Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/myaudio.3gp";
+
 
 
         serverHook.start();

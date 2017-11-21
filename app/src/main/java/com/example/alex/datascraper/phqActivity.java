@@ -27,6 +27,11 @@ public class phqActivity extends AppCompatActivity {
     private RadioGroup Q8;
     private RadioGroup Q9;*/
 
+    private static Button rb1;
+    private static Button rb2;
+    private static Button rb3;
+    private static Button rb4;
+
 
 
     @Override
@@ -34,8 +39,21 @@ public class phqActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("PHQ-9 Questionnaire");
         setContentView(R.layout.activity_phq);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+
+        rb1 = (Button) findViewById(R.id.radioButton);
+        rb2 = (Button) findViewById(R.id.radioButton2);
+        rb3 = (Button) findViewById(R.id.radioButton3);
+        rb4 = (Button) findViewById(R.id.radioButton4);
+        rb1.setClickable(false);
+        rb2.setClickable(false);
+        rb3.setClickable(false);
+        rb4.setClickable(false);
+
+
+
+
+
         questions = new RadioGroup[9];
         questions[0] = (RadioGroup) findViewById(R.id.PHQ1);
         questions[1] = (RadioGroup) findViewById(R.id.PHQ2);
