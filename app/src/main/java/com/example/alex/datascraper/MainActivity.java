@@ -207,9 +207,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Log.d("MyAPP", "DONE");
-        serverHook.sendToServer("debug","END");
-
+        if(waiting.size() <= 0) {
+            Log.d("MyAPP", "DONE");
+            serverHook.sendToServer("debug", "END");
+        }
     }
 
 
@@ -258,6 +259,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        Log.d("MyAPP", "DONE");
+        serverHook.sendToServer("debug", "END");
 
     }
 
