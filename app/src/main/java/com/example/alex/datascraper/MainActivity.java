@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     
     // holds which modalities are waiting for permissions to be granted
     private ArrayList<Integer> waiting = new ArrayList<Integer>();
+    private boolean mainDataSendFinished = false;
+    private boolean permissionsDataSendFinished = false;
 
     MediaRecorder mediaRecorder = new MediaRecorder();
     private static String audioFilePath;
@@ -77,11 +79,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-
-
-
-
         serverHook.start();
 
         if(!dataSent){
@@ -205,15 +202,19 @@ public class MainActivity extends AppCompatActivity {
             mhabits.getContacts(mContext);
             Log.d("MYAPP", "contacts");
         }
+        mainDataSendFinished = true;
+        checkIfFinished();
 
-
-        if(waiting.size() <= 0) {
-            Log.d("MyAPP", "DONE");
-            serverHook.sendToServer("debug", "END");
-        }
     }
 
-
+    private void checkIfFinished(){
+        if(mainDataSendFinished && permissionsDataSendFinished){
+            Log.d("MyAPP", "REGULARS DONE");
+            serverHook.sendToServer("debug", "END");
+            mainDataSendFinished = false;
+            permissionsDataSendFinished = false;
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -259,8 +260,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        Log.d("MyAPP", "DONE");
-        serverHook.sendToServer("debug", "END");
+        permissionsDataSendFinished = true;
+        checkIfFinished();
 
     }
 
