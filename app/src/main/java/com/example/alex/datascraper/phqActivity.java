@@ -6,9 +6,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -31,7 +35,9 @@ public class phqActivity extends AppCompatActivity {
     private static Button rb2;
     private static Button rb3;
     private static Button rb4;
-
+    private static View scrollView2;
+    private static LinearLayout scrollChild;
+    private static ImageButton butty;
 
 
     @Override
@@ -49,6 +55,10 @@ public class phqActivity extends AppCompatActivity {
         rb2.setClickable(false);
         rb3.setClickable(false);
         rb4.setClickable(false);
+
+        scrollView2 = findViewById(R.id.scrollView2);
+        scrollChild = findViewById(R.id.scrollChild);
+        butty = findViewById(R.id.arrowBoy);
 
 
 
@@ -101,5 +111,21 @@ public class phqActivity extends AppCompatActivity {
             }
         });
 
+        scrollView2.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scrollView2.getScrollY(); // For ScrollView
+                int scrollHeight = scrollChild.getHeight();
+
+                if(scrollY<(scrollHeight-1100)) {
+                    butty.setVisibility(View.VISIBLE);
+                }
+                else {
+                    butty.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
     }
+
 }
