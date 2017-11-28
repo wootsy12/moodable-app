@@ -116,13 +116,10 @@ public class phqActivity extends AppCompatActivity {
             public void onScrollChanged() {
                 int scrollY = scrollView2.getScrollY(); // For ScrollView
                 int scrollHeight = scrollChild.getHeight();
+                int var = (scrollHeight-1100);
+                float alph = (float)(var-scrollY)/(float)var;
 
-                if(scrollY<(scrollHeight-1100)) {
-                    butty.setVisibility(View.VISIBLE);
-                }
-                else {
-                    butty.setVisibility(View.INVISIBLE);
-                }
+                butty.setAlpha(alph);
             }
         });
 
