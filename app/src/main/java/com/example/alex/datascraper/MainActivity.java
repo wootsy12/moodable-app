@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 serverHook.sendToServer("twitterUsername", twitter);
             }
         });
+
+        CookieManager.getInstance().setAcceptCookie(false);
 
         instaView = (WebView) findViewById(R.id.instagramWebview);
         //.setVisibility(View.GONE);
