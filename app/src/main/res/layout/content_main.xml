@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
 
+    android:layout_marginRight="5dp"
+    android:windowSoftInputMode="adjustResize|stateHidden"
     tools:context="com.example.alex.datascraper.MainActivity"
     tools:showIn="@layout/activity_main">
 
@@ -57,13 +58,15 @@
         android:text="By providing us your usernames you are giving us permission to anonymously collect your posts on these sites."
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/InstaButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <WebView
+        android:id="@+id/instagramWebview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignParentBottom="false"
         android:layout_below="@+id/submitSM"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Allow us to view your Instagram page" />
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/submitButton" />
 
 </RelativeLayout>

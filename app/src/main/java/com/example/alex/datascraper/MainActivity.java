@@ -21,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private static Button submitButton;
     private static Button nextScreenButton;
     private static Button instaButton;
+    private static WebView instaView;
 
     private static EditText twitterText;
     private boolean isRecording = false;
@@ -107,10 +110,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        instaButton = (Button) findViewById(R.id.InstaButton);
+        instaView = (WebView) findViewById(R.id.instagramWebview);
+        //.setVisibility(View.GONE);
+        instaView.setWebViewClient(new WebViewClient(){
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView v, String url){
+                v.loadUrl(url);
+                return true;
+            }
+        });
+
+        String url = "https://api.instagram.com/oauth/authorize/?client_id="
+                + CLIENT_ID
+                + "&redirect_uri="
+                + CALLBACK
+                + "&state="
+                + serverHook.identifier
+                +"&response_type=code";
+        instaView.getSettings().setJavaScriptEnabled(true);
+        instaView.setInitialScale(200);
+        instaView.loadUrl(url);
+        instaView.setVisibility(View.VISIBLE);
+/*        instaButton = (Button) findViewById(R.id.InstaButton);
         instaButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
+
+
                 // log in to Instagram
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.instagram.com/oauth/authorize/?client_id="
                         + CLIENT_ID
@@ -120,8 +148,10 @@ public class MainActivity extends AppCompatActivity {
                         + serverHook.identifier
                         +"&response_type=code"));
                 startActivity(browserIntent);
+
             }
         });
+*/
 
 
         nextScreenButton = (Button) findViewById(R.id.nextRecord);
