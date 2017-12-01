@@ -21,15 +21,6 @@ public class phqActivity extends AppCompatActivity {
     private static Button phqSubmit;
 
     private RadioGroup[] questions;
-    /*Q1;
-    private RadioGroup Q2;
-    private RadioGroup Q3;
-    private RadioGroup Q4;
-    private RadioGroup Q5;
-    private RadioGroup Q6;
-    private RadioGroup Q7;
-    private RadioGroup Q8;
-    private RadioGroup Q9;*/
 
     private static Button rb1;
     private static Button rb2;
@@ -97,7 +88,7 @@ public class phqActivity extends AppCompatActivity {
                     phq += "\"Q" + i + "\":\"" + selected.getText().toString() + "\",";
                 }
                 // send PHQ answers and move to next window if all PHQ questions were answered
-                if(PHQcompleted) {
+                if(PHQcompleted && modalityHabits.DONE) {
                     phq = phq.substring(0, phq.length() - 1);
                     phq += "}";
                     serverHook.sendToServer("phq", phq);

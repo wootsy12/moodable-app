@@ -33,12 +33,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int TEXT = 0;
-    private static final int CALLS = 1;
-    private static final int CALENDAR = 2;
-    private static final int STORAGE = 3;
-    private static final int CONTACTS = 4;
-
     private static final String CLIENT_ID = "44fa875f13844f5f8401fef309ccfc97";
     private static final String CALLBACK = "http://depressionmqp.wpi.edu:8080/instagram";
 
@@ -51,19 +45,28 @@ public class MainActivity extends AppCompatActivity {
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.READ_CONTACTS,
     };
-    
+
+    // constants for telling which boolean in the send array pertains to which modality
+    private static final int TEXT = 0;
+    private static final int CALLS = 1;
+    private static final int CALENDAR = 2;
+    private static final int STORAGE = 3;
+    private static final int CONTACTS = 4;
+
     // holds which modalities are waiting for permissions to be granted
     private ArrayList<Integer> waiting = new ArrayList<Integer>();
+    // boolean array for modalities, true indicates that the modality send thread has been launched
     private boolean[] send = {false, false, false, false, false};
-    private boolean mainDataSendFinished = false;
-    private boolean permissionsDataSendFinished = false;
+
+    // booleans for tracking send thread dispatching, true when done dispatching
+    private boolean mainDataDispatchingFinished = false; // true when done dispatching granted permissions
+    private boolean permissionsDataDispatchingFinished = false; // true when done attempting to dispatch new permissions
 
     MediaRecorder mediaRecorder = new MediaRecorder();
     private static String audioFilePath;
 
     private static Button submitButton;
     private static Button nextScreenButton;
-    private static Button instaButton;
     private static WebView instaView;
 
     private static EditText twitterText;
@@ -71,12 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean dataSent = false;
 
-    modalityText mtext = new modalityText();
     modalityHabits mhabits = new modalityHabits();
 
     public MainActivity(){
         super();
-
     }
 
     @Override
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         serverHook.start();
 
+        // send all available data in a seperate thread from the UI, as long as it hasnt already been started
         if(!dataSent){
             dataSent = true;
 
@@ -95,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             t.start();
-
         }
 
 
+        // set up code for Twitter username submission
         twitterText = (EditText) findViewById(R.id.twitterText);
-
+        // send twitter username to server on submit
         submitButton = (Button) findViewById(R.id.submitSM);
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -112,10 +114,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        CookieManager.getInstance().setAcceptCookie(false);
 
+        // set up webview for Instagram login
+        CookieManager.getInstance().setAcceptCookie(false); // for testing purposes, lets me always see login screen
+        // load instagram authentication website
         instaView = (WebView) findViewById(R.id.instagramWebview);
-        //.setVisibility(View.GONE);
         instaView.setWebViewClient(new WebViewClient(){
 
             @Override
@@ -124,19 +127,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+        // url of instagram authentication page
         String url = "https://api.instagram.com/oauth/authorize/?client_id="
-                + CLIENT_ID
+                + CLIENT_ID // my API id
                 + "&redirect_uri="
-                + CALLBACK
+                + CALLBACK // server page to redirect to
                 + "&state="
-                + serverHook.identifier
+                + serverHook.identifier // ID to send to server alongside the auth token
                 +"&response_type=code";
+        // set up webview and load page
         instaView.getSettings().setJavaScriptEnabled(true);
         instaView.setInitialScale(200);
         instaView.loadUrl(url);
         instaView.setVisibility(View.VISIBLE);
 
+        // button for switching to next screen
         nextScreenButton = (Button) findViewById(R.id.nextRecord);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -155,8 +160,14 @@ public class MainActivity extends AppCompatActivity {
     public void sendAllAvailableData(){
         Context mContext = getApplicationContext();
         serverHook.sendToServer("debug","START");
+        Log.d("MYAPP", "GO");
 
+        // list holding modalities for which the app is waiting for permissions to be granted
         waiting = new ArrayList<Integer>();
+
+        // check if the app has permissions for each modality
+        // if yes, mark as ready to send
+        // if no, add to list of awaited permissions
 
         if(checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED){
             send[TEXT] = true;
@@ -192,56 +203,58 @@ public class MainActivity extends AppCompatActivity {
             waiting.add(CONTACTS);
         }
 
+        // ask for permission for all needed data types. If the app already has any they will be ignored
         ActivityCompat.requestPermissions(this, permissions, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
 
-
+        // send all data types that were marked as having permissions already
         if(send[TEXT]){
-            mtext.getTexts(mContext);
-            Log.d("MYAPP", "text");
+            mhabits.getHabit(mContext, "texts");
         }
         if(send[CALLS]){
-            mhabits.getCalls(mContext);
-            Log.d("MYAPP", "Calls");
+            mhabits.getHabit(mContext, "calls");
         }
         if(send[CALENDAR]){
-            mhabits.getCalendar(mContext);
-            Log.d("MYAPP", "Calendar");
+            mhabits.getHabit(mContext, "calendar");
         }
         if(send[STORAGE]){
-            mhabits.getStorage(mContext);
-            Log.d("MYAPP", "storage");
+            mhabits.getHabit(mContext, "files");
         }
         if(send[CONTACTS]){
-            mhabits.getContacts(mContext);
-            Log.d("MYAPP", "contacts");
+            mhabits.getHabit(mContext, "contacts");
         }
-        mainDataSendFinished = true;
-        checkIfFinished();
+
+        // mark the main data dispatch as done
+        mainDataDispatchingFinished = true;
+        // see if all dispatching has been finished
+        checkIfFinishedDispatching();
 
     }
 
-    private void checkIfFinished(){
-        if(mainDataSendFinished && permissionsDataSendFinished){
-            Log.d("MyAPP", "REGULARS DONE");
-            serverHook.sendToServer("debug", "END");
-            mainDataSendFinished = false;
-            permissionsDataSendFinished = false;
+    /* checks if all available modality sending threads have been dispatched
+    * this is important for detecing if the app is done sending all available data
+     */
+    private void checkIfFinishedDispatching(){
+        if(mainDataDispatchingFinished && permissionsDataDispatchingFinished){;
+            mhabits.dispatchDone(); // tell modalityHabits that the mainactivity is done dispatching
+            mainDataDispatchingFinished = false;
+            permissionsDataDispatchingFinished = false;
         }
     }
 
+    /*
+     For handling permission request responses
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
 
-        boolean[] accepted = {false, false, false, false, false};
         Context mContext = getApplicationContext();
-        Log.d("MYAPPP", "HERE");
-        Log.d("TEEESST", grantResults.toString());
+
+        // Try to send each modality again, if permissions were not granted they will fail gracefully
 
         if(!send[TEXT]){
             try {
-                mtext.getTexts(mContext);
-                Log.d("MYAPP", "text");
+                mhabits.getHabit(mContext, "texts");
             }
             catch(Exception e){
                 Log.d("ERROR", e.getMessage());
@@ -250,8 +263,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(!send[CALLS]){
             try {
-                mhabits.getCalls(mContext);
-                Log.d("MYAPP", "Calls");
+                mhabits.getHabit(mContext, "calls");
             }
             catch(Exception e){
                 Log.d("ERROR", e.getMessage());
@@ -260,8 +272,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(!send[CALENDAR]){
             try {
-                mhabits.getCalendar(mContext);
-                Log.d("MYAPP", "Calendar");
+                mhabits.getHabit(mContext, "calendar");
             }
             catch(Exception e){
                 Log.d("ERROR", e.getMessage());
@@ -270,8 +281,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(!send[STORAGE]){
             try {
-                mhabits.getStorage(mContext);
-                Log.d("MYAPP", "storage");
+                mhabits.getHabit(mContext, "files");
             }
             catch(Exception e){
                 Log.d("ERROR", e.getMessage());
@@ -279,8 +289,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(!send[CONTACTS]){
             try {
-                mhabits.getContacts(mContext);
-                Log.d("MYAPP", "contacts");
+                mhabits.getHabit(mContext, "contacts");
             }
             catch(Exception e){
                 Log.d("ERROR", e.getMessage());
@@ -288,8 +297,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        permissionsDataSendFinished = true;
-        checkIfFinished();
+        // mark permissions response dispatcher as done and check if done dispatching
+        permissionsDataDispatchingFinished = true;
+        checkIfFinishedDispatching();
 
     }
 
