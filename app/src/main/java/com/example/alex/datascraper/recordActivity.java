@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.io.IOException;
 
 public class recordActivity extends AppCompatActivity {
@@ -106,6 +107,8 @@ public class recordActivity extends AppCompatActivity {
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
+
+        File recording = new File(audioFilePath);
 
     }
 }

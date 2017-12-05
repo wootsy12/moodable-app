@@ -26,7 +26,7 @@ import java.nio.ByteBuffer;
 
 public class serverHook extends AppCompatActivity {
 
-    private final static String request = "//http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
+    private final static String request = "http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
     public static String identifier = "";
 
     public static String start(){
