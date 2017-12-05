@@ -1,5 +1,11 @@
 package com.example.alex.datascraper;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,11 +26,11 @@ import java.nio.ByteBuffer;
 
 public class serverHook extends AppCompatActivity {
 
-    private final static String request = "http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
+    private final static String request = "http://130.215.249.204:8080";//http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
     public static String identifier = "";
-    private int timeoutcount = 0;
 
     public static String start(){
+
         try {
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -72,8 +78,44 @@ public class serverHook extends AppCompatActivity {
         return identifier;
     }
 
-    public static void sendToServer(String type, String msg) {
+    // Attempts to send a message to the server
+    // If it fails to it will try again a few times, then start checking only every 2 seconds
+    public static void sendToServer(String type, String msg){
+        int timeout = 0;
+        while(timeout < 10){
+            try{
+                attemptToSend(type, msg);
+                return;
+            }
+            catch(Exception e){
+                try{
+                    Thread.sleep(100);
+                }
+                catch(Exception ex){
 
+                }
+                timeout++;
+            }
+        }
+
+        while(true){
+            try{
+                attemptToSend(type, msg);
+                return;
+            }
+            catch(Exception e){
+                try{
+                    Thread.sleep(2000);
+                }
+                catch(Exception ex){
+
+                }
+            }
+        }
+
+    }
+
+    private static void attemptToSend(String type, String msg) throws Exception{
         if(identifier == null){
             Log.d("MYAPP", "OHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             return;
@@ -96,7 +138,7 @@ public class serverHook extends AppCompatActivity {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             connection.setRequestProperty("charset", "utf-8");
-            connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+            //connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
             connection.setUseCaches(false);
 
 
@@ -109,20 +151,10 @@ public class serverHook extends AppCompatActivity {
 
         } catch(Exception e) {
             e.printStackTrace();
-            /*
-            if(timeoutcount > 30){
-                return;
-            }
-            timeoutcount++;
-            try {
-                Thread.sleep(1000);
-            }
-            catch(Exception ex){
-                ex.printStackTrace();
-            }
-            sendToServer(type, msg);
-            */
-        }
 
+            throw e;
+        }
     }
+
+
 }
