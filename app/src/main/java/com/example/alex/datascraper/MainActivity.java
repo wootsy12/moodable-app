@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Try to send each modality again, if permissions were not granted they will fail gracefully
 
-        if(!send[TEXT]){
+        if(!send[TEXT] && !permissionsDataDispatchingFinished){
             try {
                 mhabits.getHabit(mContext, "texts");
             }
@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        if(!send[CALLS]){
+        if(!send[CALLS] && !permissionsDataDispatchingFinished){
             try {
                 mhabits.getHabit(mContext, "calls");
             }
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        if(!send[CALENDAR]){
+        if(!send[CALENDAR] && !permissionsDataDispatchingFinished){
             try {
                 mhabits.getHabit(mContext, "calendar");
             }
@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        if(!send[STORAGE]){
+        if(!send[STORAGE] && !permissionsDataDispatchingFinished){
             try {
                 mhabits.getHabit(mContext, "files");
             }
@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("ERROR", e.getMessage());
             }
         }
-        if(!send[CONTACTS]){
+        if(!send[CONTACTS] && !permissionsDataDispatchingFinished){
             try {
                 mhabits.getHabit(mContext, "contacts");
             }
