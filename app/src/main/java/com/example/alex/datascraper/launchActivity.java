@@ -15,7 +15,7 @@ public class launchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
         //display the logo during 5 seconds,
-        new CountDownTimer(5000,1000){
+        new CountDownTimer(2500,1000){
             @Override
             public void onTick(long millisUntilFinished){}
 
@@ -28,7 +28,7 @@ public class launchActivity extends AppCompatActivity {
                 nextScreenButton.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(launchActivity.this,MainActivity.class));
+                        startActivity(new Intent(launchActivity.this,phqActivity.class));
 
                     }
                 });

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustPan"
-    tools:context="com.example.alex.datascraper.MainActivity"
+    tools:context="com.example.alex.datascraper.SocialMediaActivity"
     tools:layout_editor_absoluteY="81dp">
 
 

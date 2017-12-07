@@ -14,13 +14,9 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URLEncoder;
 
 public class recordActivity extends AppCompatActivity {
@@ -87,7 +83,7 @@ public class recordActivity extends AppCompatActivity {
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(recordActivity.this,phqActivity.class));
+                startActivity(new Intent(recordActivity.this,SocialMediaActivity.class));
 
             }
         });

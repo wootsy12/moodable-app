@@ -40,6 +40,7 @@ public class modalityHabits extends AppCompatActivity {
     // synchronized method for changing dispatchDone to avoid race conditions (maybe not needed?)
     public synchronized void dispatchDone(){
         dispatchDone = true;
+        Log.d("MYAPP", "DISPATCH DONE");
     }
 
     // synchronized method for checking both activeThreads and dispatchDone to see if all sending is finished

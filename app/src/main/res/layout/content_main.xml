@@ -8,7 +8,7 @@
 
     android:layout_marginRight="5dp"
     android:windowSoftInputMode="adjustPan"
-    tools:context="com.example.alex.datascraper.MainActivity"
+    tools:context="com.example.alex.datascraper.SocialMediaActivity"
     tools:showIn="@layout/activity_main">
 
     <ScrollView
@@ -52,6 +52,7 @@
                 android:layout_centerHorizontal="true"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:selectAllOnFocus="false"
                 android:windowSoftInputMode="adjustPan" />
 
             <TextView
