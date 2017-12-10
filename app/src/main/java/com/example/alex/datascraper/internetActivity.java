@@ -23,40 +23,28 @@ public class internetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internet);
 
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if(netInfo != null && netInfo.isConnectedOrConnecting()){
-            serverHook.start();
-            Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
-            if(!serverHook.identifier.equals("")){
-                startActivity(new Intent(internetActivity.this, phqActivity.class));
-            }
-
+        serverHook.start();
+        Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
+        if(!serverHook.identifier.equals("")){
+            startActivity(new Intent(internetActivity.this, phqActivity.class));
         }
+
 
 
         nextButton = (Button) findViewById(R.id.internetButton);
         nextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo netInfo = cm.getActiveNetworkInfo();
-                if(netInfo != null && netInfo.isConnectedOrConnecting()){
-                    Toast toast=Toast.makeText(getApplicationContext(),"Checking for connection....",Toast.LENGTH_LONG);
-                    toast.show();
-                    serverHook.start();
-                    Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
-                    if(!serverHook.identifier.equals("")){
-                        startActivity(new Intent(internetActivity.this, phqActivity.class));
-                    }
-                    else{
-                        toast = Toast.makeText(getApplicationContext(),"No Wifi connection detected.",Toast.LENGTH_LONG);
-                        toast.show();
-                    }
+                
+                Toast toast=Toast.makeText(getApplicationContext(),"Checking for connection....",Toast.LENGTH_LONG);
+                toast.show();
+                serverHook.start();
+                Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
+                if(!serverHook.identifier.equals("")){
+                    startActivity(new Intent(internetActivity.this, phqActivity.class));
                 }
                 else{
-                    Toast toast=Toast.makeText(getApplicationContext(),"No Wifi connection detected.",Toast.LENGTH_LONG);
+                    toast = Toast.makeText(getApplicationContext(),"No Wifi connection detected.",Toast.LENGTH_LONG);
                     toast.show();
                 }
 
