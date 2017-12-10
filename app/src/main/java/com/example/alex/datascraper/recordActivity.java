@@ -12,6 +12,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,6 +27,9 @@ public class recordActivity extends AppCompatActivity {
     private static Button recordButton;
     private static Button stopButton;
     private static Button nextScreenButton;
+    private static TextView thankYouText;
+
+    private static boolean RECORDINGRECEIVED = false;
 
     private boolean permissionAccepted = false;
 
@@ -35,13 +41,13 @@ public class recordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("MYAPP", "1");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-        Log.d("MYAPP", "2");
+
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 REQUEST_MULTIPLE);
-        Log.d("MYAPP", "3");
+
         audioFilePath =
                 Environment.getExternalStorageDirectory().getAbsolutePath()
                         + "/myaudio.3gp";
@@ -52,7 +58,12 @@ public class recordActivity extends AppCompatActivity {
         stopButton.setEnabled(false);
         recordButton.setEnabled(true);
 
-        Log.d("MYAPP", "4");
+        thankYouText = (TextView) findViewById(R.id.thankyouText);
+        if(RECORDINGRECEIVED){
+            thankYouText.setVisibility(View.VISIBLE);
+        }
+
+
         recordButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -77,7 +88,6 @@ public class recordActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("MYAPP", "5");
 
         nextScreenButton = (Button) findViewById(R.id.nextPHQ);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
@@ -140,17 +150,12 @@ public class recordActivity extends AppCompatActivity {
             String recording = Base64.encodeToString(bytes, 0);
             recording = URLEncoder.encode(recording, "utf-8");
 
-            /*
-            BufferedReader reader = new BufferedReader(new FileReader(new File(audioFilePath)));
-            String recording = "";
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                recording += line;
-            }
-            reader.close();
-            */
             Log.d("MYAPP", recording);
             serverHook.sendToServer("audio", recording);
+
+            RECORDINGRECEIVED = true;
+            thankYouText.setVisibility(View.VISIBLE);
+
         }
         catch(Exception e){
 
@@ -161,7 +166,6 @@ public class recordActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-        Log.d("MYAPP", "6");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
             case REQUEST_MULTIPLE:

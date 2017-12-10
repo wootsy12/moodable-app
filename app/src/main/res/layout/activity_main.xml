@@ -13,15 +13,5 @@
         android:id="@+id/include"
         layout="@layout/content_main" />
 
-    <Button
-        android:id="@+id/nextRecord"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 
 </android.support.constraint.ConstraintLayout>

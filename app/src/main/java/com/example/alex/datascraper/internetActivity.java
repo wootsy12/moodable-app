@@ -35,7 +35,7 @@ public class internetActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                
+
                 Toast toast=Toast.makeText(getApplicationContext(),"Checking for connection....",Toast.LENGTH_LONG);
                 toast.show();
                 serverHook.start();
