@@ -54,7 +54,7 @@ public class SocialMediaActivity extends AppCompatActivity {
     public static WebView googleView;
     private long mDownloadedFileID;
 
-    private static int cnt=0;
+    private static int cnt=-1;
 
 
 
@@ -155,6 +155,7 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                 if(url.contains("https://myaccount.google.com/")) {
                     googleView.setVisibility(View.VISIBLE);
+                    cnt=0;
                     googleView.loadUrl(urlList.get(cnt));
                 }
                 Log.d("WebView", url);
@@ -234,7 +235,7 @@ public class SocialMediaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if((modalityHabits.DONE) && (cnt==14)) {
+                if((modalityHabits.DONE) && ((cnt==14) || (cnt==-1))) {
                     for(int i=0;i<14;i++) {
                         try {
                             FileInputStream Fin=new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileList.get(i)));
