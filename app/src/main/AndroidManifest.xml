@@ -26,6 +26,7 @@
             android:label="@string/title_activity_phq"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".resultsActivity" />
+        <activity android:name=".internetActivity" />
         <activity android:name=".launchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

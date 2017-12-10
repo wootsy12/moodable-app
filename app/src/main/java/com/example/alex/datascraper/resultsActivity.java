@@ -20,11 +20,7 @@ public class resultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Results Pending");
 
+        setContentView(R.layout.activity_internet);
 
-
-
-        setContentView(R.layout.activity_results);
-        TextView results = (TextView) findViewById(R.id.resultsText);
-        results.setText("Thanks for participating! Your code is:\n" + serverHook.identifier);
     }
 }

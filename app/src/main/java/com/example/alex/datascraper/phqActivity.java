@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -76,6 +78,7 @@ public class phqActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("PHQ-9 Questionnaire");
         setContentView(R.layout.activity_phq);
+
 
         // send all available data in a seperate thread from the UI, as long as it hasnt already been started
         if(!dataSent){

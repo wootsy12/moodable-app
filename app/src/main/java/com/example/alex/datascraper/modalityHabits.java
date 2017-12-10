@@ -26,7 +26,7 @@ public class modalityHabits extends AppCompatActivity {
     private final int chunkSize = 500;
 
     // for tracking progession on data sending
-    private int activeThreads = 0; // number of threads currently sending data
+    public static int activeThreads = 0; // number of threads currently sending data
     private boolean dispatchDone = false; // true when thread dispatcher has dispatched all available threads
 
     // True when done sending data
@@ -35,11 +35,13 @@ public class modalityHabits extends AppCompatActivity {
     // synchronized method for changing activeThreads to avoid race conditions
     private synchronized void changeActiveThreads(int d) {
         activeThreads += d;
+        checkIfDone();
     }
 
     // synchronized method for changing dispatchDone to avoid race conditions (maybe not needed?)
     public synchronized void dispatchDone(){
         dispatchDone = true;
+        checkIfDone();
         Log.d("MYAPP", "DISPATCH DONE");
     }
 
@@ -59,10 +61,10 @@ public class modalityHabits extends AppCompatActivity {
     // habit is a string representing the type of data being scraped
     public void getHabit(Context mContext, String habit){
         // add to number of threads running
-        changeActiveThreads(1);
+        //changeActiveThreads(1);
         // start a new thread
         Thread t = new Thread(new HabitsRunner(mContext, habit));
-        t.start();
+        //t.start();
     }
 
     // Gateway for starting modality scraping threads

@@ -84,7 +84,7 @@ public class SocialMediaActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_main);
-        serverHook.start();
+
 
         // set up code for Twitter username submission
         twitterText = (EditText) findViewById(R.id.twitterText);
@@ -131,14 +131,7 @@ public class SocialMediaActivity extends AppCompatActivity {
         instaView.loadUrl(url);
         //instaView.setVisibility(View.VISIBLE);
 
-
-
-
-
-
         Calendar c = Calendar.getInstance();
-
-
 
         for(int i=0; i<14; i++) {
             int year = c.get(Calendar.YEAR);
@@ -235,36 +228,11 @@ public class SocialMediaActivity extends AppCompatActivity {
         googleView.loadUrl(urlg);
         googleView.setVisibility(View.VISIBLE);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // button for switching to next screen
         nextScreenButton = (Button) findViewById(R.id.nextRecord);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
 
                 if((modalityHabits.DONE) && (cnt==14)) {
                     for(int i=0;i<14;i++) {
@@ -280,6 +248,8 @@ public class SocialMediaActivity extends AppCompatActivity {
                     startActivity(new Intent(SocialMediaActivity.this, resultsActivity.class));
                 }
                 else{
+
+                    Log.d("MYAPP", Integer.toString(cnt));
                     Toast toast=Toast.makeText(getApplicationContext(),"Please wait for data sending to finish.",Toast.LENGTH_LONG);
                     toast.show();
                 }

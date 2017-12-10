@@ -18,46 +18,35 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="57dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <WebView
-                android:id="@+id/instagramWebview"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_alignParentBottom="false"
-                android:layout_below="@+id/submitSM"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="5dp"
-                android:minHeight="200dp"
-                android:visibility="invisible"
-                android:windowSoftInputMode="adjustPan">
-
-            </WebView>
-
-            <WebView
-                android:id="@+id/googleWebview"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/instagramWebview"
-                android:layout_marginTop="40dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/instagramWebview"
-                android:layout_marginTop="11dp"
-                android:text="By providing us your usernames you are giving us permission to anonymously collect your posts on these sites."
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp"
+                android:text="Please enter your username for the following social media sites:"
                 android:textSize="18sp"
+                android:windowSoftInputMode="adjustPan" />
+
+            <TextView
+                android:id="@+id/twitterLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twitterText"
+                android:layout_below="@+id/textView2"
+                android:text="Twitter Username:"
+                android:textSize="24sp"
                 android:windowSoftInputMode="adjustPan" />
 
             <EditText
                 android:id="@+id/twitterText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/twitterLabel"
                 android:layout_centerHorizontal="true"
@@ -66,19 +55,9 @@
                 android:selectAllOnFocus="false"
                 android:windowSoftInputMode="adjustPan" />
 
-            <TextView
-                android:id="@+id/twitterLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/twitterText"
-                android:layout_below="@+id/textView2"
-                android:text="Twitter Username:"
-                android:textSize="24sp"
-                android:windowSoftInputMode="adjustPan" />
-
             <Button
                 android:id="@+id/submitSM"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/twitterText"
                 android:layout_centerHorizontal="true"
@@ -86,17 +65,43 @@
                 android:text="Submit"
                 android:windowSoftInputMode="adjustPan" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <WebView
+                android:id="@+id/instagramWebview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="false"
+                android:layout_below="@+id/submitSM"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:minHeight="200dp"
+                android:visibility="visible"
+                android:windowSoftInputMode="adjustPan">
+
+            </WebView>
+
+            <WebView
+                android:id="@+id/googleWebview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="24dp"
-                android:text="Please enter your username for the following social media sites:"
+                android:layout_alignTop="@+id/instagramWebview"
+                android:layout_marginTop="40dp">
+
+            </WebView>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/instagramWebview"
+                android:layout_marginTop="11dp"
+                android:text="By providing us your usernames you are giving us permission to anonymously collect your posts on these sites."
                 android:textSize="18sp"
                 android:windowSoftInputMode="adjustPan" />
-        </RelativeLayout>
+
+        </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>
