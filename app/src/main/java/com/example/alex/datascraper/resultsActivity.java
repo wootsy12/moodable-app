@@ -20,7 +20,7 @@ public class resultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Results Pending");
 
-        setContentView(R.layout.activity_internet);
+        setContentView(R.layout.activity_results);
 
     }
 }

@@ -11,16 +11,6 @@
     tools:context="com.example.alex.datascraper.SocialMediaActivity"
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:id="@+id/nextRecord"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
