@@ -212,7 +212,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                 request.setDescription("Downloading File");
                 request.setTitle(fileName);
                 request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
                 DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 if (downloadManager != null) {
