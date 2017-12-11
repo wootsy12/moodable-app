@@ -22,5 +22,8 @@ public class resultsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_results);
 
+        TextView results = findViewById(R.id.resultsText);
+        results.setText("Thanks for participating! \nYour code is: " + serverHook.identifier);
+
     }
 }
