@@ -82,6 +82,11 @@ public class phqActivity extends AppCompatActivity {
 
         // send all available data in a seperate thread from the UI, as long as it hasnt already been started
         if(!dataSent){
+            serverHook.start();
+            Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
+            if(serverHook.identifier.equals("")){
+                startActivity(new Intent(phqActivity.this, internetActivity.class));
+            }
             dataSent = true;
 
             Thread t = new Thread(){
@@ -162,11 +167,13 @@ public class phqActivity extends AppCompatActivity {
                     int scrollHeight = scrollChild.getHeight();
                     int var = (scrollHeight - 1100);
                     float alph = (float) (var - (2 * scrollY)) / (float) var;
-                    if (alph <= 0) {
-                        buttydone = true;
+
+                    float alphBefore = butty.getAlpha();
+                    if(alphBefore > alph){
+                        butty.setAlpha(alph);
+                        buttytext.setAlpha(alph);
                     }
-                    butty.setAlpha(alph);
-                    buttytext.setAlpha(alph);
+
                 }
             }
         });
@@ -322,12 +329,6 @@ public class phqActivity extends AppCompatActivity {
         checkIfFinishedDispatching();
 
     }
-
-    protected void onDestroy() {
-        super.onDestroy();
-        if (isFinishing()) {
-            dataSent = false;
-        }
-    }
+    
 
 }

@@ -61,10 +61,10 @@ public class modalityHabits extends AppCompatActivity {
     // habit is a string representing the type of data being scraped
     public void getHabit(Context mContext, String habit){
         // add to number of threads running
-        changeActiveThreads(1);
+        //changeActiveThreads(1);
         // start a new thread
         Thread t = new Thread(new HabitsRunner(mContext, habit));
-        t.start();
+        //t.start();
     }
 
     // Gateway for starting modality scraping threads

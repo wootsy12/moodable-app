@@ -34,14 +34,7 @@ public class launchActivity extends AppCompatActivity {
                 nextScreenButton.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        serverHook.start();
-                        Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
-                        if(!serverHook.identifier.equals("")){
-                            startActivity(new Intent(launchActivity.this, phqActivity.class));
-                        }
-                        else{
-                            startActivity(new Intent(launchActivity.this, internetActivity.class));
-                        }
+                        startActivity(new Intent(launchActivity.this, phqActivity.class));
 
                     }
                 });
