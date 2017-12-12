@@ -20,7 +20,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -82,6 +82,14 @@
                 android:text="Submit"
                 android:windowSoftInputMode="adjustPan" />
 
+            <TextView
+                android:id="@+id/instagramText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Please log in to Instagram if you have an account:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
             <WebView
                 android:id="@+id/instagramWebview"
                 android:layout_width="match_parent"
@@ -96,13 +104,21 @@
 
             </WebView>
 
+            <TextView
+                android:id="@+id/googleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Please log in to your Google account if you have one:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
             <WebView
                 android:id="@+id/googleWebview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignTop="@+id/instagramWebview"
-                android:layout_marginTop="40dp">
+                android:padding="10dp">
 
             </WebView>
 
