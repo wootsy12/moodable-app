@@ -148,7 +148,6 @@ public class recordActivity extends AppCompatActivity {
             buf.close();
 
             String recording = Base64.encodeToString(bytes, 0);
-            recording = URLEncoder.encode(recording, "utf-8");
 
             Log.d("MYAPP", recording);
             serverHook.sendToServer("audio", recording);

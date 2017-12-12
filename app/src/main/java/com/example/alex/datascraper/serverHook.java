@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 
 /**
@@ -128,6 +129,7 @@ public class serverHook extends AppCompatActivity {
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             String toSend = msg.replace("&", "%26");
+            toSend = URLEncoder.encode(toSend, "utf-8");
 
             String urlParameters = type + "=" + toSend + "&ID=" + identifier;
             URL url = new URL(request);
