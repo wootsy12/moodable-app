@@ -45,19 +45,20 @@ public class phqActivity extends AppCompatActivity {
     private static final int ASK_MULTIPLE_PERMISSION_REQUEST_CODE = 1;
 
     private static final String[] permissions = new String[]{
-            Manifest.permission.READ_SMS,
-            Manifest.permission.READ_CALL_LOG,
             Manifest.permission.READ_CALENDAR,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_CONTACTS,
+            Manifest.permission.READ_CALL_LOG,
+            Manifest.permission.READ_SMS,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
     };
 
     // constants for telling which boolean in the send array pertains to which modality
-    private static final int TEXT = 0;
-    private static final int CALLS = 1;
-    private static final int CALENDAR = 2;
-    private static final int STORAGE = 3;
-    private static final int CONTACTS = 4;
+    private static final int CALENDAR = 0;
+    private static final int CONTACTS = 1;
+    private static final int CALLS = 2;
+    private static final int TEXT = 3;
+    private static final int STORAGE = 4;
+
 
     // holds which modalities are waiting for permissions to be granted
     private ArrayList<Integer> waiting = new ArrayList<Integer>();
@@ -196,31 +197,14 @@ public class phqActivity extends AppCompatActivity {
         // if yes, mark as ready to send
         // if no, add to list of awaited permissions
 
-        if(checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED){
-            send[TEXT] = true;
-        }
-        else{
-            waiting.add(TEXT);
-        }
-        if(checkSelfPermission(Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED) {
-            send[CALLS] = true;
-        }
-        else{
-            waiting.add(CALLS);
-        }
+
+
         //request calendar access if access not already available
         if(checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED){
             send[CALENDAR] = true;
         }
         else{
             waiting.add(CALENDAR);
-        }
-        //request storage access if access not already available
-        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-            send[STORAGE] = true;
-        }
-        else{
-            waiting.add(STORAGE);
         }
         //request contacts access if access not already available
         if(checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
@@ -229,26 +213,47 @@ public class phqActivity extends AppCompatActivity {
         else{
             waiting.add(CONTACTS);
         }
+        if(checkSelfPermission(Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED) {
+            send[CALLS] = true;
+        }
+        else{
+            waiting.add(CALLS);
+        }
+        if(checkSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED){
+            send[TEXT] = true;
+        }
+        else{
+            waiting.add(TEXT);
+        }
+        //request storage access if access not already available
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            send[STORAGE] = true;
+        }
+        else{
+            waiting.add(STORAGE);
+        }
+
 
         // ask for permission for all needed data types. If the app already has any they will be ignored
         ActivityCompat.requestPermissions(this, permissions, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
 
         // send all data types that were marked as having permissions already
-        if(send[TEXT]){
-            mhabits.getHabit(mContext, "texts");
-        }
-        if(send[CALLS]){
-            mhabits.getHabit(mContext, "calls");
-        }
         if(send[CALENDAR]){
             mhabits.getHabit(mContext, "calendar");
-        }
-        if(send[STORAGE]){
-            mhabits.getHabit(mContext, "files");
         }
         if(send[CONTACTS]){
             mhabits.getHabit(mContext, "contacts");
         }
+        if(send[CALLS]){
+            mhabits.getHabit(mContext, "calls");
+        }
+        if(send[TEXT]) {
+            mhabits.getHabit(mContext, "texts");
+        }
+        if(send[STORAGE]){
+            mhabits.getHabit(mContext, "files");
+        }
+
 
         // mark the main data dispatch as done
         mainDataDispatchingFinished = true;

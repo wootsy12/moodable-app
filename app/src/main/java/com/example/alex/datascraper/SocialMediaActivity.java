@@ -235,7 +235,7 @@ public class SocialMediaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if((modalityHabits.DONE) && ((cnt==14) || (cnt==-1))) {
+                if(/*(modalityHabits.DONE) &&*/ ((cnt==14) || (cnt==-1))) {
                     for(int i=0;i<14;i++) {
                         try {
                             FileInputStream Fin=new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileList.get(i)));
@@ -246,6 +246,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                         }
 
                     }
+                    serverHook.sendToServer("debug", "END");
                     startActivity(new Intent(SocialMediaActivity.this, resultsActivity.class));
                 }
                 else{
