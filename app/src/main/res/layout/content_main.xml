@@ -106,6 +106,15 @@
 
             </WebView>
 
+            <TextView
+                android:id="@+id/GPSDoneText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Download finished, press next to continue"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/nextRecord"
                 android:layout_width="match_parent"

@@ -56,6 +56,8 @@ public class SocialMediaActivity extends AppCompatActivity {
 
     private static int cnt=-1;
 
+    Toast downloadToast;
+
 
 
     private static EditText twitterText;
@@ -154,7 +156,7 @@ public class SocialMediaActivity extends AppCompatActivity {
 
 
                 if(url.contains("https://myaccount.google.com/")) {
-                    googleView.setVisibility(View.VISIBLE);
+                    googleView.setVisibility(View.GONE);
                     cnt=0;
                     googleView.loadUrl(urlList.get(cnt));
                 }
@@ -196,6 +198,11 @@ public class SocialMediaActivity extends AppCompatActivity {
                         if(cnt<14) {
                             downloadNext(urlList.get(cnt),googleView);
                         }
+                        else{
+                            downloadToast.cancel();
+                            googleView.setVisibility(View.GONE);
+                            findViewById(R.id.GPSDoneText).setVisibility(View.VISIBLE);
+                        }
                     }
                 };
                 registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -218,7 +225,9 @@ public class SocialMediaActivity extends AppCompatActivity {
                 if (downloadManager != null) {
                     mDownloadedFileID = downloadManager.enqueue(request);
                 }
-                Toast.makeText(getApplicationContext(), "Downloading File", Toast.LENGTH_LONG).show();
+
+                downloadToast = Toast.makeText(getApplicationContext(), "Downloading File... Please wait", Toast.LENGTH_SHORT);
+                downloadToast.show();
             }
         });
         // url of instagram authentication page
