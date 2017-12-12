@@ -52,6 +52,7 @@ public class SocialMediaActivity extends AppCompatActivity {
     private static Button nextScreenButton;
     private static WebView instaView;
     public static WebView googleView;
+    private static boolean downloaded=false;
     private long mDownloadedFileID;
 
     private static int cnt=-1;
@@ -157,8 +158,10 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                 if(url.contains("https://myaccount.google.com/")) {
                     googleView.setVisibility(View.GONE);
-                    cnt=0;
-                    googleView.loadUrl(urlList.get(cnt));
+                    if(!downloaded) {
+                        cnt=0;
+                        googleView.loadUrl(urlList.get(cnt));
+                    }
                 }
                 Log.d("WebView", url);
             }
@@ -198,9 +201,11 @@ public class SocialMediaActivity extends AppCompatActivity {
                         if(cnt<14) {
                             downloadNext(urlList.get(cnt),googleView);
                         }
+                        else if(cnt==14) {
+                            downloaded=true;
+                        }
                         else{
                             downloadToast.cancel();
-                            googleView.setVisibility(View.GONE);
                             findViewById(R.id.GPSDoneText).setVisibility(View.VISIBLE);
                         }
                     }
