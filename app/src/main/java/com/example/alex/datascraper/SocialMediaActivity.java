@@ -228,7 +228,15 @@ public class SocialMediaActivity extends AppCompatActivity {
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
                 DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 if (downloadManager != null) {
-                    mDownloadedFileID = downloadManager.enqueue(request);
+                    try{
+                        mDownloadedFileID = downloadManager.enqueue(request);
+                    }
+                    catch(Exception e){
+                        Log.d("MYAPP", "Exception Caught");
+                        cnt = -1;
+                        return;
+                    }
+
                 }
 
                 downloadToast = Toast.makeText(getApplicationContext(), "Downloading File... Please wait", Toast.LENGTH_SHORT);
