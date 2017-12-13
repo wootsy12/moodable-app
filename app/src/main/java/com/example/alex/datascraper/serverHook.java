@@ -22,17 +22,22 @@ import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 
 /**
- * Created by Alex on 10/22/2017.
+ * Static class used for sending data to our server. Pauses when internet connection is lost and
+ * continues where it left off when internet returns.
  */
 
 public class serverHook extends AppCompatActivity {
 
-    private final static String request = "http://depressionmqp.wpi.edu:8080"; //"http://[insert ip]:8080";
+    // URL of server to send data to
+    private final static String request = "http://depressionmqp.wpi.edu:8080";
+    // Unique ID that is the only identifier saved with the data obtained
     public static String identifier = "";
 
+    // initializes serverHook by obtaining a unique ID
     public static String start(){
         identifier = "";
 
+        // connect to server
         try {
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -50,10 +55,7 @@ public class serverHook extends AppCompatActivity {
             connection.setRequestProperty("charset", "utf-8");
             connection.setUseCaches(false);
 
-
-            //DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            //DataInputStream in = new DataInputStream(connection.getInputStream());
-
+            // Attempt to read an ID from the server response
             BufferedReader in;
             String output;
             try{
@@ -83,9 +85,11 @@ public class serverHook extends AppCompatActivity {
     // Attempts to send a message to the server
     // If it fails to it will try again a few times, then start checking only every 2 seconds
     public static void sendToServer(String type, String msg){
+        // If error occurs connecting to server, try again 10 times
         int timeout = 0;
         while(timeout < 10){
             try{
+                // send data to the server
                 attemptToSend(type, msg);
                 return;
             }
@@ -100,8 +104,10 @@ public class serverHook extends AppCompatActivity {
             }
         }
 
+        // if data send failed 10 times, start checking only every 2 seconds
         while(true){
             try{
+                // if connection successful, return
                 attemptToSend(type, msg);
                 return;
             }
@@ -117,20 +123,28 @@ public class serverHook extends AppCompatActivity {
 
     }
 
+
+    /*
+    Sends data to the server as a POST
+    @param type the data type being sent
+    @param msg the data
+     */
     private static void attemptToSend(String type, String msg) throws Exception{
         if(identifier == null){
-            Log.d("MYAPP", "OHHHHH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+            Log.d("MYAPP", "Managed to get this far without an ID, not good.");
             return;
         }
 
         try {
-
+            // connect to server
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             String toSend = msg.replace("&", "%26");
             toSend = URLEncoder.encode(toSend, "utf-8");
 
+            // build message as a URI for easy parsing
+            // contains an ID, a Type, and the contents of the message
             String urlParameters = type + "=" + toSend + "&ID=" + identifier;
             URL url = new URL(request);
 
@@ -144,7 +158,7 @@ public class serverHook extends AppCompatActivity {
             //connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
             connection.setUseCaches(false);
 
-
+            // write the message
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             wr.writeBytes(urlParameters);
             connection.getInputStream();
@@ -152,7 +166,9 @@ public class serverHook extends AppCompatActivity {
             wr.close();
             connection.disconnect();
 
-        } catch(Exception e) {
+        }
+        // If an error was encountered, pass it up to the calling function
+        catch(Exception e) {
             e.printStackTrace();
 
             throw e;

@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alex on 10/22/2017.
+ * Class for scraping data from a smart phone. Creates seperate threads for scraping data into chunks
+ * and sending it to a server. Also tracks which threads are still running.
  */
 
 public class modalityHabits extends AppCompatActivity {

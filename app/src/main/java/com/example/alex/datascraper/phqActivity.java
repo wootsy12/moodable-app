@@ -25,25 +25,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+/*
+Activity class for the PHQ form screen. This screen also asks for data permissions and dispatches
+the the modality scraping threads.
+ */
 
 public class phqActivity extends AppCompatActivity {
 
-    private static Button phqSubmit;
+    private static Button phqSubmit; // next button
 
-    private RadioGroup[] questions;
+    private RadioGroup[] questions; // array of phq radio buttons
 
+    // Radio button options for the PHQ
     private static Button rb1;
     private static Button rb2;
     private static Button rb3;
     private static Button rb4;
+    // More UI elements
     private static View scrollView2;
     private static LinearLayout scrollChild;
     private static ImageButton butty;
     private static TextView buttytext;
+    // boolean top stop the arrow from returning after scrolling all the way down
     private static boolean buttydone = false;
 
     private static final int ASK_MULTIPLE_PERMISSION_REQUEST_CODE = 1;
 
+    // String array for requesting permissions
     private static final String[] permissions = new String[]{
             Manifest.permission.READ_CALENDAR,
             Manifest.permission.READ_CONTACTS,
@@ -69,8 +77,10 @@ public class phqActivity extends AppCompatActivity {
     private boolean mainDataDispatchingFinished = false; // true when done dispatching granted permissions
     private boolean permissionsDataDispatchingFinished = false; // true when done attempting to dispatch new permissions
 
+    // boolean for preventing data from being sent multiple times
     private static boolean dataSent = false;
 
+    // phone data scraper
     modalityHabits mhabits = new modalityHabits();
 
 
@@ -98,6 +108,7 @@ public class phqActivity extends AppCompatActivity {
             t.start();
         }
 
+        // grab UI elements
         rb1 = (Button) findViewById(R.id.radioButton);
         rb2 = (Button) findViewById(R.id.radioButton2);
         rb3 = (Button) findViewById(R.id.radioButton3);
@@ -123,14 +134,13 @@ public class phqActivity extends AppCompatActivity {
         questions[7] = (RadioGroup) findViewById(R.id.PHQ8);
         questions[8] = (RadioGroup) findViewById(R.id.PHQ9);
 
-
-
+        // build the PHQ submit button
         phqSubmit = (Button) findViewById(R.id.phqSub);
         phqSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                boolean PHQcompleted = true;
-                String phq = "{";
+                boolean PHQcompleted = true; // mark PHQ as completed
+                String phq = "{"; // string holding results of the PHQ
                 RadioButton selected;
 
                 // go through each question and grab the answer
@@ -141,17 +151,21 @@ public class phqActivity extends AppCompatActivity {
                         PHQcompleted = false;
                         break;
                     }
+                    // add the selected answer to the results string
                     selected = (RadioButton) findViewById(checked);
                     phq += "\"Q" + i + "\":\"" + selected.getText().toString() + "\",";
                 }
 
+                // If all questions were answered
                 if(PHQcompleted){
-                    // send PHQ answers and move to next window if all PHQ questions were answered
+                    // send PHQ answers
                     phq = phq.substring(0, phq.length() - 1);
                     phq += "}";
                     serverHook.sendToServer("phq", phq);
+                    // move to next screen
                     startActivity(new Intent(phqActivity.this, recordActivity.class));
                 }
+                // If not all questions were answered, alert the user
                 else{
                     Toast toast=Toast.makeText(getApplicationContext(),"Please answer all questions before continuing.",Toast.LENGTH_LONG);
                     toast.show();
@@ -160,16 +174,20 @@ public class phqActivity extends AppCompatActivity {
             }
         });
 
+        // code for fading the arrow that tells users to swipe to scroll down
         scrollView2.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
+                // as long as it hasnt comepletely vanished
                 if(!buttydone) {
                     int scrollY = scrollView2.getScrollY(); // For ScrollView
                     int scrollHeight = scrollChild.getHeight();
                     int var = (scrollHeight - 1100);
                     float alph = (float) (var - (2 * scrollY)) / (float) var;
 
+                    // Change opacity to less the further down the user scrolls
                     float alphBefore = butty.getAlpha();
+                    // only ever decrease opactiy, never bring it back
                     if(alphBefore > alph){
                         butty.setAlpha(alph);
                         buttytext.setAlpha(alph);
@@ -196,8 +214,6 @@ public class phqActivity extends AppCompatActivity {
         // check if the app has permissions for each modality
         // if yes, mark as ready to send
         // if no, add to list of awaited permissions
-
-
 
         //request calendar access if access not already available
         if(checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED){

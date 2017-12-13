@@ -12,15 +12,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/*
+Activity class that displays the first page of the App
+ */
+
 public class launchActivity extends AppCompatActivity {
 
     private static Button nextScreenButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        //display the logo during 5 seconds,
+        //display the logo during 2.5 seconds,
         new CountDownTimer(2500,1000){
             @Override
             public void onTick(long millisUntilFinished){}
@@ -30,6 +36,7 @@ public class launchActivity extends AppCompatActivity {
                 //set the new Content of your activity
                 launchActivity.this.setContentView(R.layout.activity_launch);
 
+                // Create the button for moving on to the next screen
                 nextScreenButton = (Button) findViewById(R.id.nextSocial);
                 nextScreenButton.setOnClickListener(new View.OnClickListener(){
                     @Override

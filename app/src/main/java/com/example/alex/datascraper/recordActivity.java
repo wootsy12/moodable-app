@@ -22,21 +22,29 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+/*
+Activity class for the voice recording screen of the application
+ */
+
 public class recordActivity extends AppCompatActivity {
 
+    // UI elements
     private static Button recordButton;
     private static Button stopButton;
     private static Button nextScreenButton;
     private static TextView thankYouText;
 
+    // boolean for tracking whether or not the recorind was obtained
     private static boolean RECORDINGRECEIVED = false;
 
+    // boolean seeing if all necessary permissions were obtained
     private boolean permissionAccepted = false;
 
     private static final int REQUEST_MULTIPLE = 1;
 
+    // for recording from the mic
     private static MediaRecorder mediaRecorder;
-
+    // file path to store recording at
     private static String audioFilePath;
 
     @Override
@@ -45,9 +53,11 @@ public class recordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
+        // ask for permissions needed to get a recording (Access to record, permission to read and write files)
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 REQUEST_MULTIPLE);
 
+        // build audio file path
         audioFilePath =
                 Environment.getExternalStorageDirectory().getAbsolutePath()
                         + "/myaudio.3gp";
@@ -58,12 +68,13 @@ public class recordActivity extends AppCompatActivity {
         stopButton.setEnabled(false);
         recordButton.setEnabled(true);
 
+        // display text once the recording has been obtained
         thankYouText = (TextView) findViewById(R.id.thankyouText);
         if(RECORDINGRECEIVED){
             thankYouText.setVisibility(View.VISIBLE);
         }
 
-
+    // create record button
         recordButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -76,6 +87,7 @@ public class recordActivity extends AppCompatActivity {
             }
         });
 
+        // create stop recording button
         stopButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -88,7 +100,7 @@ public class recordActivity extends AppCompatActivity {
             }
         });
 
-
+        // create next button
         nextScreenButton = (Button) findViewById(R.id.nextPHQ);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -100,6 +112,9 @@ public class recordActivity extends AppCompatActivity {
     }
 
 
+    /*
+    Records audio from the mic and saves it to a file
+     */
     public void recordAudio (View view) throws IOException
     {
 
@@ -126,6 +141,9 @@ public class recordActivity extends AppCompatActivity {
         mediaRecorder.start();
     }
 
+    /*
+    Stops recording audio and sends it to the server as base64 encoded
+     */
     public void stopAudio (View view)
     {
 
@@ -139,7 +157,7 @@ public class recordActivity extends AppCompatActivity {
         mediaRecorder = null;
 
         try {
-
+            // read audio file as byte array
             File file = new File(audioFilePath);
             int size = (int) file.length();
             byte[] bytes = new byte[size];
@@ -147,8 +165,9 @@ public class recordActivity extends AppCompatActivity {
             buf.read(bytes, 0, bytes.length);
             buf.close();
 
+            // convert byte array to base64 string so it can be sent to the server
             String recording = Base64.encodeToString(bytes, 0);
-
+            // send recording to the server
             Log.d("MYAPP", recording);
             serverHook.sendToServer("audio", recording);
 
@@ -162,6 +181,9 @@ public class recordActivity extends AppCompatActivity {
 
     }
 
+    /*
+    Handles response from permissions request, just checks to see if all were granted or not
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {

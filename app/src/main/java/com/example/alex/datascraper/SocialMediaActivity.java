@@ -42,12 +42,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/*
+Activity class for requesting data from scoial media accounts.
+ */
+
 
 public class SocialMediaActivity extends AppCompatActivity {
 
+    // Client ID for making Instagram API sign in requests
     private static final String CLIENT_ID = "44fa875f13844f5f8401fef309ccfc97";
+    // URL to redirect to after Instagram sign in
     private static final String CALLBACK = "http://depressionmqp.wpi.edu:8080/instagram";
 
+    // UI elements
     private static Button submitButton;
     private static Button nextScreenButton;
     private static WebView instaView;
@@ -55,11 +62,10 @@ public class SocialMediaActivity extends AppCompatActivity {
     private static boolean downloaded=false;
     private long mDownloadedFileID;
 
+    // count of GPS files downloading
     private static int cnt=-1;
 
     Toast downloadToast;
-
-
 
     private static EditText twitterText;
     private static List<String> urlList = new ArrayList<String>();
@@ -69,6 +75,7 @@ public class SocialMediaActivity extends AppCompatActivity {
         super();
     }
 
+    // converts a file to a string
     // http://www.java2s.com/Code/Java/File-Input-Output/ConvertInputStreamtoString.htm
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -136,6 +143,7 @@ public class SocialMediaActivity extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance();
 
+        // requests the GPS for the last 2 weeks (14 days)
         for(int i=0; i<14; i++) {
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
@@ -149,6 +157,7 @@ public class SocialMediaActivity extends AppCompatActivity {
         }
         System.out.println(urlList);
 
+        // set up Google login webview
         googleView = (WebView) findViewById(R.id.googleWebview);
         googleView.setWebViewClient(new WebViewClient(){
             @Override
@@ -177,7 +186,7 @@ public class SocialMediaActivity extends AppCompatActivity {
             }
         });
 
-
+        //Handle google GPS downloads
         googleView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent,
@@ -257,7 +266,10 @@ public class SocialMediaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 if(/*(modalityHabits.DONE) &&*/ ((cnt==14) || (cnt==-1))) {
+
+                    // send downloaded GPS data
                     for(int i=0;i<14;i++) {
                         try {
                             FileInputStream Fin=new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileList.get(i)));
@@ -271,6 +283,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                     serverHook.sendToServer("debug", "END");
                     startActivity(new Intent(SocialMediaActivity.this, resultsActivity.class));
                 }
+                // if in progress of GPS download, do not continue
                 else{
 
                     Log.d("MYAPP", Integer.toString(cnt));
