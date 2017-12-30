@@ -24,6 +24,34 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/googleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Please log in to your Google account if you have one:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <WebView
+                android:id="@+id/googleWebview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/instagramWebview"
+                android:padding="10dp">
+
+            </WebView>
+
+            <TextView
+                android:id="@+id/googComplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thank you!"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,24 +129,6 @@
                 android:minHeight="200dp"
                 android:visibility="visible"
                 android:windowSoftInputMode="adjustPan">
-
-            </WebView>
-
-            <TextView
-                android:id="@+id/googleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Please log in to your Google account if you have one:"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <WebView
-                android:id="@+id/googleWebview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/instagramWebview"
-                android:padding="10dp">
 
             </WebView>
 

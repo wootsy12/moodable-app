@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="4. You will be asked to identify your social media accounts." />
+                    android:text="4. You will be asked to identify your Google and social media accounts." />
 
                 <TextView
                     android:layout_width="match_parent"

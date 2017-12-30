@@ -18,12 +18,24 @@ public class resultsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Results Pending");
+        setTitle("");
+
+        String comp = ((MyApplication) getApplication()).getCompletion();
+
+
 
         setContentView(R.layout.activity_results);
 
         TextView results = findViewById(R.id.resultsText);
-        results.setText("Thanks for participating! \nYour code is: " + serverHook.identifier);
+        results.setText("Thanks for participating! \nYour code is: " + serverHook.identifier+"-"+comp);
+
+
+        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        fuckyou = fuckyou + "0";
+
+        TextView Compensation = findViewById(R.id.comp);
+        Compensation.setText("Final Reward: $"+fuckyou);
 
     }
+
 }

@@ -20,10 +20,16 @@ public class launchActivity extends AppCompatActivity {
 
     private static Button nextScreenButton;
 
+    String formatter = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tReward: $";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        fuckyou = fuckyou + "0";
+        setTitle(formatter+fuckyou);
+
         setContentView(R.layout.splash);
 
         //display the logo during 2.5 seconds,
@@ -52,5 +58,12 @@ public class launchActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        fuckyou = fuckyou + "0";
+        setTitle(formatter+fuckyou);
     }
 }

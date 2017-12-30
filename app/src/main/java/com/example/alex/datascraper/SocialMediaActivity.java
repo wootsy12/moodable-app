@@ -28,6 +28,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -60,6 +61,8 @@ public class SocialMediaActivity extends AppCompatActivity {
     private static WebView instaView;
     public static WebView googleView;
     private static boolean downloaded=false;
+    private static boolean instad =false;
+    private static boolean tritrd=false;
     private long mDownloadedFileID;
 
     // count of GPS files downloading
@@ -70,6 +73,8 @@ public class SocialMediaActivity extends AppCompatActivity {
     private static EditText twitterText;
     private static List<String> urlList = new ArrayList<String>();
     private static List<String> fileList = new ArrayList<String>();
+
+    String formatter = "Social Media\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tReward: $";
 
     public SocialMediaActivity(){
         super();
@@ -96,6 +101,11 @@ public class SocialMediaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        fuckyou = fuckyou + "0";
+        setTitle(formatter+fuckyou);
+
+
         // set up code for Twitter username submission
         twitterText = (EditText) findViewById(R.id.twitterText);
         // send twitter username to server on submit
@@ -107,6 +117,15 @@ public class SocialMediaActivity extends AppCompatActivity {
                 Log.d("MYAPP", twitter);
                 twitterText.setText("");
                 serverHook.sendToServer("twitterUsername", twitter);
+                if(!tritrd) {
+                    ((MyApplication) getApplication()).addCompensation(0.10);
+                    String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+                    fuckyou = fuckyou + "0";
+                    setTitle(formatter+fuckyou);
+                    ((MyApplication) getApplication()).completetwitter();
+                }
+                tritrd=true;
+
             }
         });
 
@@ -141,6 +160,38 @@ public class SocialMediaActivity extends AppCompatActivity {
         instaView.loadUrl(url);
         //instaView.setVisibility(View.VISIBLE);
 
+
+        instaView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+
+
+                if(url.substring(0,43).equals("http://depressionmqp.wpi.edu:8080/instagram")) {
+                    if(!instad) {
+                        ((MyApplication) getApplication()).addCompensation(0.10);
+                        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+                        fuckyou = fuckyou + "0";
+                        setTitle(formatter+fuckyou);
+                        ((MyApplication) getApplication()).completeInsta();
+                    }
+                    instad=true;
+
+                }
+                Log.d("WebView", url);
+            }
+
+            public void onPageFinished(WebView view, String url) {
+            }
+
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView v, String url){
+                v.loadUrl(url);
+                return true;
+            }
+        });
+
         Calendar c = Calendar.getInstance();
 
         // requests the GPS for the last 2 weeks (14 days)
@@ -167,6 +218,8 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                 if(url.contains("https://myaccount.google.com/")) {
                     googleView.setVisibility(View.GONE);
+                    TextView googComplete = (TextView) findViewById(R.id.googComplete);
+                    googComplete.setVisibility(View.VISIBLE);
                     if(!downloaded) {
                         cnt=0;
                         googleView.loadUrl(urlList.get(cnt));
@@ -211,6 +264,13 @@ public class SocialMediaActivity extends AppCompatActivity {
                             downloadNext(urlList.get(cnt),googleView);
                         }
                         else if(cnt==14) {
+                            if(!downloaded) {
+                                ((MyApplication) getApplication()).addCompensation(0.30);
+                                String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+                                fuckyou = fuckyou + "0";
+                                setTitle(formatter+fuckyou);
+                                ((MyApplication) getApplication()).completeGoogle();
+                            }
                             downloaded=true;
                         }
                         else{
@@ -233,7 +293,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                 request.setDescription("Downloading File");
                 request.setTitle(fileName);
                 request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
                 DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 if (downloadManager != null) {
@@ -317,6 +377,13 @@ public class SocialMediaActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onResume() {
+        super.onResume();
+        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        fuckyou = fuckyou + "0";
+        setTitle(formatter+fuckyou);
     }
 
 }

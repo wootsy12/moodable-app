@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -21,8 +22,19 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Bundle;
+import android.app.Activity;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
+import android.app.ActionBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 /*
@@ -79,7 +91,11 @@ public class phqActivity extends AppCompatActivity {
 
     // boolean for preventing data from being sent multiple times
     private static boolean dataSent = false;
+    ActionBar actionbar;
+    TextView textview;
+    LinearLayout.LayoutParams layoutparams;
 
+    String formatter = "PHQ-9 Questionnaire\t\t\t\t\t\t\tReward: $";
     // phone data scraper
     modalityHabits mhabits = new modalityHabits();
 
@@ -87,7 +103,10 @@ public class phqActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("PHQ-9 Questionnaire");
+        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        fuckyou = fuckyou + "0";
+        setTitle(formatter+fuckyou);
+
         setContentView(R.layout.activity_phq);
 
 
@@ -351,5 +370,11 @@ public class phqActivity extends AppCompatActivity {
 
     }
 
+    public void onResume() {
+        super.onResume();
+        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        fuckyou = fuckyou + "0";
+        setTitle(formatter+fuckyou);
+    }
 
 }
