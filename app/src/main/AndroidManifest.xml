@@ -22,21 +22,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SocialMediaActivity"></activity>
+        <activity
+            android:name=".SocialMediaActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".phqActivity"
             android:label="@string/title_activity_phq"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".resultsActivity" />
-        <activity android:name=".internetActivity" />
-        <activity android:name=".launchActivity">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".resultsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".internetActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".launchActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recordActivity"></activity>
+        <activity android:name=".recordActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
