@@ -95,7 +95,7 @@ public class phqActivity extends AppCompatActivity {
     TextView textview;
     LinearLayout.LayoutParams layoutparams;
 
-    String formatter = "PHQ-9 Questionnaire\t\t\t\t\t\t\tReward: $";
+    String formatter = "PHQ-9 Questionnaire | Reward: $";
     // phone data scraper
     modalityHabits mhabits = new modalityHabits();
 

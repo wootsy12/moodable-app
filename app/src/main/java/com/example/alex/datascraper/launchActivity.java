@@ -20,7 +20,7 @@ public class launchActivity extends AppCompatActivity {
 
     private static Button nextScreenButton;
 
-    String formatter = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tReward: $";
+    String formatter = "Welcome | Reward: $";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

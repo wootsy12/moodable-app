@@ -37,16 +37,16 @@ public class MyApplication extends Application {
     public String getCompletion() {
         String str = "";
         if(recordingComplete){
-            str+="1";
+            str+="0";
         }
         if(googleComplete){
-            str+="2";
-        }
-        if(twitterComplete) {
             str+="3";
         }
+        if(twitterComplete) {
+            str+="1";
+        }
         if(instaComplete) {
-            str+="4";
+            str+="2";
         }
         return str;
     }

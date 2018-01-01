@@ -48,7 +48,7 @@ public class recordActivity extends AppCompatActivity {
     // file path to store recording at
     private static String audioFilePath;
 
-    String formatter = "Voice Recording\t\t\t\t\t\t\t\t\t\t\t\t\tReward: $";
+    String formatter = "Voice Recording | Reward: $";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

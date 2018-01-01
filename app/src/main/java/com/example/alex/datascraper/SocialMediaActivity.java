@@ -74,7 +74,7 @@ public class SocialMediaActivity extends AppCompatActivity {
     private static List<String> urlList = new ArrayList<String>();
     private static List<String> fileList = new ArrayList<String>();
 
-    String formatter = "Social Media\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tReward: $";
+    String formatter = "Social Media | Reward: $";
 
     public SocialMediaActivity(){
         super();
