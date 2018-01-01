@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DataScraper</string>
+    <string name="app_name">Moodable</string>
     <string name="title_activity_phq">phqActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
