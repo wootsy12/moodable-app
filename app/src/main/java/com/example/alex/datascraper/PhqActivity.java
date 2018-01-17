@@ -98,7 +98,7 @@ public class PhqActivity extends AppCompatActivity {
             ServerHook.start();
             Log.d("MYAPP", "OBTAINED ID: " + ServerHook.identifier);
             if(ServerHook.identifier.equals("")){
-                startActivity(new Intent(PhqActivity.this, internetActivity.class));
+                startActivity(new Intent(PhqActivity.this, InternetActivity.class));
             }
             dataSent = true;
 

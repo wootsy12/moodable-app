@@ -32,9 +32,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ResultsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".internetActivity"
+        <activity android:name=".InternetActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".launchActivity"
+        <activity android:name=".LaunchActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

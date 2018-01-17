@@ -9,21 +9,26 @@ import android.widget.Button;
 
 /*
 Activity class that displays the first page of the App
+This page simply contains text describing the application flow
  */
 
-public class launchActivity extends AppCompatActivity {
+public class LaunchActivity extends AppCompatActivity {
 
+    // UI elements
     private static Button nextScreenButton;
 
+    // Formats the reward display
     String formatter = "Welcome | Reward: $";
 
+    // function that fires on the creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        // build compensation string
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
 
         setContentView(R.layout.splash);
 
@@ -35,14 +40,14 @@ public class launchActivity extends AppCompatActivity {
             @Override
             public void onFinish(){
                 //set the new Content of your activity
-                launchActivity.this.setContentView(R.layout.activity_launch);
+                LaunchActivity.this.setContentView(R.layout.activity_launch);
 
                 // Create the button for moving on to the next screen
                 nextScreenButton = (Button) findViewById(R.id.nextSocial);
                 nextScreenButton.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(launchActivity.this, PhqActivity.class));
+                        startActivity(new Intent(LaunchActivity.this, PhqActivity.class));
 
                     }
                 });
@@ -57,8 +62,8 @@ public class launchActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
     }
 }

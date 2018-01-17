@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    tools:context="com.example.alex.datascraper.launchActivity">
+    tools:context="com.example.alex.datascraper.LaunchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

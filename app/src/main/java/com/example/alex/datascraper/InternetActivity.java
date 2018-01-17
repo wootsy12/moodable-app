@@ -10,14 +10,16 @@ import android.widget.Toast;
 
 
 /*
-Activity class for the page that displays when no internet connection could be established to obtain a user ID
+Activity class for the page that displays when no internet connection could be established to obtain
+a user ID
+Returns to the PHQ activity once internet connection is established
  */
 
-public class internetActivity extends AppCompatActivity {
+public class InternetActivity extends AppCompatActivity {
 
     private Button nextButton;
 
-    // At the start of this activity
+    // function that fires at the start of this activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +29,7 @@ public class internetActivity extends AppCompatActivity {
         ServerHook.start();
         Log.d("MYAPP", "OBTAINED ID: " + ServerHook.identifier);
         if(!ServerHook.identifier.equals("")){
-            startActivity(new Intent(internetActivity.this, PhqActivity.class));
+            startActivity(new Intent(InternetActivity.this, PhqActivity.class));
         }
 
 
@@ -45,7 +47,7 @@ public class internetActivity extends AppCompatActivity {
 
                 // If successful, move on to PHQ screen
                 if(!ServerHook.identifier.equals("")){
-                    startActivity(new Intent(internetActivity.this, PhqActivity.class));
+                    startActivity(new Intent(InternetActivity.this, PhqActivity.class));
                 }
                 // If failed, tell the user that no internet connection is detected and stay on this screen
                 else{
