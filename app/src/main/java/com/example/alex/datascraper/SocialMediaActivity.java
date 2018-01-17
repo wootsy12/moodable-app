@@ -1,7 +1,6 @@
 package com.example.alex.datascraper;
 
 import android.app.DownloadManager;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Environment;
@@ -36,17 +34,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /*
 Activity class for requesting data from scoial media accounts.
+Asks the user to sign in to Google, Instagram, and give their Twitter username
  */
-
 
 public class SocialMediaActivity extends AppCompatActivity {
 
@@ -68,6 +63,7 @@ public class SocialMediaActivity extends AppCompatActivity {
     // count of GPS files downloading
     private static int cnt=-1;
 
+    // message for telling the user to wait for gps download to finish
     Toast downloadToast;
 
     private static EditText twitterText;
@@ -81,7 +77,9 @@ public class SocialMediaActivity extends AppCompatActivity {
     }
 
     // converts a file to a string
-    // http://www.java2s.com/Code/Java/File-Input-Output/ConvertInputStreamtoString.htm
+    // inspired by http://www.java2s.com/Code/Java/File-Input-Output/ConvertInputStreamtoString.htm
+    // INPUT - is - an input stream made from a file
+    // OUTPUT - a string representing the file
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
@@ -93,6 +91,7 @@ public class SocialMediaActivity extends AppCompatActivity {
         return sb.toString();
     }
 
+    // function that fires when this Activity is created, overrides the default
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,10 +99,10 @@ public class SocialMediaActivity extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_main);
 
-
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        // edits the compensation string for displaying how much money the participant will receive
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
 
 
         // set up code for Twitter username submission
@@ -116,12 +115,12 @@ public class SocialMediaActivity extends AppCompatActivity {
                 String twitter = twitterText.getText().toString();
                 Log.d("MYAPP", twitter);
                 twitterText.setText("");
-                serverHook.sendToServer("twitterUsername", twitter);
+                ServerHook.sendToServer("twitterUsername", twitter);
                 if(!tritrd) {
                     ((MyApplication) getApplication()).addCompensation(0.10);
-                    String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                    fuckyou = fuckyou + "0";
-                    setTitle(formatter+fuckyou);
+                    String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+                    compString = compString + "0";
+                    setTitle(formatter+compString);
                     ((MyApplication) getApplication()).completetwitter();
                 }
                 tritrd=true;
@@ -152,7 +151,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                 + "&redirect_uri="
                 + CALLBACK // server page to redirect to
                 + "&state="
-                + serverHook.identifier // ID to send to server alongside the auth token
+                + ServerHook.identifier // ID to send to server alongside the auth token
                 +"&response_type=code";
         // set up webview and load page
         instaView.getSettings().setJavaScriptEnabled(true);
@@ -160,19 +159,20 @@ public class SocialMediaActivity extends AppCompatActivity {
         instaView.loadUrl(url);
         //instaView.setVisibility(View.VISIBLE);
 
-
+        // build web page inside app screen
         instaView.setWebViewClient(new WebViewClient(){
+
+            // on page started
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
 
-
                 if(url.substring(0,43).equals("http://depressionmqp.wpi.edu:8080/instagram")) {
                     if(!instad) {
                         ((MyApplication) getApplication()).addCompensation(0.10);
-                        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                        fuckyou = fuckyou + "0";
-                        setTitle(formatter+fuckyou);
+                        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+                        compString = compString + "0";
+                        setTitle(formatter+compString);
                         ((MyApplication) getApplication()).completeInsta();
                     }
                     instad=true;
@@ -266,9 +266,9 @@ public class SocialMediaActivity extends AppCompatActivity {
                         else if(cnt==14) {
                             if(!downloaded) {
                                 ((MyApplication) getApplication()).addCompensation(0.30);
-                                String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                                fuckyou = fuckyou + "0";
-                                setTitle(formatter+fuckyou);
+                                String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+                                compString = compString + "0";
+                                setTitle(formatter+compString);
                                 ((MyApplication) getApplication()).completeGoogle();
                             }
                             downloaded=true;
@@ -326,22 +326,24 @@ public class SocialMediaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                if(/*(modalityHabits.DONE) &&*/ ((cnt==14) || (cnt==-1))) {
+                // originally would not let the user pass if background data sending isnt finished
+                // we decided to remove that aspect for users with slow internet
+                // instead it only makes the user wait for the GPS data to send
+                if(/*(ModalityHabits.DONE) &&*/ ((cnt==14) || (cnt==-1))) {
 
                     // send downloaded GPS data
                     for(int i=0;i<14;i++) {
                         try {
                             FileInputStream Fin=new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileList.get(i)));
                             String sendGPS = convertStreamToString(Fin);
-                            serverHook.sendToServer("gps",sendGPS);
+                            ServerHook.sendToServer("gps",sendGPS);
                         } catch (Exception e) {
 
                         }
 
                     }
-                    serverHook.sendToServer("debug", "END");
-                    startActivity(new Intent(SocialMediaActivity.this, resultsActivity.class));
+                    ServerHook.sendToServer("debug", "END");
+                    startActivity(new Intent(SocialMediaActivity.this, ResultsActivity.class));
                 }
                 // if in progress of GPS download, do not continue
                 else{
@@ -356,6 +358,9 @@ public class SocialMediaActivity extends AppCompatActivity {
 
     }
 
+    // loads the next download URL in the Google webview
+    // INPUT - url - url of next download page
+    // INPUT - v - webview to open URL in
     public void downloadNext(String url, WebView v) {
         v.loadUrl(url);
     }
@@ -381,9 +386,9 @@ public class SocialMediaActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
     }
 
 }

@@ -2,6 +2,14 @@ package com.example.alex.datascraper;
 
 import android.app.Application;
 
+/*
+Class for tracking how much of the application the user has completed and calculation
+the financial compensation they will receive
+The more the user complete, the more compensation they will receive
+The code the user receives at the end contains extra numbers corresponding to which modules they
+completed
+When they submit the code on Amazon Turk, we can see how much they completed and reward them
+ */
 public class MyApplication extends Application {
 
     private double someVariable=0.40;
@@ -10,6 +18,7 @@ public class MyApplication extends Application {
     private boolean twitterComplete=false;
     private boolean instaComplete=false;
 
+    // functions for altering variables
     public double getComepnsation() {
         return someVariable;
     }
@@ -34,6 +43,8 @@ public class MyApplication extends Application {
         instaComplete=true;
     }
 
+    // Builds the portion of the code the user receives at the end that allows us to see how much
+    //they completed
     public String getCompletion() {
         String str = "";
         if(recordingComplete){

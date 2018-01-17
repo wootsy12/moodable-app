@@ -26,11 +26,11 @@
             android:name=".SocialMediaActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".phqActivity"
+            android:name=".PhqActivity"
             android:label="@string/title_activity_phq"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
-        <activity android:name=".resultsActivity"
+        <activity android:name=".ResultsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".internetActivity"
             android:screenOrientation="portrait"/>
@@ -42,7 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recordActivity"
+        <activity android:name=".RecordActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

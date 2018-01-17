@@ -24,10 +24,10 @@ public class internetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_internet);
 
         // Attempt to get an ID from the server, and move on to PHQ screen if successful
-        serverHook.start();
-        Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
-        if(!serverHook.identifier.equals("")){
-            startActivity(new Intent(internetActivity.this, phqActivity.class));
+        ServerHook.start();
+        Log.d("MYAPP", "OBTAINED ID: " + ServerHook.identifier);
+        if(!ServerHook.identifier.equals("")){
+            startActivity(new Intent(internetActivity.this, PhqActivity.class));
         }
 
 
@@ -40,12 +40,12 @@ public class internetActivity extends AppCompatActivity {
                 // Attempt to connect to internet and obtain an ID from the server
                 Toast toast=Toast.makeText(getApplicationContext(),"Checking for connection....",Toast.LENGTH_LONG);
                 toast.show();
-                serverHook.start();
-                Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
+                ServerHook.start();
+                Log.d("MYAPP", "OBTAINED ID: " + ServerHook.identifier);
 
                 // If successful, move on to PHQ screen
-                if(!serverHook.identifier.equals("")){
-                    startActivity(new Intent(internetActivity.this, phqActivity.class));
+                if(!ServerHook.identifier.equals("")){
+                    startActivity(new Intent(internetActivity.this, PhqActivity.class));
                 }
                 // If failed, tell the user that no internet connection is detected and stay on this screen
                 else{

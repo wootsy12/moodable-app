@@ -4,16 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -22,19 +15,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Bundle;
-import android.app.Activity;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.app.ActionBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 /*
@@ -42,7 +25,7 @@ Activity class for the PHQ form screen. This screen also asks for data permissio
 the the modality scraping threads.
  */
 
-public class phqActivity extends AppCompatActivity {
+public class PhqActivity extends AppCompatActivity {
 
     private static Button phqSubmit; // next button
 
@@ -97,25 +80,25 @@ public class phqActivity extends AppCompatActivity {
 
     String formatter = "PHQ-9 Questionnaire | Reward: $";
     // phone data scraper
-    modalityHabits mhabits = new modalityHabits();
+    ModalityHabits mhabits = new ModalityHabits();
 
-
+    // Function that fires on the creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
 
         setContentView(R.layout.activity_phq);
 
 
         // send all available data in a seperate thread from the UI, as long as it hasnt already been started
         if(!dataSent){
-            serverHook.start();
-            Log.d("MYAPP", "OBTAINED ID: " + serverHook.identifier);
-            if(serverHook.identifier.equals("")){
-                startActivity(new Intent(phqActivity.this, internetActivity.class));
+            ServerHook.start();
+            Log.d("MYAPP", "OBTAINED ID: " + ServerHook.identifier);
+            if(ServerHook.identifier.equals("")){
+                startActivity(new Intent(PhqActivity.this, internetActivity.class));
             }
             dataSent = true;
 
@@ -180,9 +163,9 @@ public class phqActivity extends AppCompatActivity {
                     // send PHQ answers
                     phq = phq.substring(0, phq.length() - 1);
                     phq += "}";
-                    serverHook.sendToServer("phq", phq);
+                    ServerHook.sendToServer("phq", phq);
                     // move to next screen
-                    startActivity(new Intent(phqActivity.this, recordActivity.class));
+                    startActivity(new Intent(PhqActivity.this, RecordActivity.class));
                 }
                 // If not all questions were answered, alert the user
                 else{
@@ -224,7 +207,7 @@ public class phqActivity extends AppCompatActivity {
      */
     public void sendAllAvailableData(){
         Context mContext = getApplicationContext();
-        serverHook.sendToServer("debug","START");
+        ServerHook.sendToServer("debug","START");
         Log.d("MYAPP", "GO");
 
         // list holding modalities for which the app is waiting for permissions to be granted
@@ -302,7 +285,7 @@ public class phqActivity extends AppCompatActivity {
      */
     private void checkIfFinishedDispatching(){
         if(mainDataDispatchingFinished && permissionsDataDispatchingFinished){;
-            mhabits.dispatchDone(); // tell modalityHabits that the mainactivity is done dispatching
+            mhabits.dispatchDone(); // tell ModalityHabits that the mainactivity is done dispatching
             mainDataDispatchingFinished = false;
             permissionsDataDispatchingFinished = false;
         }
@@ -372,9 +355,9 @@ public class phqActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
     }
 
 }

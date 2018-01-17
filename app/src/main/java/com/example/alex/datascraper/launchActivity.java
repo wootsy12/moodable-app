@@ -1,16 +1,11 @@
 package com.example.alex.datascraper;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 /*
 Activity class that displays the first page of the App
@@ -47,7 +42,7 @@ public class launchActivity extends AppCompatActivity {
                 nextScreenButton.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(launchActivity.this, phqActivity.class));
+                        startActivity(new Intent(launchActivity.this, PhqActivity.class));
 
                     }
                 });

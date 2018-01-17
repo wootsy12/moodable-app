@@ -26,14 +26,15 @@ import java.nio.ByteBuffer;
  * continues where it left off when internet returns.
  */
 
-public class serverHook extends AppCompatActivity {
+public class ServerHook extends AppCompatActivity {
 
     // URL of server to send data to
     private final static String request = "http://depressionmqp.wpi.edu:8080";
     // Unique ID that is the only identifier saved with the data obtained
     public static String identifier = "";
 
-    // initializes serverHook by obtaining a unique ID
+    // Initializes ServerHook by obtaining a unique ID
+    // OUPUT - the string identifier received, or an empty string if nothing received
     public static String start(){
         identifier = "";
 
@@ -46,6 +47,7 @@ public class serverHook extends AppCompatActivity {
 
             URL url = new URL(request + "/initiateclient");
 
+            // Set connection settings
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(false);
             connection.setDoInput(true);
@@ -83,7 +85,10 @@ public class serverHook extends AppCompatActivity {
     }
 
     // Attempts to send a message to the server
-    // If it fails to it will try again a few times, then start checking only every 2 seconds
+    // If it fails to it will try again a few times, then start checking for connection
+    // only every 2 seconds
+    // INPUT - type - the type of data being sent
+    // INPUT - msg - the data to send, in string form
     public static void sendToServer(String type, String msg){
         // If error occurs connecting to server, try again 10 times
         int timeout = 0;
@@ -125,12 +130,13 @@ public class serverHook extends AppCompatActivity {
 
 
     /*
-    Sends data to the server as a POST
-    @param type the data type being sent
-    @param msg the data
+    Sends data to the server in the body of an HTTP message
+    INPUT - type - the data type being sent
+    INPUT - msg  - the data
+    THROWS - an exception if connection fails
      */
     private static void attemptToSend(String type, String msg) throws Exception{
-        if(identifier == null){
+        if(identifier == ""){
             Log.d("MYAPP", "Managed to get this far without an ID, not good.");
             return;
         }

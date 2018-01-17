@@ -15,19 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 /*
 Activity class for the voice recording screen of the application
  */
 
-public class recordActivity extends AppCompatActivity {
+public class RecordActivity extends AppCompatActivity {
 
     // UI elements
     private static Button recordButton;
@@ -50,15 +47,17 @@ public class recordActivity extends AppCompatActivity {
 
     String formatter = "Voice Recording | Reward: $";
 
+    // Function that fires on creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        // display current compensation
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
 
 
         // ask for permissions needed to get a recording (Access to record, permission to read and write files)
@@ -120,7 +119,7 @@ public class recordActivity extends AppCompatActivity {
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(recordActivity.this,SocialMediaActivity.class));
+                startActivity(new Intent(RecordActivity.this,SocialMediaActivity.class));
 
             }
         });
@@ -184,13 +183,13 @@ public class recordActivity extends AppCompatActivity {
             String recording = Base64.encodeToString(bytes, 0);
             // send recording to the server
             Log.d("MYAPP", recording);
-            serverHook.sendToServer("audio", recording);
+            ServerHook.sendToServer("audio", recording);
 
             if(!RECORDINGRECEIVED) {
                 ((MyApplication) this.getApplication()).addCompensation(0.10);
-                String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                fuckyou = fuckyou + "0";
-                setTitle(formatter+fuckyou);
+                String comString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+                comString = comString + "0";
+                setTitle(formatter+comString);
                 ((MyApplication) this.getApplication()).completeRecording();
             }
             RECORDINGRECEIVED = true;
@@ -221,8 +220,8 @@ public class recordActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        String fuckyou = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        fuckyou = fuckyou + "0";
-        setTitle(formatter+fuckyou);
+        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
+        compString = compString + "0";
+        setTitle(formatter+compString);
     }
 }

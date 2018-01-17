@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:fitsSystemWindows="true"
-    tools:context="com.example.alex.datascraper.phqActivity">
+    tools:context="com.example.alex.datascraper.PhqActivity">
 
     <include layout="@layout/content_phq" />
 
