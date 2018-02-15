@@ -182,4 +182,56 @@ public class ServerHook extends AppCompatActivity {
     }
 
 
+    // Initializes ServerHook by obtaining a unique ID
+    // OUPUT - the string identifier received, or an empty string if nothing received
+    public static String getMLResult(){
+        identifier = "";
+
+        // connect to server
+        try {
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            URL url = new URL("http://depressionmqp.wpi.edu:3232");
+
+            // Set connection settings
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(false);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+            connection.setRequestMethod("GET");
+            //connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
+
+            // Attempt to read an ID from the server response
+            BufferedReader in;
+            String output;
+            try{
+
+                if (150 <= connection.getResponseCode() && connection.getResponseCode() <= 299) {
+                    in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                } else {
+                    in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+                }
+                while ((output = in.readLine()) != null) {
+                    output = output.replace("null", "");
+                    identifier += output;
+                }
+                in.close();
+            }catch(Exception e){
+                return "";
+            }
+            connection.disconnect();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            identifier = "";
+        }
+        return identifier;
+    }
+
+
 }

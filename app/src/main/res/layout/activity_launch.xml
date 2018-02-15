@@ -28,49 +28,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Thank you for downloading our survey! Here is a brief summary of what you will encounter:"
+                    android:text="Welcome to Moodable :)"
                     android:textSize="24sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="1. You will be confronted with 5 popups asking for permission to access data on your phone." />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="2. You will be asked to fill out the PHQ-9. (NOTE this is the only section that must be completely filled out)" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="3. You will be given the chance to record a short sample of your voice." />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="4. You will be asked to identify your Google and social media accounts." />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="5. You will be given your survey code." />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="IMPORTANT: Please remember that you are not required to fill out any section of this survey. However, all information you do give will be stored anonymously on a secure server and will not be tied to you. The more information you give the more effective we can make this app at detecting depression early which could potentially save lives, so please answer as much as you can!"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
                     android:id="@+id/nextSocial"

@@ -45,8 +45,6 @@ public class RecordActivity extends AppCompatActivity {
     // file path to store recording at
     private static String audioFilePath;
 
-    String formatter = "Voice Recording | Reward: $";
-
     // Function that fires on creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +52,7 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
-        // display current compensation
-        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        compString = compString + "0";
-        setTitle(formatter+compString);
+
 
 
         // ask for permissions needed to get a recording (Access to record, permission to read and write files)
@@ -186,10 +181,7 @@ public class RecordActivity extends AppCompatActivity {
             ServerHook.sendToServer("audio", recording);
 
             if(!RECORDINGRECEIVED) {
-                ((MyApplication) this.getApplication()).addCompensation(0.10);
-                String comString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                comString = comString + "0";
-                setTitle(formatter+comString);
+
                 ((MyApplication) this.getApplication()).completeRecording();
             }
             RECORDINGRECEIVED = true;
@@ -218,10 +210,5 @@ public class RecordActivity extends AppCompatActivity {
 
     }
 
-    public void onResume() {
-        super.onResume();
-        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        compString = compString + "0";
-        setTitle(formatter+compString);
-    }
+
 }

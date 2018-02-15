@@ -78,7 +78,6 @@ public class PhqActivity extends AppCompatActivity {
     TextView textview;
     LinearLayout.LayoutParams layoutparams;
 
-    String formatter = "PHQ-9 Questionnaire | Reward: $";
     // phone data scraper
     ModalityHabits mhabits = new ModalityHabits();
 
@@ -86,11 +85,11 @@ public class PhqActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        compString = compString + "0";
-        setTitle(formatter+compString);
+
 
         setContentView(R.layout.activity_phq);
+
+        setTitle("Moodable");
 
 
         // send all available data in a seperate thread from the UI, as long as it hasnt already been started
@@ -110,94 +109,19 @@ public class PhqActivity extends AppCompatActivity {
             t.start();
         }
 
-        // grab UI elements
-        rb1 = (Button) findViewById(R.id.radioButton);
-        rb2 = (Button) findViewById(R.id.radioButton2);
-        rb3 = (Button) findViewById(R.id.radioButton3);
-        rb4 = (Button) findViewById(R.id.radioButton4);
-        rb1.setClickable(false);
-        rb2.setClickable(false);
-        rb3.setClickable(false);
-        rb4.setClickable(false);
-
-        scrollView2 = findViewById(R.id.scrollView2);
-        scrollChild = findViewById(R.id.scrollChild);
-        butty = findViewById(R.id.arrowBoy);
-        buttytext = findViewById(R.id.arrowText);
-
-        questions = new RadioGroup[9];
-        questions[0] = (RadioGroup) findViewById(R.id.PHQ1);
-        questions[1] = (RadioGroup) findViewById(R.id.PHQ2);
-        questions[2] = (RadioGroup) findViewById(R.id.PHQ3);
-        questions[3] = (RadioGroup) findViewById(R.id.PHQ4);
-        questions[4] = (RadioGroup) findViewById(R.id.PHQ5);
-        questions[5] = (RadioGroup) findViewById(R.id.PHQ6);
-        questions[6] = (RadioGroup) findViewById(R.id.PHQ7);
-        questions[7] = (RadioGroup) findViewById(R.id.PHQ8);
-        questions[8] = (RadioGroup) findViewById(R.id.PHQ9);
 
         // build the PHQ submit button
         phqSubmit = (Button) findViewById(R.id.phqSub);
         phqSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                boolean PHQcompleted = true; // mark PHQ as completed
-                String phq = "{"; // string holding results of the PHQ
-                RadioButton selected;
+                startActivity(new Intent(PhqActivity.this, RecordActivity.class));
 
-                // go through each question and grab the answer
-                for(int i=0; i<questions.length; i++){
-                    int checked = questions[i].getCheckedRadioButtonId();
-                    // if a question is unanswered, stop gathering answers and dont send
-                    if(checked == -1){
-                        PHQcompleted = false;
-                        break;
-                    }
-                    // add the selected answer to the results string
-                    selected = (RadioButton) findViewById(checked);
-                    phq += "\"Q" + i + "\":\"" + selected.getText().toString() + "\",";
-                }
-
-                // If all questions were answered
-                if(PHQcompleted){
-                    // send PHQ answers
-                    phq = phq.substring(0, phq.length() - 1);
-                    phq += "}";
-                    ServerHook.sendToServer("phq", phq);
-                    // move to next screen
-                    startActivity(new Intent(PhqActivity.this, RecordActivity.class));
-                }
-                // If not all questions were answered, alert the user
-                else{
-                    Toast toast=Toast.makeText(getApplicationContext(),"Please answer all questions before continuing.",Toast.LENGTH_LONG);
-                    toast.show();
-                }
 
             }
         });
 
-        // code for fading the arrow that tells users to swipe to scroll down
-        scrollView2.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                // as long as it hasnt comepletely vanished
-                if(!buttydone) {
-                    int scrollY = scrollView2.getScrollY(); // For ScrollView
-                    int scrollHeight = scrollChild.getHeight();
-                    int var = (scrollHeight - 1100);
-                    float alph = (float) (var - (2 * scrollY)) / (float) var;
 
-                    // Change opacity to less the further down the user scrolls
-                    float alphBefore = butty.getAlpha();
-                    // only ever decrease opactiy, never bring it back
-                    if(alphBefore > alph){
-                        butty.setAlpha(alph);
-                        buttytext.setAlpha(alph);
-                    }
-
-                }
-            }
-        });
 
     }
 
@@ -353,11 +277,6 @@ public class PhqActivity extends AppCompatActivity {
 
     }
 
-    public void onResume() {
-        super.onResume();
-        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        compString = compString + "0";
-        setTitle(formatter+compString);
-    }
+
 
 }

@@ -12,25 +12,17 @@ It presents the user with a code they can use to redeem on Amazon Mechanical Tur
 public class ResultsActivity extends AppCompatActivity {
 
 
+    TextView depv;
     // Build activity screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("");
-
-        String comp = ((MyApplication) getApplication()).getCompletion();
-
         setContentView(R.layout.activity_results);
+        String res = ServerHook.getMLResult();
 
-        TextView results = findViewById(R.id.resultsText);
-        results.setText("Thanks for participating! \nYour code is: " + ServerHook.identifier+comp);
+        depv = findViewById(R.id.depressionEstimate);
 
-
-        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        compString = compString + "0";
-
-        TextView Compensation = findViewById(R.id.comp);
-        Compensation.setText("Final Reward: $"+compString);
+        depv.setText(res);
 
     }
 

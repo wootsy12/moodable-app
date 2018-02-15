@@ -70,7 +70,6 @@ public class SocialMediaActivity extends AppCompatActivity {
     private static List<String> urlList = new ArrayList<String>();
     private static List<String> fileList = new ArrayList<String>();
 
-    String formatter = "Social Media | Reward: $";
 
     public SocialMediaActivity(){
         super();
@@ -99,10 +98,6 @@ public class SocialMediaActivity extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_main);
 
-        // edits the compensation string for displaying how much money the participant will receive
-        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        compString = compString + "0";
-        setTitle(formatter+compString);
 
 
         // set up code for Twitter username submission
@@ -117,10 +112,6 @@ public class SocialMediaActivity extends AppCompatActivity {
                 twitterText.setText("");
                 ServerHook.sendToServer("twitterUsername", twitter);
                 if(!tritrd) {
-                    ((MyApplication) getApplication()).addCompensation(0.10);
-                    String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                    compString = compString + "0";
-                    setTitle(formatter+compString);
                     ((MyApplication) getApplication()).completetwitter();
                 }
                 tritrd=true;
@@ -169,10 +160,6 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                 if(url.substring(0,43).equals("http://depressionmqp.wpi.edu:8080/instagram")) {
                     if(!instad) {
-                        ((MyApplication) getApplication()).addCompensation(0.10);
-                        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                        compString = compString + "0";
-                        setTitle(formatter+compString);
                         ((MyApplication) getApplication()).completeInsta();
                     }
                     instad=true;
@@ -265,10 +252,6 @@ public class SocialMediaActivity extends AppCompatActivity {
                         }
                         else if(cnt==14) {
                             if(!downloaded) {
-                                ((MyApplication) getApplication()).addCompensation(0.30);
-                                String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-                                compString = compString + "0";
-                                setTitle(formatter+compString);
                                 ((MyApplication) getApplication()).completeGoogle();
                             }
                             downloaded=true;
@@ -384,11 +367,5 @@ public class SocialMediaActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onResume() {
-        super.onResume();
-        String compString = String.format("%.1f",  ((MyApplication) getApplication()).getComepnsation());
-        compString = compString + "0";
-        setTitle(formatter+compString);
-    }
 
 }
