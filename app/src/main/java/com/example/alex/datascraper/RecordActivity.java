@@ -66,11 +66,11 @@ public class RecordActivity extends AppCompatActivity {
 
 
         recordButton = (Button) findViewById(R.id.recordButton);
-        recordButton.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+        //recordButton.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 
 
         stopButton = (Button) findViewById(R.id.stopButton);
-        stopButton.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+        //stopButton.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 
 
 
