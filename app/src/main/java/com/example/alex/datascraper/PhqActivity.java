@@ -274,6 +274,7 @@ public class PhqActivity extends AppCompatActivity {
         // mark permissions response dispatcher as done and check if done dispatching
         permissionsDataDispatchingFinished = true;
         checkIfFinishedDispatching();
+        startActivity(new Intent(PhqActivity.this, RecordActivity.class));
 
     }
 
