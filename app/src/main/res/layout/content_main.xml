@@ -52,87 +52,6 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="24dp"
-                android:padding="10dp"
-                android:text="Please enter your username or sign in to the following social media sites:"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:windowSoftInputMode="adjustPan" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/instagramWebview"
-                android:layout_marginTop="11dp"
-                android:padding="10dp"
-                android:text="NOTE: By providing us your usernames you are giving us permission to anonymously collect your posts on these sites."
-                android:textSize="18sp"
-                android:windowSoftInputMode="adjustPan" />
-
-            <TextView
-                android:id="@+id/twitterLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/twitterText"
-                android:layout_below="@+id/textView2"
-                android:padding="10dp"
-                android:text="Twitter Username:"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:windowSoftInputMode="adjustPan" />
-
-            <EditText
-                android:id="@+id/twitterText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/twitterLabel"
-                android:layout_centerHorizontal="true"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:selectAllOnFocus="false"
-                android:windowSoftInputMode="adjustPan" />
-
-            <Button
-                android:id="@+id/submitSM"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/twitterText"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="17dp"
-                android:padding="10dp"
-                android:text="Submit"
-                android:windowSoftInputMode="adjustPan" />
-
-            <TextView
-                android:id="@+id/instagramText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Please log in to Instagram if you have an account:"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <WebView
-                android:id="@+id/instagramWebview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="false"
-                android:layout_below="@+id/submitSM"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="5dp"
-                android:minHeight="200dp"
-                android:visibility="visible"
-                android:windowSoftInputMode="adjustPan">
-
-            </WebView>
-
-            <TextView
                 android:id="@+id/GPSDoneText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,16 +60,19 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:visibility="gone" />
 
-            <Button
-                android:id="@+id/nextRecord"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                tools:layout_editor_absoluteX="142dp"
-                tools:layout_editor_absoluteY="0dp" />
-
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/nextRecord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="13dp"
+        android:text="Next"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </RelativeLayout>

@@ -45,19 +45,16 @@ Asks the user to sign in to Google, Instagram, and give their Twitter username
 
 public class SocialMediaActivity extends AppCompatActivity {
 
-    // Client ID for making Instagram API sign in requests
-    private static final String CLIENT_ID = "44fa875f13844f5f8401fef309ccfc97";
-    // URL to redirect to after Instagram sign in
-    private static final String CALLBACK = "http://depressionmqp.wpi.edu:8080/instagram";
+
 
     // UI elements
-    private static Button submitButton;
+
     private static Button nextScreenButton;
-    private static WebView instaView;
+
     public static WebView googleView;
     private static boolean downloaded=false;
-    private static boolean instad =false;
-    private static boolean tritrd=false;
+
+
     private long mDownloadedFileID;
 
     // count of GPS files downloading
@@ -66,7 +63,7 @@ public class SocialMediaActivity extends AppCompatActivity {
     // message for telling the user to wait for gps download to finish
     Toast downloadToast;
 
-    private static EditText twitterText;
+
     private static List<String> urlList = new ArrayList<String>();
     private static List<String> fileList = new ArrayList<String>();
 
@@ -100,84 +97,10 @@ public class SocialMediaActivity extends AppCompatActivity {
 
 
 
-        // set up code for Twitter username submission
-        twitterText = (EditText) findViewById(R.id.twitterText);
-        // send twitter username to server on submit
-        submitButton = (Button) findViewById(R.id.submitSM);
-        submitButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                String twitter = twitterText.getText().toString();
-                Log.d("MYAPP", twitter);
-                twitterText.setText("");
-                ServerHook.sendToServer("twitterUsername", twitter);
-                if(!tritrd) {
-                    ((MyApplication) getApplication()).completetwitter();
-                }
-                tritrd=true;
-
-            }
-        });
-
-
-        // set up webview for Instagram login
-        CookieManager.getInstance().setAcceptCookie(true); // for testing purposes, lets me always see login screen
-        // load instagram authentication website
-        instaView = (WebView) findViewById(R.id.instagramWebview);
-        instaView.setWebViewClient(new WebViewClient(){
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView v, String url){
-
-                v.loadUrl(url);
-                return true;
-            }
 
 
 
-        });
-        // url of instagram authentication page
-        String url = "https://api.instagram.com/oauth/authorize/?client_id="
-                + CLIENT_ID // my API id
-                + "&redirect_uri="
-                + CALLBACK // server page to redirect to
-                + "&state="
-                + ServerHook.identifier // ID to send to server alongside the auth token
-                +"&response_type=code";
-        // set up webview and load page
-        instaView.getSettings().setJavaScriptEnabled(true);
-        instaView.setInitialScale(200);
-        instaView.loadUrl(url);
-        //instaView.setVisibility(View.VISIBLE);
 
-        // build web page inside app screen
-        instaView.setWebViewClient(new WebViewClient(){
-
-            // on page started
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-
-                if(url.substring(0,43).equals("http://depressionmqp.wpi.edu:8080/instagram")) {
-                    if(!instad) {
-                        ((MyApplication) getApplication()).completeInsta();
-                    }
-                    instad=true;
-
-                }
-                Log.d("WebView", url);
-            }
-
-            public void onPageFinished(WebView view, String url) {
-            }
-
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView v, String url){
-                v.loadUrl(url);
-                return true;
-            }
-        });
 
         Calendar c = Calendar.getInstance();
 
@@ -326,7 +249,7 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                     }
                     ServerHook.sendToServer("debug", "END");
-                    startActivity(new Intent(SocialMediaActivity.this, ResultsActivity.class));
+                    startActivity(new Intent(SocialMediaActivity.this, TwitterActivity.class));
                 }
                 // if in progress of GPS download, do not continue
                 else{
