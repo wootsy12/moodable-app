@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whale"
     tools:context="com.example.alex.datascraper.TwitterActivity">
 
     <TextView
@@ -38,15 +39,16 @@
 
     <Button
         android:id="@+id/submitSM2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/twitterText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="396dp"
+        android:backgroundTint="@color/whale"
+        android:gravity="center"
         android:padding="10dp"
         android:text="Submit"
         android:windowSoftInputMode="adjustPan"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/twitterText" />

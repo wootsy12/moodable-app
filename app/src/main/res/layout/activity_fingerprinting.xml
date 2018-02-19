@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_fingerprint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whale"
+    android:padding="30dp"
+    android:layout_centerHorizontal="true"
+    tools:context="com.example.alex.datascraper.FingerprintActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fingerView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:text="@string/fingerprint_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <ImageView
+            android:id="@+id/finger_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/fingerView1"
+            android:layout_marginTop="36dp"
+            app:srcCompat="@drawable/ic_fingerprint_black_24dp" />
+
+        <TextView
+            android:id="@+id/fingerView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/finger_image_view"
+            android:layout_marginTop="27dp"
+            android:text="@string/instructions" />
+
+        <TextView
+            android:id="@+id/fingerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fingerView2"
+            android:layout_marginTop="250dp" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -94,14 +94,6 @@ public class SocialMediaActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_main);
-
-
-
-
-
-
-
-
         Calendar c = Calendar.getInstance();
 
         // requests the GPS for the last 2 weeks (14 days)

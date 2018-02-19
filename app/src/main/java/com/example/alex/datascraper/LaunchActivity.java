@@ -16,46 +16,53 @@ This page simply contains text describing the application flow
 public class LaunchActivity extends AppCompatActivity {
 
     // UI elements
-    private static Button nextScreenButton;
+    //Intent i = new Intent(LaunchActivity.this, FingerprintActivity.class);
+
+    //private static Button nextScreenButton;
 
     // function that fires on the creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.splash);
-
-
-
+        setContentView(R.layout.activity_launch);
 
         //display the logo during 2.5 seconds,
         new CountDownTimer(2500,1000){
             @Override
             public void onTick(long millisUntilFinished){}
-
             @Override
             public void onFinish(){
                 //set the new Content of your activity
-                LaunchActivity.this.setContentView(R.layout.activity_launch);
+                Intent i = new Intent(LaunchActivity.this, FingerprintActivity.class);
+                startActivity(i);
 
-
-
-                // Create the button for moving on to the next screen
-                nextScreenButton = (Button) findViewById(R.id.nextSocial);
-                nextScreenButton.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(LaunchActivity.this, PhqActivity.class));
-
-                    }
-                });
-
+                //startActivity(new Intent(LaunchActivity.this, FingerprintActivity.class));
 
             }
         }.start();
 
-
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_launch);
+
+        //display the logo during 2.5 seconds,
+        new CountDownTimer(2500,1000){
+            @Override
+            public void onTick(long millisUntilFinished){}
+            @Override
+            public void onFinish(){
+                //set the new Content of your activity
+
+                Intent i = new  Intent(LaunchActivity.this, FingerprintActivity.class);
+                startActivity(i);
+
+
+            }
+        }.start();
+    }
 }

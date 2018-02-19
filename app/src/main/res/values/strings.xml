@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Moodable</string>
     <string name="title_activity_phq">phqActivity</string>
+    <string name="fingerprint_name">Fingerprint Authentication</string>
+    <string name="instructions">Place your fingertip on the scanner to verify your identity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -91,4 +93,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="todo">TODO</string>
 </resources>
