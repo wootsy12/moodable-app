@@ -50,14 +50,12 @@
             android:name=".RecordActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".TwitterActivity" />
-        <activity android:name=".InstaActivity"></activity>
+        <activity android:name=".InstaActivity" />
+        <activity android:name=".PhotoActivity"></activity>
 
         <activity
             android:name=".ClinicActivity"
             android:screenOrientation="portrait">
-
-
-
         </activity>
     </application>
 
