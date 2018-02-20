@@ -2,6 +2,7 @@ package com.example.alex.datascraper;
 
 import android.*;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -124,6 +126,20 @@ public class ClinicActivity  extends AppCompatActivity {
                     labelAddress.setTextColor(Color.WHITE);
                     labelAddress.setLayoutParams(new TableRow.LayoutParams(0 , LinearLayout.LayoutParams.WRAP_CONTENT, 1));
                     tr.addView(labelAddress);
+                    JSONObject location =  place.getJSONObject("geometry").getJSONObject("location");
+                    final double locationLat = location.getDouble("lat");
+                    final double locationLng = location.getDouble("lng");
+                    tr.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            Intent openMap = new Intent(ClinicActivity.this,MapsActivity.class);
+                            openMap.putExtra("latitude",latitude);
+                            openMap.putExtra("longitude",longitude);
+                            openMap.putExtra("clinicLat",locationLat);
+                            openMap.putExtra("clinicLng",locationLng);
+                            startActivity(openMap);
+                        }
+                    });
                     tl.addView(tr, new TableLayout.LayoutParams(
                             TableLayout.LayoutParams.FILL_PARENT,
                             TableLayout.LayoutParams.WRAP_CONTENT));
@@ -165,8 +181,6 @@ public class ClinicActivity  extends AppCompatActivity {
         br.close();
 
         String jsonString = sb.toString();
-        System.out.println("JSON: " + jsonString);
-
         return new JSONObject(jsonString);
     }
 
