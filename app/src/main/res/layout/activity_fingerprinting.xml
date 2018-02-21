@@ -50,6 +50,18 @@
             android:layout_below="@id/fingerView2"
             android:layout_marginTop="250dp" />
 
+        <Button
+            android:id="@+id/pinButt"
+            style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fingerView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/cast_expanded_controller_background_color"
+            android:text="Use PIN Instead"
+            android:textColor="@color/cast_expanded_controller_background_color" />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

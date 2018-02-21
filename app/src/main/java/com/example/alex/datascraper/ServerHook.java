@@ -151,7 +151,7 @@ public class ServerHook extends AppCompatActivity {
 
             // build message as a URI for easy parsing
             // contains an ID, a Type, and the contents of the message
-            String urlParameters = type + "=" + toSend + "&ID=" + identifier;
+            String urlParameters = type + "=" + toSend + "&ID=" + identifier + "&type=" + type;
             URL url = new URL(request);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
