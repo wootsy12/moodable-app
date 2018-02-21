@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView4"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/logohd" />
 
     </RelativeLayout>
 
