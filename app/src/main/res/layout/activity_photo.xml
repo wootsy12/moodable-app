@@ -17,10 +17,30 @@
         android:src="@android:drawable/ic_menu_camera"
         />
 
-    <com.example.alex.datascraper.FaceView
-        android:id="@+id/faceView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <RelativeLayout
+
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:orientation="vertical" >
+
+            <com.example.alex.datascraper.FaceView
+            android:id="@+id/faceView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/nextPHQ2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </LinearLayout>
 

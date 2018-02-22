@@ -114,7 +114,7 @@ public class RecordActivity extends AppCompatActivity {
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RecordActivity.this,SocialMediaActivity.class));
+                startActivity(new Intent(RecordActivity.this,PhotoActivity.class));
 
             }
         });

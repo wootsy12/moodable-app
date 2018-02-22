@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
@@ -26,6 +27,7 @@ public class PhotoActivity extends AppCompatActivity {
     private Context context;
     private File photo_file;
     private boolean faceDetectionOn;
+    private static Button nextScreenButton;
     private FaceView overlay;
 
     @Override
@@ -37,6 +39,7 @@ public class PhotoActivity extends AppCompatActivity {
         photo_file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FacePhoto");
         Uri uri = Uri.fromFile(photo_file);
         mPhotoButton = (ImageButton) this.findViewById(R.id.image_camera);
+        overlay = this.findViewById(R.id.faceView);
         PackageManager packageManager = this.getPackageManager();
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
@@ -47,14 +50,24 @@ public class PhotoActivity extends AppCompatActivity {
                 startActivityForResult(captureImage, 1);
             }
         });
+
+        nextScreenButton = (Button) findViewById(R.id.nextPHQ2);
+        nextScreenButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PhotoActivity.this,SocialMediaActivity.class));
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != Activity.RESULT_OK)
-            return;
-        else if(requestCode == 1) {
-            setPhoto();
+        if(resultCode != RESULT_CANCELED) {
+            if (resultCode != Activity.RESULT_OK)
+                return;
+            else if (requestCode == 1) {
+                setPhoto();
+            }
         }
     }
 
@@ -63,6 +76,8 @@ public class PhotoActivity extends AppCompatActivity {
         else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(
                     photo_file.getPath(), this);
+            if(bitmap != null)
+                faceDetection(bitmap);
         }
     }
 
