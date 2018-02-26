@@ -35,7 +35,7 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onFinish(){
                 //set the new Content of your activity
-                Intent i = new Intent(LaunchActivity.this, FingerprintActivity.class);
+                Intent i = new Intent(LaunchActivity.this, RecordActivity.class);
                 startActivity(i);
 
                 //startActivity(new Intent(LaunchActivity.this, FingerprintActivity.class));
@@ -58,7 +58,7 @@ public class LaunchActivity extends AppCompatActivity {
             public void onFinish(){
                 //set the new Content of your activity
 
-                Intent i = new  Intent(LaunchActivity.this, FingerprintActivity.class);
+                Intent i = new  Intent(LaunchActivity.this, RecordActivity.class);
                 startActivity(i);
 
 
