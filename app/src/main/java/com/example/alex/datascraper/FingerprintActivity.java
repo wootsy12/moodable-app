@@ -88,7 +88,7 @@ public class FingerprintActivity extends AppCompatActivity{
                 // If your app doesn't have this permission, then display the following text//
                 //textView.setText("Enable the fingerprint permission");
                 Toast.makeText(this, "Please enable the fingerprint permission", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Settings.ACTION_SETTINGS));
+                //startActivity(new Intent(Settings.ACTION_SETTINGS));
 
             }
 

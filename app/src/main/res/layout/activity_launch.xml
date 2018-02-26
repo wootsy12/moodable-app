@@ -20,8 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="200dp"
+            android:fontFamily="casual"
             android:text="Welcome to Moodable :)"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="24sp" />
 
         <ImageView
             android:layout_width="match_parent"

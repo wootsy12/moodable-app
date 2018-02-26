@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class ClinicActivity  extends AppCompatActivity {
     gpsTracker gps;
     private boolean permissionAccepted = false;
     protected void onCreate(Bundle savedInstanceState) {
+        //ScrollView cLayout = (ScrollView) findViewById(R.id.clinicLayout);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -140,12 +143,14 @@ public class ClinicActivity  extends AppCompatActivity {
                             startActivity(openMap);
                         }
                     });
+
                     tl.addView(tr, new TableLayout.LayoutParams(
                             TableLayout.LayoutParams.FILL_PARENT,
                             TableLayout.LayoutParams.WRAP_CONTENT));
                     count++;
                 }
             }
+
             catch(IOException e){
 
             }
@@ -153,6 +158,7 @@ public class ClinicActivity  extends AppCompatActivity {
 
             }
     }
+
     public static JSONObject getJSONObjectFromURL(double latitude, double longitude) throws IOException, JSONException {
         StringBuilder googlePlacesUrl =
                 new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
