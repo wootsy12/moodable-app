@@ -5,7 +5,7 @@
     android:id="@+id/instaLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whale"
+    android:background="@drawable/gradient"
     tools:context="com.example.alex.datascraper.InstaActivity"
     tools:layout_editor_absoluteY="25dp">
 
