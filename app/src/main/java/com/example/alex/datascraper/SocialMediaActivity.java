@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.os.Environment;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -27,8 +26,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +50,7 @@ public class SocialMediaActivity extends AppCompatActivity {
     // UI elements
 
     private static Button nextScreenButton;
+
     public static WebView googleView;
     private static boolean downloaded=false;
 
@@ -64,7 +62,7 @@ public class SocialMediaActivity extends AppCompatActivity {
 
     // message for telling the user to wait for gps download to finish
     Toast downloadToast;
-    Toast thankYou;
+
 
     private static List<String> urlList = new ArrayList<String>();
     private static List<String> fileList = new ArrayList<String>();
@@ -94,7 +92,6 @@ public class SocialMediaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //ScrollView googleLayout = (ScrollView) findViewById(R.id.ggLayout);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_main);
         Calendar c = Calendar.getInstance();
@@ -123,10 +120,8 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                 if(url.contains("https://myaccount.google.com/")) {
                     googleView.setVisibility(View.GONE);
-                    thankYou = Toast.makeText(getApplicationContext(), "Thank you", Toast.LENGTH_SHORT);
-                    //TextView googComplete = (TextView) findViewById(R.id.googComplete);
-                    thankYou.show();
-                    //setVisibility(View.VISIBLE);
+                    TextView googComplete = (TextView) findViewById(R.id.googComplete);
+                    googComplete.setVisibility(View.VISIBLE);
                     if(!downloaded) {
                         cnt=0;
                         googleView.loadUrl(urlList.get(cnt));
@@ -178,8 +173,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                         }
                         else{
                             downloadToast.cancel();
-                            Toast.makeText(getApplicationContext(), "Download done. Swipe next", Toast.LENGTH_LONG).show();
-                            //findViewById(R.id.GPSDoneText).setVisibility(View.VISIBLE);
+                            findViewById(R.id.GPSDoneText).setVisibility(View.VISIBLE);
                         }
                     }
                 };
@@ -223,7 +217,7 @@ public class SocialMediaActivity extends AppCompatActivity {
         googleView.setInitialScale(200);
         googleView.loadUrl(urlg);
         googleView.setVisibility(View.VISIBLE);
-/*
+
         // button for switching to next screen
         nextScreenButton = (Button) findViewById(R.id.nextRecord);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
@@ -233,7 +227,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                 // originally would not let the user pass if background data sending isnt finished
                 // we decided to remove that aspect for users with slow internet
                 // instead it only makes the user wait for the GPS data to send
-                if(/*(ModalityHabits.DONE) && ((cnt==14) || (cnt==-1))) {
+                if(/*(ModalityHabits.DONE) &&*/ ((cnt==14) || (cnt==-1))) {
 
                     // send downloaded GPS data
                     for(int i=0;i<14;i++) {
@@ -256,50 +250,9 @@ public class SocialMediaActivity extends AppCompatActivity {
                     Toast toast=Toast.makeText(getApplicationContext(),"Please wait for data sending to finish.",Toast.LENGTH_LONG);
                     toast.show();
                 }
-
-            }
-        });*/
-
-
-        //nextScreenButton = (Button) findViewById(R.id.nextRecord);
-        googleView.setOnTouchListener(new SwipeActivity(this){
-            @Override
-            public void onSwipeLeft() {
-
-                // originally would not let the user pass if background data sending isnt finished
-                // we decided to remove that aspect for users with slow internet
-                // instead it only makes the user wait for the GPS data to send
-                if(/*(ModalityHabits.DONE) && */ ((cnt==14) || (cnt==-1))) {
-
-                    // send downloaded GPS data
-                    for(int i=0;i<14;i++) {
-                        try {
-                            FileInputStream Fin=new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileList.get(i)));
-                            String sendGPS = convertStreamToString(Fin);
-                            ServerHook.sendToServer("gps",sendGPS);
-                        } catch (Exception e) {
-
-                        }
-
-                    }
-                    ServerHook.sendToServer("debug", "END");
-                    startActivity(new Intent(SocialMediaActivity.this, TwitterActivity.class));
-                }
-                // if in progress of GPS download, do not continue
-                else{
-
-                    Log.d("MYAPP", Integer.toString(cnt));
-                    Toast toast=Toast.makeText(getApplicationContext(),"Please wait for data sending to finish.",Toast.LENGTH_LONG);
-                    toast.show();
-                }
-
-            }
-            public void onSwipeRight(){
-                startActivity(new Intent(SocialMediaActivity.this, PhotoActivity.class));
 
             }
         });
-        //next screen
 
     }
 

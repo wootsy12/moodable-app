@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whale"
@@ -19,10 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="casual"
             android:padding="10dp"
             android:text="Please press record, then speak the following phrase into the microphone: "
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,12 +62,9 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="casual"
                 android:text="Record"
                 android:textColor="@android:color/background_dark"
                 android:textSize="18sp"
-                android:windowSoftInputMode="adjustPan"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.45"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -90,7 +86,7 @@
             tools:layout_editor_absoluteY="359dp" />
 
     </LinearLayout>
-<!--
+
     <Button
         android:id="@+id/nextPHQ"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -102,5 +98,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
--->
+
 </android.support.constraint.ConstraintLayout>

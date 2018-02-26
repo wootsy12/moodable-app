@@ -41,7 +41,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
         Intent myIntent = getIntent(); // gets the previously created intent
         double latitude = myIntent.getDoubleExtra("latitude",1);
         double secondKeyName= myIntent.getDoubleExtra("longitude",1);

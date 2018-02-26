@@ -5,9 +5,9 @@
     android:id="@+id/activity_fingerprint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerHorizontal="true"
     android:background="@color/whale"
     android:padding="30dp"
+    android:layout_centerHorizontal="true"
     tools:context="com.example.alex.datascraper.FingerprintActivity">
 
     <RelativeLayout
@@ -20,10 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="150dp"
-            android:fontFamily="casual"
             android:text="@string/fingerprint_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -31,8 +30,8 @@
             android:id="@+id/finger_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fingerView1"
             android:layout_centerHorizontal="true"
+            android:layout_below="@+id/fingerView1"
             android:layout_marginTop="36dp"
             app:srcCompat="@drawable/ic_fingerprint_black_24dp" />
 
@@ -60,7 +59,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:backgroundTint="@color/cast_expanded_controller_background_color"
-            android:fontFamily="casual"
             android:text="Use PIN Instead"
             android:textColor="@color/cast_expanded_controller_background_color" />
 

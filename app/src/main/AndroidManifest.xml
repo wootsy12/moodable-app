@@ -35,11 +35,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".RecordActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ResultsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".InternetActivity"
             android:screenOrientation="portrait" />
@@ -52,7 +50,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".RecordActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".TwitterActivity" />
         <activity android:name=".InstaActivity" />
         <activity android:name=".PhotoActivity" />

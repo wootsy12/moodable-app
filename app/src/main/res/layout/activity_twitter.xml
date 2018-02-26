@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/twitterLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whale"
@@ -13,11 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/twitterText"
-        android:fontFamily="casual"
         android:padding="10dp"
         android:text="Twitter Username:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:windowSoftInputMode="adjustPan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,16 +37,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/twitterLabel" />
 
-
     <Button
         android:id="@+id/submitSM2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/twitterText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="396dp"
         android:backgroundTint="@color/whale"
-        android:fontFamily="casual"
         android:gravity="center"
         android:padding="10dp"
         android:text="Submit"
