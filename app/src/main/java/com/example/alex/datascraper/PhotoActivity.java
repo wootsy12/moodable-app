@@ -8,12 +8,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
@@ -35,6 +38,9 @@ public class PhotoActivity extends AppCompatActivity {
         faceDetectionOn = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
+        LinearLayout photoL = (LinearLayout) findViewById(R.id.photoLayout);
+
+
         context = this.getApplicationContext();
         photo_file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FacePhoto");
         Uri uri = Uri.fromFile(photo_file);
@@ -50,12 +56,23 @@ public class PhotoActivity extends AppCompatActivity {
                 startActivityForResult(captureImage, 1);
             }
         });
-
+/*
         nextScreenButton = (Button) findViewById(R.id.nextPHQ2);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PhotoActivity.this,SocialMediaActivity.class));
+            }
+        });*/
+
+        photoL.setOnTouchListener(new SwipeActivity(this){
+            @Override
+            public void onSwipeLeft(){
+                startActivity(new Intent(PhotoActivity.this,SocialMediaActivity.class));
+            }
+            public void onSwipeRight(){
+                startActivity(new Intent(PhotoActivity.this,RecordActivity.class));
+
             }
         });
     }
