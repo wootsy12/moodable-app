@@ -2,9 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recordLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whale"
+    android:background="@drawable/gradient"
     tools:context="com.example.alex.datascraper.RecordActivity"
     tools:layout_editor_absoluteY="81dp">
 
@@ -13,15 +14,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/a1" />
+
         <TextView
             android:id="@+id/textView18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:fontFamily="casual"
             android:padding="10dp"
             android:text="Please press record, then speak the following phrase into the microphone: "
-            android:textColor="@android:color/background_light"
-            android:textSize="24sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,8 +40,8 @@
             android:layout_height="96dp"
             android:padding="10dp"
             android:text='"The quick brown fox jumps over the lazy dog"'
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@android:color/background_light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="14sp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="133dp" />
 
@@ -47,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Stop"
-                android:textColor="@android:color/background_light"
+                android:textColor="@android:color/background_dark"
                 android:textSize="18sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -62,9 +71,12 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="casual"
                 android:text="Record"
-                android:textColor="@android:color/background_light"
+                android:textColor="@android:color/background_dark"
                 android:textSize="18sp"
+                android:windowSoftInputMode="adjustPan"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.45"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -80,7 +92,7 @@
             android:padding="20dp"
             android:text="Recording received. Thank you!"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/background_dark"
             android:visibility="invisible"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="359dp" />
@@ -96,17 +108,17 @@
         </LinearLayout>
 
     </LinearLayout>
-
+<!--
     <Button
         android:id="@+id/nextPHQ"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Next"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+-->
 </android.support.constraint.ConstraintLayout>

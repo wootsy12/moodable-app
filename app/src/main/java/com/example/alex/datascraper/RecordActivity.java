@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.media.MediaRecorder;
 import android.os.Environment;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -61,7 +62,19 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
+        ConstraintLayout recordL = (ConstraintLayout) findViewById(R.id.recordLayout);
 
+        recordL.setOnTouchListener(new SwipeActivity(this){
+
+            @Override
+            public void onSwipeLeft(){
+                startActivity(new Intent(RecordActivity.this,PhotoActivity.class));
+            }
+            @Override
+            public void onSwipeRight(){
+                ;
+            }
+        });
 
 
         // ask for permissions needed to get a recording (Access to record, permission to read and write files)
@@ -117,16 +130,17 @@ public class RecordActivity extends AppCompatActivity {
 
             }
         });
-
+/*
         // create next button
         nextScreenButton = (Button) findViewById(R.id.nextPHQ);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RecordActivity.this,SocialMediaActivity.class));
+                startActivity(new Intent(RecordActivity.this,PhotoActivity.class));
 
             }
-        });
+        });*/
+
 
         // send file name fragment
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -233,8 +247,5 @@ public class RecordActivity extends AppCompatActivity {
 
     }
 
+
 }
-
-
-
-

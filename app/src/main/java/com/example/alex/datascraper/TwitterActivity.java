@@ -1,6 +1,7 @@
 package com.example.alex.datascraper;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +14,13 @@ public class TwitterActivity extends AppCompatActivity {
     private static EditText twitterText;
     private static boolean tritrd=false;
     private static Button submitButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_twitter);
+
+        ConstraintLayout twitterL = (ConstraintLayout) findViewById(R.id.twitterLayout);
 
 
 
@@ -35,10 +39,22 @@ public class TwitterActivity extends AppCompatActivity {
                 if(!tritrd) {
                     ((MyApplication) getApplication()).completetwitter();
                 }
-                startActivity(new Intent(TwitterActivity.this, InstaActivity.class));
+                //startActivity(new Intent(TwitterActivity.this, InstaActivity.class));
                 tritrd=true;
 
             }
+        });
+
+        twitterL.setOnTouchListener(new SwipeActivity(this){
+
+            @Override
+            public void onSwipeLeft(){
+                startActivity(new Intent(TwitterActivity.this, InstaActivity.class));
+                tritrd=true;            }
+            @Override
+            public void onSwipeRight(){
+                startActivity(new Intent(TwitterActivity.this, SocialMediaActivity.class));
+                tritrd=true;            }
         });
     }
 }

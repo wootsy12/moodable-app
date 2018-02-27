@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -86,6 +87,7 @@ public class PhqActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ConstraintLayout pLayout = (ConstraintLayout) findViewById(R.id.phqLayout);
 
         setContentView(R.layout.activity_phq);
 
@@ -120,7 +122,14 @@ public class PhqActivity extends AppCompatActivity {
 
             }
         });
+/*
+        pLayout.setOnTouchListener(new SwipeActivity(this){
+            @Override
+            public void onSwipeLeft(){
+                startActivity(new Intent(PhqActivity.this, RecordActivity.class));
 
+            }
+        });*/
 
 
     }

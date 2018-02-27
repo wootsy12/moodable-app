@@ -3,6 +3,7 @@ package com.example.alex.datascraper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class InstaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insta);
 
-
+        /*
         nextScreenButton = (Button) findViewById(R.id.nextScreenButton);
         nextScreenButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -39,7 +40,7 @@ public class InstaActivity extends AppCompatActivity {
                 startActivity(new Intent(InstaActivity.this, ResultsActivity.class));
 
             }
-        });
+        });*/
 
 
 
@@ -99,6 +100,30 @@ public class InstaActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView v, String url){
                 v.loadUrl(url);
                 return true;
+            }
+        });
+
+        ConstraintLayout instaL = (ConstraintLayout) findViewById(R.id.instaLayout);
+        instaL.setOnTouchListener(new SwipeActivity(this){
+
+            @Override
+            public void onSwipeLeft(){
+                startActivity(new Intent(InstaActivity.this, ResultsActivity.class));
+            }
+            @Override
+            public void onSwipeRight(){
+                startActivity(new Intent(InstaActivity.this, TwitterActivity.class));
+            }
+        });
+        instaView.setOnTouchListener(new SwipeActivity(this){
+
+            @Override
+            public void onSwipeLeft(){
+                startActivity(new Intent(InstaActivity.this, ResultsActivity.class));
+            }
+            @Override
+            public void onSwipeRight(){
+                startActivity(new Intent(InstaActivity.this, TwitterActivity.class));
             }
         });
     }

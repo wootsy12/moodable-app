@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context="com.example.alex.datascraper.PhotoActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:srcCompat="@drawable/a2" />
+
+    <LinearLayout
+        android:id="@+id/photoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="477dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="52dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/instagramText"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="casual"
+            android:padding="10dp"
+            android:text="Take a picture for facial recognition"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/instagramWebview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.02" />
+
+        <ImageButton
+            android:id="@+id/image_camera"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_camera" />
+
+        <RelativeLayout
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <com.example.alex.datascraper.FaceView
+                android:id="@+id/faceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+        <!--
+        <Button
+            android:id="@+id/nextPHQ2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+-->
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

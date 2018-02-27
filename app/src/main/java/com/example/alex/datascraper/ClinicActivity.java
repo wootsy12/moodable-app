@@ -2,6 +2,7 @@ package com.example.alex.datascraper;
 
 import android.*;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,7 +14,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -43,6 +47,8 @@ public class ClinicActivity  extends AppCompatActivity {
     gpsTracker gps;
     private boolean permissionAccepted = false;
     protected void onCreate(Bundle savedInstanceState) {
+        //ScrollView cLayout = (ScrollView) findViewById(R.id.clinicLayout);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -72,21 +78,25 @@ public class ClinicActivity  extends AppCompatActivity {
         TableLayout tl = (TableLayout) findViewById(R.id.main_table);
         TableRow tr_head = new TableRow(this);
 
-        tr_head.setBackgroundColor(Color.GRAY);
+        tr_head.setBackgroundColor(0xFF00876C);
         tr_head.setLayoutParams(new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.FILL_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
         TextView label_name = new TextView(this);
         label_name.setText("Name");
         label_name.setTextColor(Color.WHITE);
-        label_name.setPadding(5, 5, 5, 5);
-        tr_head.addView(label_name);// add the column to the table row here
+        label_name.setPadding(5, 20, 5, 20);
+        label_name.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        label_name.setLayoutParams(new TableRow.LayoutParams(0 , LinearLayout.LayoutParams.WRAP_CONTENT, 2));
+        tr_head.addView(label_name);
 
-        TextView label_Tel = new TextView(this);
-        label_Tel.setText("Address"); // set the text for the header
-        label_Tel.setTextColor(Color.WHITE); // set the color
-        label_Tel.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head.addView(label_Tel); // add the column to the table row here
+        TextView labelAddress = new TextView(this);
+        labelAddress.setText("Address");
+        labelAddress.setTextColor(Color.WHITE);
+        labelAddress.setPadding(5, 20, 5, 20);
+        labelAddress.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        labelAddress.setLayoutParams(new TableRow.LayoutParams(0 , LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        tr_head.addView(labelAddress);
 
         //add heading
         tl.addView(tr_head, new TableLayout.LayoutParams(
@@ -104,8 +114,8 @@ public class ClinicActivity  extends AppCompatActivity {
                     String name = place.getString("name");
                     String address = place.getString("vicinity");
                     TableRow tr = new TableRow(this);
-                    if (count%2==0) tr.setBackgroundColor(Color.GRAY);
-                    else tr.setBackgroundColor(Color.BLACK);
+                    if (count%2==0) tr.setBackgroundColor(0xFF00AF8C);
+                    else tr.setBackgroundColor(0xFF00846A);
                     tr.setId(100+count);
                     tr.setLayoutParams(new TableLayout.LayoutParams(
                             TableLayout.LayoutParams.FILL_PARENT,
@@ -118,18 +128,34 @@ public class ClinicActivity  extends AppCompatActivity {
                     labelName.setTextColor(Color.WHITE);
                     labelName.setLayoutParams(new TableRow.LayoutParams(0 , LinearLayout.LayoutParams.WRAP_CONTENT, 2));
                     tr.addView(labelName);
-                    TextView labelAddress = new TextView(this);
+                    labelAddress = new TextView(this);
                     labelAddress.setId(200+count);
                     labelAddress.setText(address.toString());
                     labelAddress.setTextColor(Color.WHITE);
                     labelAddress.setLayoutParams(new TableRow.LayoutParams(0 , LinearLayout.LayoutParams.WRAP_CONTENT, 1));
                     tr.addView(labelAddress);
+                    JSONObject location =  place.getJSONObject("geometry").getJSONObject("location");
+                    final double locationLat = location.getDouble("lat");
+                    final double locationLng = location.getDouble("lng");
+                    tr.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            Intent openMap = new Intent(ClinicActivity.this,MapsActivity.class);
+                            openMap.putExtra("latitude",latitude);
+                            openMap.putExtra("longitude",longitude);
+                            openMap.putExtra("clinicLat",locationLat);
+                            openMap.putExtra("clinicLng",locationLng);
+                            startActivity(openMap);
+                        }
+                    });
+
                     tl.addView(tr, new TableLayout.LayoutParams(
                             TableLayout.LayoutParams.FILL_PARENT,
                             TableLayout.LayoutParams.WRAP_CONTENT));
                     count++;
                 }
             }
+
             catch(IOException e){
 
             }
@@ -137,6 +163,7 @@ public class ClinicActivity  extends AppCompatActivity {
 
             }
     }
+
     public static JSONObject getJSONObjectFromURL(double latitude, double longitude) throws IOException, JSONException {
         StringBuilder googlePlacesUrl =
                 new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
@@ -165,8 +192,6 @@ public class ClinicActivity  extends AppCompatActivity {
         br.close();
 
         String jsonString = sb.toString();
-        System.out.println("JSON: " + jsonString);
-
         return new JSONObject(jsonString);
     }
 

@@ -1,69 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="5dp"
-
-    android:layout_marginRight="5dp"
+    android:background="@drawable/gradient"
     android:windowSoftInputMode="adjustPan"
     tools:context="com.example.alex.datascraper.SocialMediaActivity"
+    tools:layout_editor_absoluteY="25dp"
     tools:showIn="@layout/activity_main">
-
+    <!--
     <ScrollView
+        android:id="@+id/ggLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="57dp">
+        android:layout_alignParentStart="true">
+-->
 
-        <LinearLayout
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/a3" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/googleText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="103dp"
+            android:fontFamily="casual"
+            android:padding="10dp"
+            android:text="Please log in to your Google account if you have one:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            tools:layout_editor_absoluteY="56dp" />
 
-            <TextView
-                android:id="@+id/googleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Please log in to your Google account if you have one:"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        <WebView
+            android:id="@+id/googleWebview"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            android:minHeight="200dp"
+            android:visibility="visible"
+            android:windowSoftInputMode="adjustPan"
+            tools:layout_editor_absoluteY="118dp">
 
-            <WebView
-                android:id="@+id/googleWebview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/instagramWebview"
-                android:padding="10dp">
+        </WebView>
 
-            </WebView>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/googComplete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thank you!"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+    <!--
+  android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/googleText"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/googleText">
+        <TextView
+            android:id="@+id/googComplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thank you!"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/GPSDoneText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Download finished, press next to continue"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:visibility="gone" />
+        <TextView
+            android:id="@+id/GPSDoneText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Download finished, press next to continue"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:visibility="gone" />
 
-        </LinearLayout>
 
     </ScrollView>
-
     <Button
         android:id="@+id/nextRecord"
         android:layout_width="match_parent"
@@ -74,5 +102,5 @@
         android:text="Next"
         tools:layout_editor_absoluteX="142dp"
         tools:layout_editor_absoluteY="0dp" />
-
-</RelativeLayout>
+-->
+</android.support.constraint.ConstraintLayout>
