@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +41,8 @@ public class PhotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo);
         LinearLayout photoL = (LinearLayout) findViewById(R.id.photoLayout);
 
-
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         context = this.getApplicationContext();
         photo_file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FacePhoto");
         Uri uri = Uri.fromFile(photo_file);
