@@ -7,18 +7,25 @@ import android.graphics.PorterDuff;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import lecho.lib.hellocharts.view.LineChartView;
 
 /*
 Activity class for the voice recording screen of the application
@@ -44,6 +51,8 @@ public class RecordActivity extends AppCompatActivity {
     private static MediaRecorder mediaRecorder;
     // file path to store recording at
     private static String audioFilePath;
+
+    private OscilloscopeFragment fragobj;
 
     // Function that fires on creation of the activity
     @Override
@@ -118,6 +127,16 @@ public class RecordActivity extends AppCompatActivity {
 
             }
         });
+
+        // send file name fragment
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        fragobj = new OscilloscopeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("filepath", audioFilePath);
+        fragobj.setArguments(bundle);
+        ft.add(R.id.oscilloscope_layout, fragobj);
+        ft.commit();
+
     }
 
 
@@ -148,6 +167,8 @@ public class RecordActivity extends AppCompatActivity {
         }
 
         mediaRecorder.start();
+
+//        fragobj.setRecording(true);
     }
 
     /*
@@ -192,6 +213,8 @@ public class RecordActivity extends AppCompatActivity {
 
         }
 
+//        fragobj.setRecording(false);
+
     }
 
     /*
@@ -210,5 +233,8 @@ public class RecordActivity extends AppCompatActivity {
 
     }
 
-
 }
+
+
+
+

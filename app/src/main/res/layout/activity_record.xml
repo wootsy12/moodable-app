@@ -76,7 +76,7 @@
         <TextView
             android:id="@+id/thankyouText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="51dp"
             android:padding="20dp"
             android:text="Recording received. Thank you!"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -84,6 +84,16 @@
             android:visibility="invisible"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="359dp" />
+
+        <LinearLayout
+            android:id="@+id/oscilloscope_layout"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

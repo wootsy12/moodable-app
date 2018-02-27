@@ -12,12 +12,19 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+repositories {
+    maven {
+        url "https://jitpack.io"
     }
 }
 
@@ -30,6 +37,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-places:11.2.0'
     compile 'com.google.android.gms:play-services:11.2.0'
     compile 'com.google.android.gms:play-services-location:11.2.0'
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    compile 'com.yalantis:eqwaves:1.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
