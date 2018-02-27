@@ -63,7 +63,7 @@ public class RecordActivity extends AppCompatActivity {
             }
             @Override
             public void onSwipeRight(){
-                startActivity(new Intent(RecordActivity.this, PhqActivity.class));
+                ;
             }
         });
 
