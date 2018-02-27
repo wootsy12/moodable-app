@@ -103,23 +103,11 @@ public class InstaActivity extends AppCompatActivity {
             }
         });
 
-        ConstraintLayout instaL = (ConstraintLayout) findViewById(R.id.instaLayout);
-        instaL.setOnTouchListener(new SwipeActivity(this){
-
-            @Override
-            public void onSwipeLeft(){
-                startActivity(new Intent(InstaActivity.this, ResultsActivity.class));
-            }
-            @Override
-            public void onSwipeRight(){
-                startActivity(new Intent(InstaActivity.this, TwitterActivity.class));
-            }
-        });
         instaView.setOnTouchListener(new SwipeActivity(this){
 
             @Override
             public void onSwipeLeft(){
-                startActivity(new Intent(InstaActivity.this, ResultsActivity.class));
+                startActivity(new Intent(InstaActivity.this, SocialMediaActivity.class));
             }
             @Override
             public void onSwipeRight(){
