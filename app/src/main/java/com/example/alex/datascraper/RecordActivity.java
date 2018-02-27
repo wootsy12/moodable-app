@@ -59,11 +59,11 @@ public class RecordActivity extends AppCompatActivity {
 
             @Override
             public void onSwipeLeft(){
-                startActivity(new Intent(RecordActivity.this,TwitterActivity.class));
+                startActivity(new Intent(RecordActivity.this,PhotoActivity.class));
             }
             @Override
             public void onSwipeRight(){
-                startActivity(new Intent(RecordActivity.this, PhqActivity.class));
+                ;
             }
         });
 

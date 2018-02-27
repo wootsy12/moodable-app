@@ -70,10 +70,10 @@ public class PhotoActivity extends AppCompatActivity {
         photoL.setOnTouchListener(new SwipeActivity(this){
             @Override
             public void onSwipeLeft(){
-                startActivity(new Intent(PhotoActivity.this,ResultsActivity.class));
+                startActivity(new Intent(PhotoActivity.this,SocialMediaActivity.class));
             }
             public void onSwipeRight(){
-                startActivity(new Intent(PhotoActivity.this,SocialMediaActivity.class));
+                startActivity(new Intent(PhotoActivity.this,RecordActivity.class));
 
             }
         });
