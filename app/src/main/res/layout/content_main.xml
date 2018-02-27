@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
     android:windowSoftInputMode="adjustPan"
+    android:background="@drawable/gradient"
     tools:context="com.example.alex.datascraper.SocialMediaActivity"
-    tools:layout_editor_absoluteY="25dp"
     tools:showIn="@layout/activity_main">
-    <!--
+<!--
     <ScrollView
         android:id="@+id/ggLayout"
         android:layout_width="match_parent"
@@ -18,52 +18,36 @@
         android:layout_alignParentStart="true">
 -->
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/a3" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
+        android:id="@+id/googleText"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
+        android:layout_height="103dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="casual"
+        android:padding="10dp"
+        android:text="Please log in to your Google account if you have one:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <WebView
+        android:id="@+id/googleWebview"
+        android:layout_width="match_parent"
+        android:layout_height="449dp"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="96dp"
+        android:minHeight="200dp"
+        android:visibility="visible"
+        android:windowSoftInputMode="adjustPan"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <TextView
-            android:id="@+id/googleText"
-            android:layout_width="match_parent"
-            android:layout_height="103dp"
-            android:fontFamily="casual"
-            android:padding="10dp"
-            android:text="Please log in to your Google account if you have one:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            tools:layout_editor_absoluteY="56dp" />
-
-        <WebView
-            android:id="@+id/googleWebview"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_alignParentBottom="false"
-            android:layout_centerHorizontal="true"
-            android:minHeight="200dp"
-            android:visibility="visible"
-            android:windowSoftInputMode="adjustPan"
-            tools:layout_editor_absoluteY="118dp">
-
-        </WebView>
-
-    </LinearLayout>
-
-    <!--
+    </WebView>
+<!--
   android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

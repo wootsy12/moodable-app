@@ -9,59 +9,38 @@
     tools:context="com.example.alex.datascraper.InstaActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <TextView
+        android:id="@+id/instagramText"
         android:layout_width="0dp"
-        android:layout_height="600dp"
-        android:layout_marginBottom="17dp"
-        android:orientation="vertical"
+        android:layout_height="96dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="casual"
+        android:padding="10dp"
+        android:text="Please log in to Instagram if you have an account:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/instagramWebview"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <WebView
+        android:id="@+id/instagramWebview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="96dp"
+        android:minHeight="200dp"
+        android:visibility="visible"
+        android:windowSoftInputMode="adjustPan"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:srcCompat="@drawable/a5" />
-
-        <TextView
-            android:id="@+id/instagramText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="casual"
-            android:padding="10dp"
-            android:text="Please log in to Instagram if you have an account:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintBottom_toTopOf="@+id/instagramWebview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.02" />
-
-        <WebView
-            android:id="@+id/instagramWebview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="false"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="85dp"
-            android:minHeight="200dp"
-            android:visibility="visible"
-            android:windowSoftInputMode="adjustPan"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        </WebView>
-
-    </LinearLayout>
-
-    <!--
+    </WebView>
+<!--
     <Button
         android:id="@+id/nextScreenButton"
         android:layout_width="371dp"

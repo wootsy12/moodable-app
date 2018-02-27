@@ -44,6 +44,13 @@
             android:name=".InternetActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".LockActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".LaunchActivity"
             android:screenOrientation="portrait">
             <intent-filter>

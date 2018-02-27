@@ -1,6 +1,5 @@
 package com.example.alex.datascraper;
 
-import android.*;
 import android.Manifest;
 import android.app.KeyguardManager;
 import android.content.Intent;
@@ -49,23 +48,21 @@ public class FingerprintActivity extends AppCompatActivity{
     private FingerprintManager.CryptoObject cryptoObject;
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
-    //private Button pinButt;
+    private Button pinButt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fingerprinting);
-/*
-  pinButt = (Button) findViewById(R.id.pinButt);
+
+        pinButt = (Button) findViewById(R.id.pinButt);
         pinButt.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FingerprintActivity.this, RecordActivity.class));
+                startActivity(new Intent(FingerprintActivity.this, MainsActivity.class));
 
             }
         });
-
- */
 
         // If you’ve set your app’s minSdkVersion to anything lower than 23, then you’ll need to verify that the device is running Marshmallow
         // or higher before executing any fingerprint-related code
@@ -151,7 +148,7 @@ public class FingerprintActivity extends AppCompatActivity{
                     KeyProperties.PURPOSE_ENCRYPT |
             KeyProperties.PURPOSE_DECRYPT)
             .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-            //configure this keyso thahe user has to confirm their identity with a fingerprint each time they want to use it//
+            //configure this key so that user has to confirm their identity with a fingerprint each time they want to use it//
             .setUserAuthenticationRequired(true)
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
             .build());
