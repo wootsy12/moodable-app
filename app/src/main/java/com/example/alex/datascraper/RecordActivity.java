@@ -182,7 +182,7 @@ public class RecordActivity extends AppCompatActivity {
 
         mediaRecorder.start();
 
-//        fragobj.setRecording(true);
+        fragobj.start();
     }
 
     /*
@@ -227,7 +227,7 @@ public class RecordActivity extends AppCompatActivity {
 
         }
 
-//        fragobj.setRecording(false);
+        fragobj.stop();
 
     }
 
