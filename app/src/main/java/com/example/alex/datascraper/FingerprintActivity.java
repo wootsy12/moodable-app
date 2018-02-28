@@ -59,7 +59,7 @@ public class FingerprintActivity extends AppCompatActivity{
         pinButt.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FingerprintActivity.this, LockActivity.class));
+                startActivity(new Intent(FingerprintActivity.this, MainsActivity.class));
 
             }
         });

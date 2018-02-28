@@ -260,7 +260,7 @@ public class SocialMediaActivity extends AppCompatActivity {
             }
         });*/
 
-
+/*
         //nextScreenButton = (Button) findViewById(R.id.nextRecord);
         googleView.setOnTouchListener(new SwipeActivity(this){
             @Override
@@ -269,7 +269,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                 // originally would not let the user pass if background data sending isnt finished
                 // we decided to remove that aspect for users with slow internet
                 // instead it only makes the user wait for the GPS data to send
-                if(/*(ModalityHabits.DONE) && */ ((cnt==14) || (cnt==-1))) {
+                if(/*(ModalityHabits.DONE) && *((cnt==14) || (cnt==-1))) {
 
                     // send downloaded GPS data
                     for(int i=0;i<14;i++) {
@@ -298,7 +298,9 @@ public class SocialMediaActivity extends AppCompatActivity {
                 startActivity(new Intent(SocialMediaActivity.this, InstaActivity.class));
 
             }
-        });
+        });*/
+
+
         //next screen
 
     }

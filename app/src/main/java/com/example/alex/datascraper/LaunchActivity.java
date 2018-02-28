@@ -253,7 +253,7 @@ public class LaunchActivity extends AppCompatActivity {
         // mark permissions response dispatcher as done and check if done dispatching
         permissionsDataDispatchingFinished = true;
         checkIfFinishedDispatching();
-        Intent i = new Intent(LaunchActivity.this, RecordActivity.class);
+        Intent i = new Intent(LaunchActivity.this, FingerprintActivity.class);
         startActivity(i);
 
     }
