@@ -107,7 +107,7 @@ public class InstaActivity extends AppCompatActivity {
 
             @Override
             public void onSwipeLeft(){
-                startActivity(new Intent(InstaActivity.this, SocialMediaActivity.class));
+                startActivity(new Intent(InstaActivity.this, ResultsActivity.class));
             }
             @Override
             public void onSwipeRight(){

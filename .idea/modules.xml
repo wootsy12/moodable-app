@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DataScraper.iml" filepath="$PROJECT_DIR$/DataScraper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Alex\AndroidStudioProjects\DataScraper\moodable-app.iml" filepath="C:\Users\Alex\AndroidStudioProjects\DataScraper\moodable-app.iml" />
     </modules>
   </component>
 </project>

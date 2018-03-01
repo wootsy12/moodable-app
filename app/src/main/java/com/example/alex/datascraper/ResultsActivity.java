@@ -35,7 +35,7 @@ public class ResultsActivity extends AppCompatActivity {
                 startActivity(new Intent(ResultsActivity.this,ClinicActivity.class));
             }
             public void onSwipeRight(){
-                startActivity(new Intent(ResultsActivity.this,PhotoActivity.class));
+                startActivity(new Intent(ResultsActivity.this,InstaActivity.class));
             }
         });
         String res = ServerHook.getMLResult();

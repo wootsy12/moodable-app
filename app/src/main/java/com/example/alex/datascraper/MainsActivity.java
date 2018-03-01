@@ -63,7 +63,7 @@ public class MainsActivity extends AppCompatActivity {
             case LOCK_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     //If screen lock authentication is success update text
-                    startActivity(new Intent(MainsActivity.this, PhqActivity.class));
+                    startActivity(new Intent(MainsActivity.this, RecordActivity.class));
 
                 } else {
                     //If screen lock authentication is failed update text

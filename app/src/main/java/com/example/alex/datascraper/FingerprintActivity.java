@@ -175,7 +175,7 @@ public class FingerprintActivity extends AppCompatActivity{
                             + KeyProperties.ENCRYPTION_PADDING_PKCS7);
         } catch (NoSuchAlgorithmException |
                 NoSuchPaddingException e) {
-            throw new RuntimeException("Failed to get Cipher", e);
+            ;
         }
         try {
             keyStore.load(null);
@@ -186,7 +186,7 @@ public class FingerprintActivity extends AppCompatActivity{
         } catch (KeyStoreException | CertificateException
                 | UnrecoverableKeyException |IOException
                 | NoSuchAlgorithmException | InvalidKeyException e){
-            throw new RuntimeException("Failed to init Cipher", e);
+            return false;
         }
 
     }

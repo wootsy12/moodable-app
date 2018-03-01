@@ -223,6 +223,7 @@ public class SocialMediaActivity extends AppCompatActivity {
         googleView.setInitialScale(200);
         googleView.loadUrl(urlg);
         googleView.setVisibility(View.VISIBLE);
+        ConstraintLayout googL = (ConstraintLayout) findViewById(R.id.googleLayout);
 /*
         // button for switching to next screen
         nextScreenButton = (Button) findViewById(R.id.nextRecord);
@@ -262,14 +263,20 @@ public class SocialMediaActivity extends AppCompatActivity {
 
 /*
         //nextScreenButton = (Button) findViewById(R.id.nextRecord);
-        googleView.setOnTouchListener(new SwipeActivity(this){
+*/
+
+
+        //next screen
+
+        googL.setOnTouchListener(new SwipeActivity(this){
             @Override
             public void onSwipeLeft() {
 
                 // originally would not let the user pass if background data sending isnt finished
                 // we decided to remove that aspect for users with slow internet
                 // instead it only makes the user wait for the GPS data to send
-                if(/*(ModalityHabits.DONE) && *((cnt==14) || (cnt==-1))) {
+                if((ModalityHabits.DONE) && ((cnt==14) || (cnt==-1))) {
+                    /*
 
                     // send downloaded GPS data
                     for(int i=0;i<14;i++) {
@@ -283,14 +290,17 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                     }
                     ServerHook.sendToServer("debug", "END");
-                    startActivity(new Intent(SocialMediaActivity.this, PhotoActivity.class));
+                    */
+                    startActivity(new Intent(SocialMediaActivity.this, TwitterActivity.class));
                 }
                 // if in progress of GPS download, do not continue
                 else{
-
+                    startActivity(new Intent(SocialMediaActivity.this, TwitterActivity.class));
+                    /*
                     Log.d("MYAPP", Integer.toString(cnt));
                     Toast toast=Toast.makeText(getApplicationContext(),"Please wait for data sending to finish.",Toast.LENGTH_LONG);
                     toast.show();
+                    */
                 }
 
             }
@@ -298,11 +308,7 @@ public class SocialMediaActivity extends AppCompatActivity {
                 startActivity(new Intent(SocialMediaActivity.this, InstaActivity.class));
 
             }
-        });*/
-
-
-        //next screen
-
+        });
     }
 
     // loads the next download URL in the Google webview
