@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
@@ -30,6 +31,7 @@ public class RecordActivity extends AppCompatActivity {
     // UI elements
     private static Button recordButton;
     private static Button stopButton;
+    private static Button playButton;
     private static Button nextScreenButton;
     private static TextView thankYouText;
 
@@ -43,6 +45,7 @@ public class RecordActivity extends AppCompatActivity {
 
     // for recording from the mic
     private static MediaRecorder mediaRecorder;
+    private static MediaPlayer mediaPlayer;
     // file path to store recording at
     private static String audioFilePath;
 
@@ -82,13 +85,14 @@ public class RecordActivity extends AppCompatActivity {
         //recordButton.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 
 
+        playButton = (Button) findViewById(R.id.playbackButt);
+
         stopButton = (Button) findViewById(R.id.stopButton);
         //stopButton.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 
 
 
-        stopButton.setEnabled(false);
-        recordButton.setEnabled(true);
+
 
         // display text once the recording has been obtained
         thankYouText = (TextView) findViewById(R.id.thankyouText);
@@ -121,6 +125,19 @@ public class RecordActivity extends AppCompatActivity {
 
             }
         });
+
+        // create stop recording button
+        playButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                try {
+                    playAudio(view);
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
 /*
         // create next button
         nextScreenButton = (Button) findViewById(R.id.nextPHQ);
@@ -146,10 +163,8 @@ public class RecordActivity extends AppCompatActivity {
             return;
         }
 
-        stopButton.setEnabled(true);
-        recordButton.setEnabled(false);
-        stopButton.setVisibility(View.VISIBLE);
-        recordButton.setVisibility(View.GONE);
+
+
 
         try {
             mediaRecorder = new MediaRecorder();
@@ -165,16 +180,23 @@ public class RecordActivity extends AppCompatActivity {
         mediaRecorder.start();
     }
 
+    public void playAudio (View view) throws IOException
+    {
+
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(audioFilePath);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
     /*
     Stops recording audio and sends it to the server as base64 encoded
      */
     public void stopAudio (View view)
     {
 
-        stopButton.setEnabled(false);
-        recordButton.setEnabled(true);
-        stopButton.setVisibility(View.GONE);
-        recordButton.setVisibility(View.VISIBLE);
+
 
         mediaRecorder.stop();
         mediaRecorder.release();
