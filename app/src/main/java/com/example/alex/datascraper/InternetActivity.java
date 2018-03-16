@@ -29,7 +29,7 @@ public class InternetActivity extends AppCompatActivity {
         ServerHook.start();
         Log.d("MYAPP", "OBTAINED ID: " + ServerHook.identifier);
         if(!ServerHook.identifier.equals("")){
-            startActivity(new Intent(InternetActivity.this, PhqActivity.class));
+            startActivity(new Intent(InternetActivity.this, RecordActivity.class));
         }
 
 
@@ -47,7 +47,7 @@ public class InternetActivity extends AppCompatActivity {
 
                 // If successful, move on to PHQ screen
                 if(!ServerHook.identifier.equals("")){
-                    startActivity(new Intent(InternetActivity.this, PhqActivity.class));
+                    startActivity(new Intent(InternetActivity.this, RecordActivity.class));
                 }
                 // If failed, tell the user that no internet connection is detected and stay on this screen
                 else{

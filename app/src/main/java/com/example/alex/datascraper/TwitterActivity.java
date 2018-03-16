@@ -53,7 +53,7 @@ public class TwitterActivity extends AppCompatActivity {
                 tritrd=true;            }
             @Override
             public void onSwipeRight(){
-                startActivity(new Intent(TwitterActivity.this, RecordActivity.class));
+                startActivity(new Intent(TwitterActivity.this, SocialMediaActivity.class));
                 tritrd=true;            }
         });
     }

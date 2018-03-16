@@ -28,6 +28,7 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         ConstraintLayout resultsL = (ConstraintLayout) findViewById(R.id.resultsLayout);
 
+        // swipe listener
         resultsL.setOnTouchListener(new SwipeActivity(this){
 
             @Override
@@ -38,6 +39,8 @@ public class ResultsActivity extends AppCompatActivity {
                 startActivity(new Intent(ResultsActivity.this,InstaActivity.class));
             }
         });
+
+        // get Machine Learning depression score from server
         String res = ServerHook.getMLResult();
         Integer results = Integer.valueOf(res);
         depv = findViewById(R.id.depressionEstimate);
@@ -45,19 +48,20 @@ public class ResultsActivity extends AppCompatActivity {
         img = findViewById(R.id.emoji_image_view);
         //ImageView img = new ImageView(this);  // or (ImageView) findViewById(R.id.myImageView);
 
-        if (results > 50){
+        // score is in "positive" bin
+        if (results >= 50){
             String  happy = "you are happy";
             //depv.setText(res);
             img.setImageResource(R.drawable.happy_emoji);
             deps.setText(happy);
         }
-        else
-            if (results < 49){
-                String  sad = "you are sad";
-                img.setImageResource(R.drawable.sad_emoji);
-                //depv.setText(res);
-                deps.setText(sad);
-            }
+        // score is in negative bin
+        else if (results < 50){
+            String  sad = "you are sad";
+            img.setImageResource(R.drawable.sad_emoji);
+            //depv.setText(res);
+            deps.setText(sad);
+        }
 
 
 

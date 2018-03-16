@@ -30,11 +30,6 @@
             android:name=".SocialMediaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PhqActivity"
-            android:label="@string/title_activity_phq"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".RecordActivity"
             android:screenOrientation="portrait" />
         <activity

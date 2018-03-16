@@ -45,6 +45,7 @@ public class RecordActivity extends AppCompatActivity {
 
     // for recording from the mic
     private static MediaRecorder mediaRecorder;
+    // allows playback of recording
     private static MediaPlayer mediaPlayer;
     // file path to store recording at
     private static String audioFilePath;
@@ -58,11 +59,12 @@ public class RecordActivity extends AppCompatActivity {
 
         ConstraintLayout recordL = (ConstraintLayout) findViewById(R.id.recordLayout);
 
+        // swipe listener
         recordL.setOnTouchListener(new SwipeActivity(this){
 
             @Override
             public void onSwipeLeft(){
-                startActivity(new Intent(RecordActivity.this,PhotoActivity.class));
+                startActivity(new Intent(RecordActivity.this,SocialMediaActivity.class));
             }
             @Override
             public void onSwipeRight(){
@@ -162,9 +164,6 @@ public class RecordActivity extends AppCompatActivity {
         if(!permissionAccepted){
             return;
         }
-
-
-
 
         try {
             mediaRecorder = new MediaRecorder();

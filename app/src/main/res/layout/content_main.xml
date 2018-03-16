@@ -43,7 +43,6 @@
             android:id="@+id/googleText"
             android:layout_width="match_parent"
             android:layout_height="103dp"
-            android:fontFamily="casual"
             android:padding="10dp"
             android:text="Please log in to your Google account if you have one:"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"

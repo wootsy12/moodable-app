@@ -9,6 +9,14 @@
     android:background="@drawable/gradient"
     tools:context="com.example.alex.datascraper.ResultsActivity">
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:srcCompat="@drawable/a6" />
+
     <TextView
         android:id="@+id/depressionEstimate"
         android:layout_width="wrap_content"
@@ -40,7 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="278dp"
         android:layout_marginTop="250dp"
-        android:fontFamily="casual"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

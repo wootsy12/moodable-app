@@ -49,7 +49,7 @@ public class FingerprintHandler extends FingerprintManager .AuthenticationCallba
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(context, PhqActivity.class);
+        Intent i = new Intent(context, RecordActivity.class);
         context.startActivity(i);
 
     }

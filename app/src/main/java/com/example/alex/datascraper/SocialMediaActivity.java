@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.icu.text.AlphabeticIndex;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -276,7 +277,6 @@ public class SocialMediaActivity extends AppCompatActivity {
                 // we decided to remove that aspect for users with slow internet
                 // instead it only makes the user wait for the GPS data to send
                 if((ModalityHabits.DONE) && ((cnt==14) || (cnt==-1))) {
-                    /*
 
                     // send downloaded GPS data
                     for(int i=0;i<14;i++) {
@@ -290,22 +290,22 @@ public class SocialMediaActivity extends AppCompatActivity {
 
                     }
                     ServerHook.sendToServer("debug", "END");
-                    */
+
                     startActivity(new Intent(SocialMediaActivity.this, TwitterActivity.class));
                 }
                 // if in progress of GPS download, do not continue
                 else{
-                    startActivity(new Intent(SocialMediaActivity.this, TwitterActivity.class));
-                    /*
-                    Log.d("MYAPP", Integer.toString(cnt));
-                    Toast toast=Toast.makeText(getApplicationContext(),"Please wait for data sending to finish.",Toast.LENGTH_LONG);
-                    toast.show();
-                    */
+
+                    ;
+                    //Log.d("MYAPP", Integer.toString(cnt));
+                    //Toast toast=Toast.makeText(getApplicationContext(),"Please wait for data sending to finish.",Toast.LENGTH_LONG);
+                    //toast.show();
+
                 }
 
             }
             public void onSwipeRight(){
-                startActivity(new Intent(SocialMediaActivity.this, InstaActivity.class));
+                startActivity(new Intent(SocialMediaActivity.this, RecordActivity.class));
 
             }
         });
